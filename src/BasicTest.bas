@@ -7,9 +7,6 @@ NEXT
 
 LET a = 10
 
-
-
-
 Input blah
 PRINT "a ist"
 PRINT a

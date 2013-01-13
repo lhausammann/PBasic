@@ -66,14 +66,13 @@ class BasicParser implements Parser {
 	}
 
 	public function parse($input = null) {
+		$input = implode($input, ':') . ':';
+		
 		if ($input) {
 			$this->input = $input;
 		}
-
-		if (! is_array($input)) {
-			throw new Exception("Parse error: Input must be an array, each line a statement");
-		}
-		
+		$this->lexer = new Lexer($input);
+		// set up the program 
 		$program = new Program('root', 1,1,1);
 		return $program->parse($this, $this->basic);
 	}
@@ -90,14 +89,11 @@ class BasicParser implements Parser {
 	}
 
 	private function nextLine() {
-		if ($this->current < count($this->input)) {
+		
 			$next = $this->input[$this->current];
 			$this->current++;
 
-			return $next;
-		}
-
-		return false; //  end of input reached.
+			return $next;		
 	}
 
 	// registers an observer during the parse process.
@@ -130,6 +126,7 @@ class BasicParser implements Parser {
 			// configure the lexer to return the parsers current lookahead as next token:
 			$this->lexer->setNext($exprParser->getLookahead());
 		} catch (Exception $e) {
+			
 			throw new Exception("Parse error in expression on line: " . $this->current . ': ' . $e->getMessage());
 		}
 		return $tree;
@@ -139,11 +136,12 @@ class BasicParser implements Parser {
 	// if a parent statement is given, it will be notified by parseStatement about
 	// each statement parsed in this block. (not about parsed statements in a block, e.g
 	// an else statement in an if block. Parent only gets notified about if.)
-	// The parent also get notified if he is registered as an observer about
+	// The parent also get notified if its registered as an observer about
 	// _every_ statement parsed until it reaches the stop statement.
 	public function parseUntil($stopStatement = false, $parent = null) {
 		$stats = array();
 		while($stat = $this->nextStatement()) {
+			
 			if ($parent)
 				$parent->addChild($stat);
 			$this->notify($stat); // notify observers.
@@ -173,24 +171,43 @@ class BasicParser implements Parser {
 	}
 
 	public function nextStatement() {
-		$stat = null;
-		while ($line = $this->nextLine()) {
-			$line = trim($line);
-			
-			if ($this->isComment($line)) continue;
-			$stat = $this->parseLine($line);
-			if ($stat) {
-				break;
-			}
+		$next = $this->lexer->next();
+		if (! $next) {
+			return null;
 		}
-
+		// skip ::::
+		while($next->type == Token::DOUBLE_POINT) {
+			$next = $this->next();
+		}
+		
+		if ($next->value=="'") {
+			// skip comment
+			while($next->value != ':') {
+				$next = $this->next();
+			}
+			
+			return $this->nextStatement();
+		}
+		
+		if ($next->type == Token::END) {
+			
+			return null;
+		}
+		
+		$stat = null;
+		if ($next) {
+			$stat = $this->createStatement($next);
+		}
+		
 		return $stat;
 	}
 
 	private function parseLine($line) {
-		$line = trim($line);
+		$stat = $this->lexer->next();
+
+		//$stat = $cmdToken->value;
 		if ($line) {
-			$statement = $this->createStatement($line);
+			$statement = $this->createStatement($stat);
 			return $statement;
 		}
 	}
@@ -205,12 +222,16 @@ class BasicParser implements Parser {
 		return false;
 	}
 
-	private function createStatement($line) {
-		$className = "";
-		$statements = $this->lexer->setInput($line);
-		$statement = $this->lexer->next();
-		
+	private function createStatement($statement) {
 		$statementName = $statement->value;
+		if ($statementName == ':' ) {
+			return null;
+		}
+		// $className = "";
+		// $statements = $this->lexer->setInput($line);
+		//$statement = $this->lexer->next();
+		
+		//$statementName = $statement->value;
 		
 		$upper = strtoupper($statementName{0});
 		$lower = strtolower(substr($statementName,1));

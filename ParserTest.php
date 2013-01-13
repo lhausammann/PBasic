@@ -128,7 +128,10 @@ while($token = $lexer->next()) {
 	echo $token;
 }
 
-$test = 'LET a = 10';
+$test1 = 'LET a = 10';
+$test2 = 'COLOR 5,8';
+
+$test = $test1 . ':\n' . $test2;
 $lexer = new Lexer($test);
 while($token = $lexer->next()) {
 	echo $token;

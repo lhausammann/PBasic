@@ -5,7 +5,7 @@ class BReturn extends AbstractStatement {
 	
 	public function parse(Parser $parser, $basic) {
 		if ($token = $parser->next()) {
-			if ($token->type == Token::END) {
+			if ($token->type == Token::DOUBLE_POINT) {
 				$this->exprTree = null;
 			} else {
 				$parser->getLexer()->setNext($token);
@@ -14,7 +14,7 @@ class BReturn extends AbstractStatement {
 			}
 		}
 		// $this->exprTree = $parser->matchExpression();
-		$this->matchEnd($parser);
+		//$this->matchEol($parser);
 	}
 	
 	public function execute($basic) {

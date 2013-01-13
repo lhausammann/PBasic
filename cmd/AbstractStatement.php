@@ -91,7 +91,9 @@ abstract class AbstractStatement {
 	}
 	
 	public function matchEnd($lexer) {
+		
 		$token = $lexer->next();
+		
 		if (! $token) { // already reached end
 			return;
 		}
@@ -105,6 +107,20 @@ abstract class AbstractStatement {
 		}
 		
 		throw new Exception("Expected: Token::END but found: " . $token . $this->errorInfo());
+	}
+	
+	public function isEol($token) {
+		
+		return $token->type === Token::DOUBLE_POINT;
+	}
+	
+	public function matchEol($lexer) {
+		$token = $lexer->next();
+		
+		if ($token->type === Token::DOUBLE_POINT) {
+			return;
+		}
+		throw new Exception("Expected was end of line, but fount was: " . $token);
 	}
 	
 	public function matchNumber($lexer) {

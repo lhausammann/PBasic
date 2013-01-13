@@ -4,7 +4,7 @@ class Scopedump extends AbstractStatement  {
 	
 	public function parse(Parser $parser, $basic) {
 		// nothing to do
-		$this->matchEnd($parser);
+		$this->matchEol($parser->getLexer());
 	}
 	
 	public function execute($basic) {

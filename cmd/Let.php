@@ -11,7 +11,7 @@ class Let extends AbstractStatement {
 		$this->name = $this->matchIdentifier($lexer)->value;
 		$this->matchEqualSign ($lexer);
 		$this->exprTree = $parser->matchExpression();
-		$this->matchEnd($lexer);
+		$this->matchEol($lexer);
 	}
 	
 	public function execute($basic) {

@@ -3,7 +3,6 @@ require 'Expression/Token.php';
 
 class Lexer {
 	private $input;
-	private $lookahead;
 	private $current = 0;
 	private $isEnd = false;
 	private $next = null;
@@ -43,8 +42,10 @@ class Lexer {
 			$this->next = null;
 			return $token;
 		}
+		
 		$this->skipWhitespace();
 		$l = $this->lookahead;
+		
 		if (is_numeric($this->lookahead)) {
 			$value = $this->parseNumber();
 			
@@ -78,11 +79,22 @@ class Lexer {
 			$this->consume();
 			
 			return new Token(Token::PERIOD, '.');
+		} else if ($this->lookahead == ':') {
+			
+			$this->consume();
+			
+			return new Token(Token::DOUBLE_POINT, ':');
+		} else if ($this->lookahead == "'") {
+			
+			$this->consume();
+			
+			return new Token(Token::HIGH_COMMATA, "'");
 		} else if ($this->isOperator($l)) {
 			$this->consume();
 			
 			return new Token(Token::OPERATOR, $l);
 		}	
+		
 		// return end token
 		if (!$this->isEnd && $this->isEnd()) {
 			$this->lookahead = null;
@@ -128,7 +140,9 @@ class Lexer {
 	}
 	
 	protected function skipWhitespace() {
-		while ($this->lookahead === ' '|| $this->lookahead == "\n" ) {
+		$filter = array(10, 13, 32, 9);
+		while ($this->lookahead === ' '|| in_array(ord($this->lookahead), $filter)) {
+
 			$this->consume();
 		}
 	}
@@ -184,7 +198,7 @@ class Lexer {
 		return in_array($op, $ops);
 	}
 	
-	protected function isEnd() {
+	public function isEnd() {
 		
 		if ($this->isEnd) { 
 			return true;

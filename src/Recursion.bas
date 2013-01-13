@@ -43,8 +43,8 @@ ENDSUB
 
 ' Input allowed by using CALL() =
 SUB FACCALL(n)
-	' PRINT "intterrupt", n
-	' INPUT x
+	PRINT "intterrupt", n
+	INPUT x
 	LET fac = 0
 	IF n<=1 THEN
 		RETURN 1

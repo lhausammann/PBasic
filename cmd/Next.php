@@ -7,14 +7,17 @@ class Next extends AbstractStatement {
 		// do nothing
 	}
 	
-	public function parse(Parser $lexer, $basic) {
+	public function parse(Parser $parser, $basic) {
+		$lexer = $parser->getLexer();
 		$possibleVar = $lexer->next();
 		if ($possibleVar->type === Token::IDENTIFIER) {
 			$this->var = $possibleVar->value;
+			//$this->matchEol($lexer);
 		} else {
-			//$lexer->setNext($possibleVar); // put it back to the lexer
+			
+			$lexer->setNext($possibleVar); // put it back to the lexer
 		}
-		//$this->matchEnd($lexer);
+		
 		
 	}
 	

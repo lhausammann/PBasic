@@ -1,9 +1,11 @@
-a = 10
-x = 9
-b = 5
+LET a = 10
+LET x = 9
+LET b = 5
 
 FOR zz=0 TO 10
 NEXT
+PRINT zz
+
 PRINT zz
 
 WHILE a > 8
@@ -20,7 +22,7 @@ WHILE a > 8
 WEND
 
 PRINT "before for"
-' check simple loop
+
 FOR i = 1 TO 3 STEP 1
 	PRINT "First..."
 	PRINT "Second.."
@@ -38,7 +40,7 @@ NEXT i
 
 
 PRINT "check break"
-' check simple loop
+
 FOR i = 1 TO 3 STEP 1
 	PRINT "First"
 	PRINT "Second"
@@ -57,7 +59,7 @@ NEXT i
 PRINT "DONE"
 
 
-' check nested loop
+
 FOR background = 1 TO 16
 	PRINT "OUTER, starting INNER"
 	FOR foreground = 1 TO 16

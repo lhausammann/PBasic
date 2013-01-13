@@ -14,7 +14,7 @@ class BIf extends AbstractBlockStatement {
 		
 		$parser->parseUntil("ENDIF", $this);
 		
-		$this->matchEnd($lexer);
+		$this->matchEol($lexer);
 	}
 	
 	public function statementParsed($stat) {

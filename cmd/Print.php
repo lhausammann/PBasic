@@ -24,11 +24,14 @@ class BPrint extends AbstractStatement {
 		// PRINT a,b,c, ...
 		$lexer = $parser->getLexer();
 		while($token = $lexer->next()) {
-			if ($token->value==',' || $token->value==';') {
+			if ($this->isEol($token)) {
+				break;
+			}
+			
+			if ($token->value ==',' || $token->value == ';') {
 				$this->expr[] = $parser->matchExpression();
 				$this->spaceOrTab[] = $token->value;
 			}
 		}
-		
 	}
 }

@@ -44,13 +44,15 @@ class Basic {
 		$parser = new BasicParser($this->lexer, $this);
 
 		if ($file) {
-			$this->interpret("LET __parsetime = microtime(true)");
+			//$this->interpret("LET __parsetime = microtime(true)");
 			$this->input = $input = file($file);
 			// start parsing
 			// $this->statements = $this->parseUntil();
-			$this->interpret("LET __parsetime = microtime(true) - __parsetime");
+			// $this->interpret("LET __parsetime = microtime(true) - __parsetime");
 			//$this->statements = $parser->parse($input);
+			
 			$this->root = $parser->parse($input);
+			
 		}
 
 	}
@@ -82,7 +84,7 @@ class Basic {
 		$this->currentInstr = $this->gotoTable[$label];
 	}
 
-	// called by LABEL statement
+	// called by LABEL statement DEPRECATED
 	public function reachedLabel() {
 		$this->breakAll = false; // execute loops again.
 		$this->isLoopBreak = false;

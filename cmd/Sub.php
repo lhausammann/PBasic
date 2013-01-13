@@ -125,7 +125,7 @@ class Sub extends AbstractBlockStatement  {
 
 	private function createIdentifierList($lexer) {
 		$token = $lexer->next();
-		if ($token->type === Token::END) {
+		if ($token->type === Token::DOUBLE_POINT) {
 			return;
 		} else if ($token->value === "(") {
 			$next = $lexer->next();

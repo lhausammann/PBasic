@@ -9,7 +9,7 @@ class BWhile extends AbstractBlockStatement {
 	public function parse(Parser $parser, $basic) {
 		$this->exprTree = $parser->matchExpression();
 		$this->block = $this->statements =$parser->parseUntil("WEND", $this);
-		$this->matchEnd($parser);;
+		$this->matchEol($parser);;
 	}
 
 	public function endBlock($stat) {

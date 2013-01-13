@@ -7,6 +7,7 @@ class Label extends AbstractStatement {
 		$name = $this->matchNumber($lexer)->value;
 		$this->label = $name;
 		$basic->addLabel($name, $this->blockNr);
+		$this->matchEol($lexer);
 	}
 	
 	public function execute($basic) {

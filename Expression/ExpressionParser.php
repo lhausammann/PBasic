@@ -25,6 +25,7 @@ class ExpressionParser {
 	}
 	
 	public function isEnd() {
+		
 		return $this->lookahead->type == (Token::END) && count($this->buffer == 0); 
 	}
 	
@@ -32,8 +33,9 @@ class ExpressionParser {
 		return $this->lookahead;
 	}
 
-	public function matchExpression() {
+	public function matchExpression($terminateAt = '') {
 		$current = $this->matchTermLogic();
+		
 		while (!$this->isEnd() && $this->isLookaheadOperatorLogic()) {
 			$left = $current; // save
 			$current = $this->matchOperatorLogic(); // descend to logical operators

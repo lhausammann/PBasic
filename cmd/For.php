@@ -19,7 +19,7 @@ class BFor extends AbstractBlockStatement {
 		$this->match("TO", $lexer);
 		$this->exprTreeTo = $parser->matchExpression($lexer);
 		$token = $lexer->next();
-		if ($token->type!=Token::END) {
+		if ($token->type != Token::DOUBLE_POINT) {
 			if ($token->value=="STEP") {
 				$this->exprTreeStep = $parser->matchExpression($lexer);
 			} else {
@@ -28,11 +28,11 @@ class BFor extends AbstractBlockStatement {
 		} else {
 			$lexer->setNext($token); // put it back
 		}
-		$this->matchEnd($lexer);
+		$this->matchEol($lexer);
 		
 		$block = $parser->parseUntil("NEXT", $this);
 		$this->block = $this->statements = $block;
-		$this->matchEnd($lexer);
+		$this->matchEol($lexer);
 	}
 	
 	public function endBlock($next) {
@@ -65,7 +65,7 @@ class BFor extends AbstractBlockStatement {
 			if ($this->isInRange($i, $to, $step, $from)) {
 				$basic->setVar($this->name, $i);
 				$stat = parent::next($basic);
-				echo $stat;
+
 				return $stat;
 			}
 		}

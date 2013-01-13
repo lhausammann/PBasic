@@ -3,8 +3,6 @@ LET normalFG = 1
 LET normalBG = 15
 LET errorFG = 4
 LET errorBG = 14
-LET i = 0
-
 
 LABEL 3
 COLOR normalFG, normalBG

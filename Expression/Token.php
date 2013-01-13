@@ -19,6 +19,9 @@ class Token {
 	const STRUCTURE = 12;
 	const QUESTION = 13;
 	const END = 0;
+	const DOUBLE_POINT = 14;
+	const HIGH_COMMATA = 15;
+
 	
 	
 	public $type;
@@ -37,6 +40,8 @@ class Token {
 			case self::SEMICOLON: return 'SEMICOLON';
 			case self::PERIOD: return 'PERIOD';
 			case self::QUESTION: return 'QUESTION_MARK';
+			case self::DOUBLE_POINT: return 'DOUBLEPOINT';
+			case self::DOUBLE_POINT: return 'HIGHCOMMATA';
 			case self::END: return 'END';
 			
 			case self::UNARY_MINUS: return 'OPERATOR_UNARY_MINUS';

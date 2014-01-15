@@ -2,6 +2,11 @@
 class Label extends AbstractStatement {
 	protected $label = null;
 	
+	public function __construct($nr) {
+		$this->label = $nr;
+		$this->statementName = "LABEL";
+	}
+	
 	public function parse(Parser $parser, $basic) {
 		$lexer = $parser->getLexer();
 		$name = $this->matchNumber($lexer)->value;
@@ -12,7 +17,6 @@ class Label extends AbstractStatement {
 	
 	public function execute($basic) {
 		$basic->reachedLabel();
-		
 	}
 	
 	public function matchNumber($lexer) {
@@ -20,7 +24,6 @@ class Label extends AbstractStatement {
 		if ($token->type != Token::NUMBER) {
 			throw new Exception("Expected: IDENTIFIER" . " but found: " . $token);
 		}
-		
 		return $token;
 	}
 	

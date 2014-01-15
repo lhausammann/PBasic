@@ -46,13 +46,7 @@ class Basic {
 		if ($file) {
 			//$this->interpret("LET __parsetime = microtime(true)");
 			$this->input = $input = file($file);
-			// start parsing
-			// $this->statements = $this->parseUntil();
-			// $this->interpret("LET __parsetime = microtime(true) - __parsetime");
-			//$this->statements = $parser->parse($input);
-			
 			$this->root = $parser->parse($input);
-			
 		}
 
 	}
@@ -183,16 +177,18 @@ class Basic {
 
 	// runs a block of statements
 	public function runBlock($statements) {
+		/*
 		if ($this->breakAll()) {
 			return;
-		}
+		}*/
 
 		foreach ($statements as $statement) {
 			$statement->execute($this);
+			/*
 			if ($this->isBreak() || $this->breakAll()) { // break, return or goto encountered.
 				// break current loop. FOR or WHILE has to reset break after terminating.
 				return;
-			}
+			}*/
 		}
 	}
 
@@ -351,7 +347,7 @@ function _mod($a, $b) {
 }
 
 function rnd($max = null, $min = null) {
-	if ($max && $min) {
+	if ($max !== null && $min !== null) {
 		return (int)rand($min, $max);
 	} else if ($max) {
 		return (int)rand(0, $max);
@@ -359,17 +355,3 @@ function rnd($max = null, $min = null) {
 
 	return rand(0,1000) / 1000;
 }
-
-
-
-
-/*
- // $b = new Basic();
- $b->interpret("COLOR 7,12");
- $b->interpret('PRINT "*** PROGRAM FINISHED ***"');
- $b->interpret('PRINT "*** Parse time was: " + __parsetime + "***"' );
- $b->interpret('PRINT "*** Runtime was: " + __runtime + "***"' );
- $b->interpret("COLOR 7,6");
- $b->interpret('PRINT "*** Total time needed: " + (__runtime + __parsetime) + "***"');
- $b->interpret('SCOPEDUMP');
- */

@@ -142,13 +142,13 @@ class BasicParser implements Parser {
 		$stats = array();
 		while($stat = $this->nextStatement()) {
 			
-			if ($parent)
-				$parent->addChild($stat);
-			$this->notify($stat); // notify observers.
 			if ($parent) {
+				if ($stat->isExecutable()) {
+					$parent->addChild($stat);
+				}
 				$parent->statementParsed($stat);
-				
 			}
+			$this->notify($stat); // notify observers.
 			
 			$stats[] = $stat;
 			
@@ -186,7 +186,9 @@ class BasicParser implements Parser {
 				$next = $this->next();
 			}
 			
-			return $this->nextStatement();
+			$next = $this->nextStatement();
+			
+			return $next;
 		}
 		
 		if ($next->type == Token::END) {
@@ -227,11 +229,13 @@ class BasicParser implements Parser {
 		if ($statementName == ':' ) {
 			return null;
 		}
-		// $className = "";
-		// $statements = $this->lexer->setInput($line);
-		//$statement = $this->lexer->next();
 		
-		//$statementName = $statement->value;
+		// 10 PRINT "Hi"
+		// ^----- Lexer
+		if ($statement->type == Token::NUMBER) {
+			$label = new Label($statement->value);
+			return $label;
+		}
 		
 		$upper = strtoupper($statementName{0});
 		$lower = strtolower(substr($statementName,1));

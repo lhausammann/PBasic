@@ -97,9 +97,13 @@ class ExpressionVisitor {
 			// resolve scope
 			return $this->resolveScope($left . '.' . $right);
 		}
+		
+		$isString = ! is_numeric($left) || ! is_numeric($right);
 			
 		switch ($operation) {
-			case '+' : return $left + $right;
+			case '+' : 
+				return $isString ? $left . $right :
+				 $left + $right;
 			case '-' : return $left - $right;
 			case '*' : return $left * $right;
 			case '/' : return $left / $right;

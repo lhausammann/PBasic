@@ -20,6 +20,11 @@ class BPrint extends AbstractStatement {
 	}
 	
 	public function parse(Parser $parser, $basic) {
+		$token = $parser->getLexer()->next();
+		if ($this->isEol($token)) {
+			return;
+		} 
+		$parser->getLexer()->setNext($token); // put token back
 		$this->expr[] = $parser->matchExpression();
 		// PRINT a,b,c, ...
 		$lexer = $parser->getLexer();

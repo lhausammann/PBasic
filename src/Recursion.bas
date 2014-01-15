@@ -29,7 +29,8 @@ INPUT "Fakultät von?", n
 CALL FAC(n) = fac
 PRINT "Fakultät von ",n, " ist" , fac
 
-' END is required because SUBs will get executed immediatly
+' END is required because SUBs will get executed immediatly otherwise.
+
 END
 
 ' No input allowed

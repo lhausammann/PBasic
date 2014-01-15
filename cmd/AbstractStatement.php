@@ -6,7 +6,7 @@ abstract class AbstractStatement {
 	protected $lineNr;
 	protected $instrNr;
 	protected $blockNr;
-	
+	protected $isExecutable = true;
 	protected $nr;
 	
 	protected static $currentNr = 0;
@@ -24,6 +24,10 @@ abstract class AbstractStatement {
 		$this->blockNr = $blockNr;
 		$this->nr = self::$currentNr++;
 		
+	}
+	
+	public function isExecutable() {
+		return $this->isExecutable;
 	}
 	
 	public function setParent($stat) {

@@ -4,7 +4,6 @@ class Call extends AbstractStatement  {
 	private $paramTrees = array();
 	private $out = '';
 
-
 	public function parse(Parser $lexer, $basic) {
 		$this->name = $this->matchIdentifier($lexer)->value;
 		$this->createParamList($lexer, $basic);
@@ -17,7 +16,7 @@ class Call extends AbstractStatement  {
 	}
 
 	public function execute($basic) {
-	
+		// throw new Exception ("This should never happen");
 		return;
 		$basic->setBreak(false);
 		$args = array();

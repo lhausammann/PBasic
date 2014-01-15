@@ -1,5 +1,8 @@
 <?php
 class Sub extends AbstractBlockStatement  {
+	
+	protected $isExecutable = true;
+	
 	private $name;
 	private $Names = array();
 	private $block = array();
@@ -95,9 +98,10 @@ class Sub extends AbstractBlockStatement  {
 		if (count($params) === count($this->paramNames)) {
 			$this->setArguments($params, $basic);
 			// execute this function
-			while($stat = $this->next($basic)) {
-				
+			$stat = $this->next($basic);
+			while($stat) {
 				$stat->execute($basic);
+				$stat = $stat->next($basic);
 				if (get_class($stat) == 'Endsub') {
 					
 					throw new Exception('No return statement found in sub: '. $this->errorInfo());

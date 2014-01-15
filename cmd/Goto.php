@@ -14,18 +14,12 @@ class BGoto extends AbstractStatement  {
 	}
 	
 	public function execute($basic) {
-		
-		if ($basic->hasLabel($this->label)) {
-			$basic->breakAll(); // break all loops
-			$basic->jump($this->label);
-		} else {
-			throw new Exception ("Could not resolve label: " . $this->label);
-		}
+		// do nothing - jump is handled in next.
 	}
 	
 	public function next($basic) {
 		// leave all blocks
-		$this->parent->terminateAll($basic); // reset all blocks
+		$this->parent->terminateAll($basic);
 		$root = $this->parent;
 		while ($root->parent) {
 			$root = $root->parent;

@@ -162,11 +162,17 @@ class Lexer {
 		$buffer = '';
 		
 		while ($this->isAlphaNumeric($this->lookahead)) {
-			 
-			flush();
 			$buffer .= $this->lookahead;
 			$this->consume();
 		}
+		
+		// check for ending strings ($)
+		$peek = $this->lookahead;
+		
+		if ($peek == '$') {
+			$this->consume(); 
+			$buffer .= $peek;
+		} 
 		
 		return $buffer;
 	}

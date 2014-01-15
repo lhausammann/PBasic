@@ -2,7 +2,7 @@ PBasic
 ======
 
 An Expermimental PHP Parser for a BASIC inspired language.
-Start console.php to run some basic scripts in your browser. 
+Start console.php to run some BASIC'ish scripts in your browser. 
 Look into cmd folder to study existing commands.
 Look in src folder to see some BASIC'ish examples.
 

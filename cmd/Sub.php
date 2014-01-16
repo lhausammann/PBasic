@@ -92,9 +92,6 @@ class Sub extends AbstractBlockStatement
         }
 
         $this->addScope($this->params, $basic);
-        //$basic->setVar(self::RETURN_ADDRESS, $this->parent);
-        // manage the instruction pointer on the scope to handle recursion.
-        //$basic->setVar('00_instructionPointer', 0);
     }
 
     // called by Expressionparser. Input is not allowed here,

@@ -97,7 +97,7 @@ class ExpressionVisitor
     {
         $next = $node->getSingleChild();
 
-        return ! (self::visitStatic($this));
+        return ! (self::visitStatic($next));
     }
 
     public static function visitStructure($node)
@@ -111,12 +111,6 @@ class ExpressionVisitor
         $left = self::visitStatic($leftNode);
         $right = self::visitStatic($rightNode);
         $operation = $op->getValue();
-
-        if ($operation == '.') {
-            // resolve scope
-            return $this->resolveScope($left . '.' . $right);
-        }
-
         $isString = ! is_numeric($left) || ! is_numeric($right);
 
         switch ($operation) {
@@ -140,12 +134,12 @@ class ExpressionVisitor
             default :
                 $function = strtolower($operation);
                 // is there a function in the visitor to call?
-                if (method_exists($this,$function)) {
-                    return call_user_func(array($this, $function), $left, $right);
+                if (method_exists(self,$function)) {
+                    return call_user_func(array(self, $function), $left, $right);
                 } // is it an Operator defined in parser?
 
-                if (method_exists($this->parser,$function)) {
-                    return call_user_func(array($this->parser, $function), $left, $right);
+                if (method_exists(self::parser,$function)) {
+                    return call_user_func(array(self::parser, $function), $left, $right);
                 }
 
                 throw new Exception ('Could not find operator:' . $op);

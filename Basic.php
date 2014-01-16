@@ -194,18 +194,8 @@ class Basic
     // runs a block of statements
     public function runBlock($statements)
     {
-        /*
-        if ($this->breakAll()) {
-            return;
-        }*/
-
         foreach ($statements as $statement) {
             $statement->execute($this);
-            /*
-            if ($this->isBreak() || $this->breakAll()) { // break, return or goto encountered.
-                // break current loop. FOR or WHILE has to reset break after terminating.
-                return;
-            }*/
         }
     }
 
@@ -221,7 +211,7 @@ class Basic
         return false; //  end of input reached.
     }
 
-    // registers an observer during the parse process.
+    // registers an observer
     public function addObserver(AbstractStatement $statement)
     {
         $this->observers[] = $statement;

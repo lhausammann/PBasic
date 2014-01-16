@@ -7,9 +7,9 @@ LET rnd = 5
 
 FOR j = 1 TO x
 	LET rand = RND(0,12)
-	CALL tab(rand, "*") = star
+	star = tab(rand, "*")
 	' PRINT rand
-	COLOR rand, rand
+	COLOR rand, 0
 	PRINT star
 	
 NEXT j
@@ -18,6 +18,8 @@ NEXT j
 INPUT "Noch mehr (j/n)", a
 IF a = "j" THEN
 	GOTO 10
+ELSE
+    PRINT "Und Tschuess."
 ENDIF
 
 SUB tab(n, inp)

@@ -19,17 +19,7 @@ class Call extends AbstractStatement
 
     public function execute($basic)
     {
-        // throw new Exception ("This should never happen");
-        return;
-        $basic->setBreak(false);
-        $args = array();
-        foreach ($this->paramTrees as $paramTree) {
-            $args[] = $basic->evaluateExpression($paramTree);
-        }
-
-        $fn = $basic->getSub($this->name);
-        $fn->executeSub($args, $basic);
-        $basic->setBreakAll(false);
+        //throw new Exception ("This should never happen");
     }
 
     private function createParamList($parser, $basic)
@@ -58,17 +48,6 @@ class Call extends AbstractStatement
 
     public function next($basic)
     {
-        /*
-
-        if ($fn->isExecuting($basic)) {
-            $next = $fn->next($basic);
-
-            return $next;
-        } */
-
-        // add the parent of call statement as sub parent to
-        // return to this point after executing.
-
         $fn = $basic->getSub($this->name);
 
         if ($this->out) {

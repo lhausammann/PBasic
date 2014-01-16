@@ -15,8 +15,6 @@ class BReturn extends AbstractStatement
                 $this->exprTree = $parser->matchExpression();
             }
         }
-        // $this->exprTree = $parser->matchExpression();
-        //$this->matchEol($parser);
     }
 
     public function execute($basic)

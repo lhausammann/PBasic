@@ -108,29 +108,12 @@ class AstLeave
 
     public function accept($visitor)
     {
-        /*
-        $fn = 'visit' . ucfirst(strtolower($this->getNamedType()));
-        // dispatch
-
-        if (strpos($fn, '_')!==false) {
-            $parts = explode('_', $fn);
-            $fn = '';
-            foreach ($parts as $part) {
-                $fn .= ucfirst($part);
-            }
-        }
-        $fn = 'visit' . $fn;
-        $visitor->$fn;
-        */
-
-        // better dispatch
-        // directly on the visitor for speed
         return $visitor->visit($this);
     }
 
     public function __toString()
     {
-        return $this->token->value;
+        return "" . $this->token->value;
     }
 }
 

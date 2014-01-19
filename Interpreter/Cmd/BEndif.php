@@ -1,5 +1,10 @@
 <?php
-class BElse extends AbstractStatement
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Parser;
+use PBasic\Interpreter\Cmd\AbstractStatement;
+
+class BEndif extends AbstractStatement
 {
     public function execute($basic)
     {

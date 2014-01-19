@@ -1,6 +1,7 @@
 <?php
 namespace PBasic\Interpreter\Scope;
 
+
 class Scope
 {
     private $scope = array(

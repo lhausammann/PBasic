@@ -1,4 +1,9 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
+
 // while <expr> <list of statements>* wend
 class Next extends AbstractStatement
 {

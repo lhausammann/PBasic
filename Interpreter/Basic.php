@@ -1,6 +1,18 @@
 <?php
 namespace PBasic\Interpreter;
 
+use PBasic\Interpreter\Parser;
+use PBasic\Interpreter\BasicParser;
+use PBasic\Interpreter\Expression\ExpressionParser;
+use PBasic\Interpreter\Expression\ExpressionVisitor;
+
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Cmd\AbstractBlockStatement;
+use PBasic\Interpreter\Scope\GlobalScope;
+use PBasic\Interpreter\Scope\NestedScope;
+use PBasic\Interpreter\Scope\Scope;
+
+
 class Basic
 {
     protected $root = null;
@@ -33,17 +45,17 @@ class Basic
 
     public function __construct($file = '')
     {
+
         $this->lexer = new Lexer(" ");
         $this->scope = new NestedScope();
-
         $parser = new BasicParser($this->lexer, $this);
 
         if ($file) {
-            $this->interpret("LET __parsetime = microtime(true)");
+            //$this->interpret("LET __parsetime = microtime(true)");
             $this->input = $input = file($file);
             // start parsing
             // $this->statements = $this->parseUntil();
-            $this->interpret("LET __parsetime = microtime(true) - __parsetime");
+            //$this->interpret("LET __parsetime = microtime(true) - __parsetime");
             //$this->statements = $parser->parse($input);
             $this->root = $parser->parse($input);
         }

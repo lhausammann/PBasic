@@ -1,7 +1,8 @@
 <?php
-namespace Interpreter;
+namespace PBasic\Interpreter;
 
 use PBasic\Interpreter\Expression\Token;
+
 
 class Lexer
 {

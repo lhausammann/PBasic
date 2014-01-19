@@ -1,6 +1,8 @@
 <?php
 namespace PBasic\Interpreter\Scope;
 
+use PBasic\Interpreter\Scope\Scope;
+
 class NestedScope extends Scope
 {
     private $scopes = array();

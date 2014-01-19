@@ -1,4 +1,8 @@
 <?php
+namespace PBasic;
+
+use AbstractBlockStatement;
+
 class Program extends AbstractBlockStatement
 {
     private $gotoTable = array();

@@ -1,4 +1,10 @@
 <?php
+
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
+
 class Let extends AbstractStatement
 {
     private $exprTree = null;

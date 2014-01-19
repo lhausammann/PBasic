@@ -1,4 +1,9 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
+
 /**
  * Note: This goto implementation, as it stands currently, will allow you to jump out
  * of blocks. But never into a block.

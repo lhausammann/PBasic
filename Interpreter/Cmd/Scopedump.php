@@ -1,4 +1,7 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
 
 class Scopedump extends AbstractStatement
 {

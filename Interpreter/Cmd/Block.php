@@ -1,4 +1,7 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Parser;
 /**
  * A container which contains statements.
  * Next() will call the grand parent instead of the parent statement

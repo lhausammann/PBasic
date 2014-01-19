@@ -1,5 +1,10 @@
 <?php
-require 'Lexer.php';
+namespace PBasic\Interpreter\Expression;
+
+use PBasic\Interpreter\Expression\Token;
+use PBasic\Interpreter\Expression\Ast\AstNode;
+use PBasic\Interpreter\Expression\Ast\AstLeave;
+use PBasic\Interpreter\Lexer;
 
 class ExpressionParser
 {

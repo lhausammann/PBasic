@@ -1,4 +1,5 @@
 <?php
+
 function autoload($className)
 {
     $className = ltrim($className, '\\');
@@ -11,5 +12,7 @@ function autoload($className)
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-    require $fileName;
+    require __DIR__ . '/../' . $fileName;
 }
+
+spl_autoload_register("autoload");

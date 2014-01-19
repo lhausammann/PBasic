@@ -37,14 +37,16 @@ class Basic
 
     public function __construct($file = '')
     {
+        echo "constructing...";
         $this->lexer = new Lexer(" ");
         $this->scope = new NestedScope();
-
+        echo "lexing";
         $parser = new BasicParser($this->lexer, $this);
 
         if ($file) {
             //$this->interpret("LET __parsetime = microtime(true)");
             $this->input = $input = file($file);
+            echo "Parsing....";
             $this->root = $parser->parse($input);
         }
 

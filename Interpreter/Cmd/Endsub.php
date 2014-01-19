@@ -1,4 +1,11 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
+
+namespace PBasic\Interpreter\Cmd;
+
 class Endsub extends AbstractStatement
 {
     public function execute($basic)

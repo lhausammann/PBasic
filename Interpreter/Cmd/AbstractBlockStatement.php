@@ -1,4 +1,7 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+use PBasic\Interpreter\Cmd\AbstractStatement;
+
 abstract class AbstractBlockStatement extends AbstractStatement
 {
     protected $isLoop = false;

@@ -1,4 +1,7 @@
 <?php
+namespace PBasic\Interpreter;
+
+use PBasic\Interpreter\Cmd\AbstractBlockStatement;
 class Program extends AbstractBlockStatement
 {
     private $gotoTable = array();
@@ -7,6 +10,7 @@ class Program extends AbstractBlockStatement
 
     public function parse(Parser $parser, $basic)
     {
+
         $parser->addObserver($this);
         $parser->parseUntil('', $this);
         $parser->removeObserver($this);
@@ -23,6 +27,7 @@ class Program extends AbstractBlockStatement
 
     public function execute($basic)
     {
+        // todo: Executing a program block means actually executing next() (?)
     }
 
     public function jump($label, $basic)

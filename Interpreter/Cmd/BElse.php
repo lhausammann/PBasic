@@ -1,4 +1,9 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
+
 class BElse extends AbstractStatement
 {
     public function execute($basic)

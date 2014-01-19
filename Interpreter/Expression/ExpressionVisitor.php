@@ -1,4 +1,7 @@
 <?php
+namespace PBasic\Interpreter\Expression;
+
+
 class ExpressionVisitor
 {
     public static $parser;

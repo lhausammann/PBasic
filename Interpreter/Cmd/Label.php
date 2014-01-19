@@ -1,4 +1,9 @@
 <?php
+
+namespace PBasic\Interpreter\Cmd;
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
+
 class Label extends AbstractStatement
 {
     protected $label = null;

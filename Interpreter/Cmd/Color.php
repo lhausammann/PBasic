@@ -1,5 +1,10 @@
 <?php
 
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Parser;
+
 class Color extends AbstractStatement
 {
     private $fgTree = null;

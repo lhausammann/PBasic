@@ -1,4 +1,8 @@
 <?php
+namespace PBasic\Interpreter\Cmd;
+
+use PBasic\Interpreter\Parser;
+use PBasic\Interpreter\Expression\Token;
 
 abstract class AbstractStatement
 {

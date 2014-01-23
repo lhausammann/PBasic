@@ -134,9 +134,9 @@ class BasicParser implements Parser
             $tree = $exprParser->matchExpression();
             // configure the lexer to return the parsers current lookahead as next token:
             $this->lexer->setNext($exprParser->getLookahead());
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
-            throw new Exception("Parse error in expression on line: " . $this->current . ': ' . $e->getMessage());
+            throw new \Exception("Parse error in expression on line: " . $this->current . ': ' . $e->getMessage());
         }
 
         return $tree;

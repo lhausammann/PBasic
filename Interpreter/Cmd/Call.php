@@ -2,6 +2,7 @@
 namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
 class Call extends AbstractStatement
@@ -24,7 +25,7 @@ class Call extends AbstractStatement
 
     public function execute($basic)
     {
-        //throw new Exception ("This should never happen");
+        //throw new \Exception ("This should never happen");
     }
 
     private function createParamList($parser, $basic)
@@ -42,7 +43,7 @@ class Call extends AbstractStatement
             }
 
             if ($token->value!==')') {
-                throw new Exception('Error parsing Call statement: Expected ) but found: ' .  $token->value . $this->errorInfo());
+                throw new \Exception('Error parsing Call statement: Expected ) but found: ' .  $token->value . $this->errorInfo());
             }
 
             return;

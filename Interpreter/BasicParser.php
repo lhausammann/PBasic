@@ -17,6 +17,7 @@ use PBasic\Interpreter\Cmd\BPrint;
 use PBasic\Interpreter\Cmd\Input;
 use PBasic\Interpreter\Cmd\BFor;
 use PBasic\Interpreter\Cmd\Next;
+use PBasic\Interpreter\Cmd\Color;
 use PBasic\Interpreter\Cmd\Sub;
 use PBasic\Interpreter\Cmd\End;
 use PBasic\Interpreter\Cmd\Endsub;
@@ -24,20 +25,16 @@ use PBasic\Interpreter\Cmd\BIf;
 use PBasic\Interpreter\Cmd\BElse;
 use PBasic\Interpreter\Cmd\BEndif;
 use PBasic\Interpreter\Cmd\BGoto;
+
+/** FIXME */
+require_once __DIR__ . '/Cmd/End.php';
+// require_once __DIR__ . '/Cmd/Color.php';
+
 use PBasic\Interpreter\Cmd\Label;
 
-
-
 use PBasic\Interpreter\Cmd;
-/**
- * Created by JetBrains PhpStorm.
- * User: Luzius Hausammann
- * Date: 17.01.14
- * Time: 18:57
- * To change this template use File | Settings | File Templates.
- */
-class BasicParser implements Parser
-{
+
+class BasicParser implements Parser {
     private $comments = array(
         'REM',
         "'",
@@ -55,68 +52,56 @@ class BasicParser implements Parser
     private $basic;
     private $observers = array();
 
-    public function __construct($lexer, $basic)
-    {
+    public function __construct($lexer, $basic) {
         $this->lexer = new Lexer(" ");
         $this->basic = $basic;
     }
 
-    public function setInput($input)
-    {
+    public function setInput($input) {
         $this->input = $input;
     }
 
-    public function getLexer()
-    {
+    public function getLexer() {
         return $this->lexer;
     }
 
-    public function parse($input = null)
-    {
+    public function parse($input = null) {
+        $input = implode($input, ':') . ':';
+
         if ($input) {
             $this->input = $input;
         }
-
-        if (! is_array($input)) {
-            throw new Exception("Parse error: Input must be an array, each line a statement");
-        }
-
+        $this->lexer = new Lexer($input);
+        // set up the program
         $program = new Program('root', 1,1,1);
-
         return $program->parse($this, $this->basic);
     }
 
-    public function interpret($string, $basic)
-    {
+    public function interpret($string, $basic) {
+
         $stat = $this->parseLine($string);
         $stat->execute($basic);
     }
 
-    public function next()
-    {
+    public function next() {
+
         return $this->lexer->next();
     }
 
-    private function nextLine()
-    {
-        if ($this->current < count($this->input)) {
-            $next = $this->input[$this->current];
-            $this->current++;
+    private function nextLine() {
 
-            return $next;
-        }
+        $next = $this->input[$this->current];
+        $this->current++;
 
-        return false; //  end of input reached.
+        return $next;
     }
 
     // registers an observer during the parse process.
-    public function addObserver(AbstractStatement $statement)
-    {
+    public function addObserver(AbstractStatement $statement) {
         $this->observers[] = $statement;
     }
 
-    public function removeObserver(AbstractStatement $statement)
-    {
+    public function removeObserver(AbstractStatement $statement) {
         $observers = array();
         foreach ($this->observers as &$observer) {
             if ($observer === $statement) {
@@ -128,24 +113,22 @@ class BasicParser implements Parser
         $this->observers = $observers;
     }
 
-    public function notify($statement)
-    {
+    public function notify($statement) {
         foreach ($this->observers as $observer) {
             $observer->update($statement);
         }
     }
 
-    public function matchExpression()
-    {
+    public function matchExpression() {
         $exprParser = new ExpressionParser($this->lexer);
         try {
             $tree = $exprParser->matchExpression();
             // configure the lexer to return the parsers current lookahead as next token:
             $this->lexer->setNext($exprParser->getLookahead());
         } catch (Exception $e) {
+
             throw new Exception("Parse error in expression on line: " . $this->current . ': ' . $e->getMessage());
         }
-
         return $tree;
     }
 
@@ -153,19 +136,19 @@ class BasicParser implements Parser
     // if a parent statement is given, it will be notified by parseStatement about
     // each statement parsed in this block. (not about parsed statements in a block, e.g
     // an else statement in an if block. Parent only gets notified about if.)
-    // The parent also get notified if he is registered as an observer about
+    // The parent also get notified if its registered as an observer about
     // _every_ statement parsed until it reaches the stop statement.
-    public function parseUntil($stopStatement = false, $parent = null)
-    {
+    public function parseUntil($stopStatement = false, $parent = null) {
         $stats = array();
-        while ($stat = $this->nextStatement()) {
-            if ($parent)
-                $parent->addChild($stat);
-            $this->notify($stat); // notify observers.
-            if ($parent) {
-                $parent->statementParsed($stat);
+        while($stat = $this->nextStatement()) {
 
+            if ($parent) {
+                if ($stat->isExecutable()) {
+                    $parent->addChild($stat);
+                }
+                $parent->statementParsed($stat);
             }
+            $this->notify($stat); // notify observers.
 
             $stats[] = $stat;
 
@@ -187,57 +170,77 @@ class BasicParser implements Parser
         return $stats;
     }
 
-    public function nextStatement()
-    {
-        $stat = null;
-        while ($line = $this->nextLine()) {
-            $line = trim($line);
+    public function nextStatement() {
+        $next = $this->lexer->next();
+        if (! $next) {
+            return null;
+        }
+        // skip ::::
+        while($next->type == Token::DOUBLE_POINT) {
+            $next = $this->next();
+        }
 
-            if ($this->isComment($line)) continue;
-            $stat = $this->parseLine($line);
-            if ($stat) {
-                break;
+        if ($next->value=="'") {
+            // skip comment
+            while($next->value != ':') {
+                $next = $this->next();
             }
+
+            $next = $this->nextStatement();
+
+            return $next;
+        }
+
+        if ($next->type == Token::END) {
+
+            return null;
+        }
+
+        $stat = null;
+        if ($next) {
+            $stat = $this->createStatement($next);
         }
 
         return $stat;
     }
 
-    private function parseLine($line)
-    {
-        $line = trim($line);
-        if ($line) {
-            $statement = $this->createStatement($line);
+    private function parseLine($line) {
+        $stat = $this->lexer->next();
 
+        //$stat = $cmdToken->value;
+        if ($line) {
+            $statement = $this->createStatement($stat);
             return $statement;
         }
     }
 
-    private function isComment($line)
-    {
+    private function isComment($line) {
         foreach ($this->comments as $commentSign) {
             // TODO: Fix this
             if (stripos ($line, $commentSign ) !== false) {
                 return true;
             }
         }
-
         return false;
     }
 
-    private function createStatement($line)
-    {
-        $cmdNs = "PBasic\\Interpreter\\Cmd\\";
-
-        $className = "";
-        $statements = $this->lexer->setInput($line);
-        $statement = $this->lexer->next();
-
+    private function createStatement($statement) {
+        $ns = "PBasic\\Interpreter\\Cmd\\";
         $statementName = $statement->value;
+        if ($statementName == ':' ) {
+            return null;
+        }
+
+        // 10 PRINT "Hi"
+        // ^----- Lexer
+        if ($statement->type == Token::NUMBER) {
+            $label = new Label($statement->value);
+            return $label;
+        }
+
         $upper = strtoupper($statementName{0});
         $lower = strtolower(substr($statementName,1));
         $className = $this->getCmdClass($upper . $lower);
-
         if (! $className) {
 
             // let is optional keyword
@@ -246,22 +249,17 @@ class BasicParser implements Parser
         }
         $lineNr = $this->current;
         $this->instrNr++;
-        $fullQualifiedName = $cmdNs . $className;
-        $stat = new $fullQualifiedName(strtoupper($statementName), $this->instrNr, $lineNr, $this->currentInstr);
-        var_dump($stat);
+        $class = $ns . $className;
+        $stat = new $class (strtoupper($statementName), $this->instrNr, $lineNr, $this->currentInstr);
+
         $stat->parse($this, $this->basic);
-        echo $cmdNs . $className;
         return $stat;
     }
 
-    private function getCmdClass($className)
-    {
-        $ns = "//PBasic//Interpreter//Cmd//";
-
-        echo $className;
+    private function getCmdClass($className) {
+        $ns = "PBasic\\Interpreter\\Cmd\\";
         $reserved = array('Print', 'If', 'While', 'Break', 'Goto', 'For', 'Return', 'Endif', 'Else');
         if (in_array($className, $reserved)) {
-
             return 'B' . $className; // Prefix classname to not conflict with php keywords.
         }
 
@@ -271,13 +269,13 @@ class BasicParser implements Parser
         }
 
         // No class found
-
-        if (! class_exists($ns . $className)) {
-            echo $className . " not found. ";
+        if (! class_exists($ns . $className, true)) {
+            echo 'class not found: ' . var_dump($ns . $className);
             $className = '';
         }
-        echo "return " . $className;
+
         return $className;
     }
 }
+
 

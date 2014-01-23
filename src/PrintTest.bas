@@ -1,5 +1,3 @@
-' Check print & input styles
-
 PRINT "HALLO"
 
 LABEL 20

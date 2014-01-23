@@ -126,7 +126,7 @@ $file = getFileToRun($nr);
 <hr class="clear" />
 
 <div id="console">
-    <? Basic::run($file);?>
+    <? echo Basic::run($file);?>
 </div>
 </body>
 </html>

@@ -99,7 +99,7 @@ class Basic
             $fn = $this->subs[$name];
         }
         if (! $fn) {
-            throw new Exception ('Function ' . $name . 'not defined.');
+            throw new \Exception ('Function ' . $name . 'not defined.');
         }
 
         return $fn;

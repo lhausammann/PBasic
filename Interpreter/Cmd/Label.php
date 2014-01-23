@@ -1,7 +1,9 @@
 <?php
 
 namespace PBasic\Interpreter\Cmd;
+
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
 class Label extends AbstractStatement
@@ -32,7 +34,7 @@ class Label extends AbstractStatement
     {
         $token = $lexer->next();
         if ($token->type != Token::NUMBER) {
-            throw new Exception("Expected: IDENTIFIER" . " but found: " . $token);
+            throw new \Exception("Expected: IDENTIFIER" . " but found: " . $token);
         }
 
         return $token;
@@ -42,5 +44,7 @@ class Label extends AbstractStatement
     {
         return $this->label;
     }
-
 }
+
+/** alias hack */
+class _label extends Label {}

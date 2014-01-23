@@ -2,6 +2,7 @@
 namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
 class End extends AbstractStatement
@@ -13,8 +14,8 @@ class End extends AbstractStatement
 
     public function execute($basic)
     {
-        // exit;
-        // is handled by next which will return null as next statement.
+        exit;
+
     }
 
     public function next($basic)

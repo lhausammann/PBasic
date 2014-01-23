@@ -6,44 +6,38 @@ use PBasic\Interpreter\Expression\Ast\AstNode;
 use PBasic\Interpreter\Expression\Ast\AstLeave;
 use PBasic\Interpreter\Lexer;
 
-class ExpressionParser
-{
+class ExpressionParser {
     protected $lookahead = null;
     private $input = '';
     private $buffer = array();
 
-    public function __construct(Lexer $input)
-    {
+    public function __construct(Lexer $input) {
         $this->root = new AstNode(new Token('root','root'));
         $this->input = $input;
         $this->lookahead = $this->next();
     }
 
-    public function start($expectEnd = true)
-    {
+    public function start($expectEnd = true) {
         $result = $this->matchExpression();
         if ($this->isEnd()) {
             $this->lookahead = null;
-
             return $result;
-        } elseif ($expectEnd) {
+        } else if ($expectEnd) {
             // normally caused by wrong nested parenthesis
             throw new Exception('Parse Error: Expected was end of file, but found token was:' . $this->lookahead);
         }
     }
 
-    public function isEnd()
-    {
+    public function isEnd() {
+
         return $this->lookahead->type == (Token::END) && count($this->buffer == 0);
     }
 
-    public function getLookahead()
-    {
+    public function getLookahead() {
         return $this->lookahead;
     }
 
-    public function matchExpression($terminateAt = '')
-    {
+    public function matchExpression($terminateAt = '') {
         $current = $this->matchTermLogic();
 
         while (!$this->isEnd() && $this->isLookaheadOperatorLogic()) {
@@ -56,15 +50,13 @@ class ExpressionParser
         return $current;
     }
 
-    protected function consume()
-    {
+    protected function consume() {
         if (! $this->isEnd()) {
             $this->lookahead = $this->next();
         }
     }
 
-    private function matchTermLogic()
-    {
+    private function matchTermLogic() {
         $current = $this->matchTermPlusMinus();
         while (!$this->isEnd() && $this->isLookaheadOperatorPlusMinus()) {
             $left = $current; // save
@@ -76,36 +68,36 @@ class ExpressionParser
         return $current;
     }
 
-    private function matchTermPlusMinus()
-    {
-            $current = $this->matchTermMulDiv();
-            while (!$this->isEnd() && $this->isLookaheadOperatorMulDiv()) {
-                $left = $current;
-                $current = $this->matchOperatorMulDiv();
-                $right = $this->matchTermMulDiv();
-                $current->addChild($left);
-                $current->addChild($right);
-            }
 
-            return $current;
+    private function matchTermPlusMinus() {
+        $current = $this->matchTermMulDiv();
+        while (!$this->isEnd() && $this->isLookaheadOperatorMulDiv()) {
+            $left = $current;
+            $current = $this->matchOperatorMulDiv();
+            $right = $this->matchTermMulDiv();
+            $current->addChild($left);
+            $current->addChild($right);
+        }
+
+        return $current;
     }
 
-    private function matchTermMulDiv()
-    {
+    private function matchTermMulDiv() {
         if (($this->lookahead->type == TOKEN::NUMBER)) {
             $current = $this->match(Token::NUMBER);
         } elseif ($this->lookahead->type == Token::IDENTIFIER) {
             // is it a function call?
             if ($this->peek()->type == Token::LBRACK) {
                 $current = $this->matchFunction();
-            } elseif ($this->peek(0)->type==Token::PERIOD) {
+            } elseif ($this->peek(0)->type==Token::PERIOD){
                 $current = $this->matchStruct();
             } else {
                 $current = $this->match(Token::IDENTIFIER);
             }
         } elseif ($this->lookahead->type == Token::STRING) {
             $current = $this->match(Token::STRING);
-        } elseif ($this->lookahead->type == Token::LBRACK) {
+        }
+        elseif ($this->lookahead->type == Token::LBRACK) {
             $current = $this->matchParenthesizedExpression();
         } elseif ($this->lookahead->type == Token::OPERATOR) {
             $current = $this->matchUnaryOp();
@@ -117,30 +109,25 @@ class ExpressionParser
 
     }
 
-    protected function match($match)
-    {
+    protected function match($match) {
         $token = $this->lookahead;
         if ($this->lookahead->type === $match) {
             $this->consume();
-
             return new AstLeave($token);
         }
         throw new Exception('Expected: ' . $match . ' but found: ' . $this->lookahead);
     }
 
-    private function matchOperatorMulDiv()
-    {
+    private function matchOperatorMulDiv() {
         $token = $this->lookahead;
         if (! $this->isOperatorMulDiv($this->lookahead->value)) {
             throw new Exception('Exception: Expected * or / but found ' . $this->lookahead);
         }
         $this->consume();
-
         return new AstNode($token);
     }
 
-    private function matchOperatorLogic()
-    {
+    private function matchOperatorLogic() {
         $token = $this->lookahead;
         if (! $this->isOperatorLogic($token->value)) {
             throw new Exception('Exception: Expected LIKE, OR, AND, =, <, >  but found ' . $this->lookahead);
@@ -152,12 +139,10 @@ class ExpressionParser
             $this->consume();
         }
         $this->consume();
-
         return new AstNode($token);
     }
 
-    private function matchOperatorPlusMinus()
-    {
+    private function matchOperatorPlusMinus() {
         $token = $this->lookahead;
         if (! $this->isOperatorPlusMinus($token->value)) {
             throw new Exception('Exception: Expected * or / but found ' . $this->lookahead);
@@ -167,31 +152,27 @@ class ExpressionParser
         return new AstNode($token);
     }
 
-    private function matchUnaryOp()
-    {
+    private function matchUnaryOp() {
         $token = $this->lookahead;
         if ($token->value=='-') {
             $this->consume();
             $unary = new AstNode(new Token(Token::UNARY_MINUS, '-'));
             $unary->addChild($this->matchTermLogic());
-
             return $unary;
-        } elseif ($token->value=='!') {
-             $this->consume();
-             $unary = new AstNode(new Token(Token::UNARY_NOT, '!'));
-             $unary->addChild($this->matchTermLogic());
-
-             return $unary;
+        } else if ($token->value=='!'){
+            $this->consume();
+            $unary = new AstNode(new Token(Token::UNARY_NOT, '!'));
+            $unary->addChild($this->matchTermLogic());
+            return $unary;
         }
 
         throw new Exception ('Expected: -|! but found ' . $this->lookahead);
     }
 
-    private function matchFunction()
-    {
+    private function matchFunction() {
         $token = $this->lookahead;
         if ($token->type==Token::IDENTIFIER
-        && $this->peek(0)->type==Token::LBRACK) {
+            && $this->peek(0)->type==Token::LBRACK) {
             $this->consume();
             $function = new AstNode(new Token(Token::FUNC, $token->value));
             $args = $this->matchArguments();
@@ -205,19 +186,17 @@ class ExpressionParser
     }
 
     // return the arguments directly as array,
-    private function matchArguments()
-    {
+    private function matchArguments() {
         if ($this->lookahead->type==Token::LBRACK) {
             $this->consume();
             $args = array();
-            while ($this->lookahead->type !== Token::RBRACK && ! $this->isEnd()) {
+            while($this->lookahead->type !== Token::RBRACK && ! $this->isEnd()) {
                 $args[] = $this->matchExpression();
                 if ($this->lookahead->type!=TOKEN::RBRACK) {
                     $this->match(Token::SEMICOLON);
                 }
             }
             $this->match(Token::RBRACK);
-
             return $args;
         }
 
@@ -225,17 +204,14 @@ class ExpressionParser
     }
 
     // care about open/closing parenthesis
-    private function matchParenthesizedExpression()
-    {
+    private function matchParenthesizedExpression() {
         $this->match(Token::LBRACK);
         $current = $this->matchExpression();
         $this->match(Token::RBRACK);
-
         return $current;
     }
 
-    private function next()
-    {
+    private function next() {
         if (!count($this->buffer)) {
             return $this->input->next();
         }
@@ -245,8 +221,7 @@ class ExpressionParser
 
     // allows to inspect next element from input.
     // Peeked tokens are buffered up and given back by next, when queried next().
-    private function peek($nr = null)
-    {
+    private function peek($nr = null) {
         if ($nr !== null) {
             if (count($this->buffer) < $nr) {
                 throw new Exception('No token in buffer at position: ' . $nr);
@@ -260,42 +235,36 @@ class ExpressionParser
         return $nextToken;
     }
 
-    private function isLookaheadOperatorMulDiv()
-    {
+    private function isLookaheadOperatorMulDiv() {
         return $this->isOperatorMulDiv($this->lookahead->value);
     }
 
-    private function isLookaheadOperatorPlusMinus()
-    {
+    private function isLookaheadOperatorPlusMinus() {
         return $this->isOperatorPlusMinus($this->lookahead->value);
     }
 
-    private function isLookaheadOperatorLogic()
-    {
+    private function isLookaheadOperatorLogic() {
         return $this->isOperatorLogic($this->lookahead->value);
     }
 
-    private function isOperatorPlusMinus($possibleOp)
-    {
+    private function isOperatorPlusMinus($possibleOp) {
         return in_array($possibleOp, array('+', '-'));
     }
 
-    private function isOperatorMulDiv($possibleOp)
-    {
+    private function isOperatorMulDiv($possibleOp) {
         return in_array($possibleOp, array('*', '/'));
     }
 
-    private function isOperatorLogic($possibleOp)
-    {
+    private function isOperatorLogic($possibleOp) {
         // check also for '!' to detect correctly in lookahead. '!='.
         return in_array($possibleOp, array('AND', 'OR', 'LIKE','IN', '=', '>', '<', '<=', '>=', '!', '!='));
     }
 }
 
 /* Rules for the parser: TODO: <, >, = should have higher precedence than &&,AND OR LIKE
-    EXPR 				--> TERM_LOGIC (OPERATOR_LOGIC TERM_LOGIC)*
-    TERM_LOGIC 			--> TERM_PLUSMINUS (OPERATOR_PLUSMINUS TERM_PLUSMINUS)*
-    TERM_PLUSMINUS 		--> TERM_MULDIV (OPERATOR_MULDIV TERM_MULDIV)*
+	EXPR 				--> TERM_LOGIC (OPERATOR_LOGIC TERM_LOGIC)*
+	TERM_LOGIC 			--> TERM_PLUSMINUS (OPERATOR_PLUSMINUS TERM_PLUSMINUS)*
+	TERM_PLUSMINUS 		--> TERM_MULDIV (OPERATOR_MULDIV TERM_MULDIV)*
     TERM_MULDIV 		--> FUNCTION | ID | UNARY_OP
     OPERATOR_LOGIC 		--> 'AND' | 'OR' | 'LIKE' | '=' | '<' | '>', '!='
     OPERATOR_PLUSMINUS 	--> '+' | '-'

@@ -22,7 +22,7 @@ class Scope
 
             return $scope[$name];
         }
-        throw new Exception("Var " . $name . ' not found in scope.');
+        throw new \Exception("Var " . $name . ' not found in scope.');
     }
 
     public function setVar($name, $value)

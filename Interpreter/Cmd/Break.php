@@ -1,6 +1,7 @@
 <?php
 namespace PBasic\Interpreter\Cmd;
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 class BBreak extends AbstractStatement
 {
@@ -31,7 +32,7 @@ class BBreak extends AbstractStatement
             return $p->parent->next($basic); // exit this loop
         }
 
-        throw new Exception ("Can only break loops.");
+        throw new \Exception ("Can only break loops.");
 
     }
 }

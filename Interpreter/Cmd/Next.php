@@ -2,9 +2,10 @@
 namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
-// while <expr> <list of statements>* wend
+// for <expr> <list of statements>* next [running var]
 class Next extends AbstractStatement
 {
     private $var = null;
@@ -16,8 +17,10 @@ class Next extends AbstractStatement
 
     public function parse(Parser $parser, $basic)
     {
+
         $lexer = $parser->getLexer();
         $possibleVar = $lexer->next();
+
         if ($possibleVar->type === Token::IDENTIFIER) {
             $this->var = $possibleVar->value;
             //$this->matchEol($lexer);

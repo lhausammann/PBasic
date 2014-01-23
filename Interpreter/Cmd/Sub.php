@@ -1,6 +1,7 @@
 <?php
 namespace PBasic\Interpreter\Cmd;
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
 class Sub extends AbstractBlockStatement
@@ -83,7 +84,7 @@ class Sub extends AbstractBlockStatement
     private function checkForbidden($statement)
     {
         if ($statement->getName() === "SUB") {
-            throw new Exception("No nested SUBs allowed." . $statement->errorInfo());
+            throw new \Exception("No nested SUBs allowed." . $statement->errorInfo());
         }
     }
 
@@ -112,7 +113,7 @@ class Sub extends AbstractBlockStatement
                 $stat = $stat->next($basic);
                 if (get_class($stat) == 'Endsub') {
 
-                    throw new Exception('No return statement found in sub: '. $this->errorInfo());
+                    throw new \Exception('No return statement found in sub: '. $this->errorInfo());
                 }
             }
 
@@ -123,7 +124,7 @@ class Sub extends AbstractBlockStatement
             return $ret;
 
         } else {
-            throw new Exception("Parameters not matching." . $this->errorInfo());
+            throw new \Exception("Parameters not matching." . $this->errorInfo());
         }
     }
 
@@ -156,7 +157,7 @@ class Sub extends AbstractBlockStatement
             } elseif ($next->type == Token::RBRACK) {
                 return;
             } else {
-                throw new Exception($this->errorInfo(). ' Expected was Identifier or ), but found: ' . $token->value);
+                throw new \Exception($this->errorInfo(). ' Expected was Identifier or ), but found: ' . $token->value);
             }
         }
 
@@ -173,6 +174,7 @@ class Sub extends AbstractBlockStatement
         $return = parent::next($basic);
         if ($this->isEnd($basic)) {
             $this->terminateFn($basic);
+            return null;
             if ($this->parent)
                 return $this->parent->next($basic);
             return null;

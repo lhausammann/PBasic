@@ -3,9 +3,9 @@ namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Parser;
 use PBasic\Interpreter\Expression\Token;
+use Exception;
 
-abstract class AbstractStatement
-{
+abstract class AbstractStatement {
     protected $parent = null;
     protected $statementName;
     protected $lineNr;
@@ -20,8 +20,9 @@ abstract class AbstractStatement
 
     abstract public function execute($basic);
 
-    public function __construct($name, $instrNr, $lineNr, $blockNr)
-    {
+
+
+    public function __construct($name, $instrNr, $lineNr, $blockNr) {
         //$this->instrNr = $instrNr;
         $this->lineNr = $lineNr;
         $this->statementName = $name;
@@ -30,41 +31,34 @@ abstract class AbstractStatement
 
     }
 
-    public function isExecutable()
-    {
+    public function isExecutable() {
         return $this->isExecutable;
     }
 
-    public function setParent($stat)
-    {
+    public function setParent($stat) {
         $this->parent = $stat;
     }
 
-    public function getName()
-    {
+    public function getName() {
         return $this->statementName;
     }
 
-    public function errorInfo()
-    {
+    public function errorInfo() {
         return 'Error found in Statement: ' . $this->statementName . ' on line: ' . $this->lineNr;
     }
 
-    public function update($statement)
-    {
+    public function update($statement) {
     }
 
-    public function statementParsed($stat)
-    {
+    public function statementParsed($stat) {
+
     }
 
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getName() . ' ' . $this->lineNr . '<br />';
     }
 
-    public function match($chars, $lexer, $caseSensitive = false)
-    {
+    public function match($chars, $lexer, $caseSensitive = false) {
         $val = $lexer->next()->value;
         if (! $caseSensitive) {
             $chars = strtoupper($chars);
@@ -72,14 +66,14 @@ abstract class AbstractStatement
         }
         $match = $chars === $val;
         if (! $match) {
-            throw new Exception("Expected: " . $char . " but found: " . $val . $this->errorInfo());
+
+            throw new Exception("Expected: " . $chars . " but found: " . $val . $this->errorInfo());
         }
 
         return $match;
     }
 
-    public function matchIdentifier($lexer)
-    {
+    public function matchIdentifier($lexer) {
         $token = $lexer->next();
         if ($token->type != Token::IDENTIFIER) {
             throw new Exception("Expected: IDENTIFIER" . " but found: " . $token . $this->errorInfo());
@@ -88,39 +82,33 @@ abstract class AbstractStatement
         return $token;
     }
 
-    public function tryMatchIdentifier($lexer)
-    {
+    public function tryMatchIdentifier($lexer) {
         $token = $lexer->next();
         if ($token->type == Token::IDENTIFIER) {
             $lexer->setNext($token);
-
             return true;
         } else {
             $lexer->setNext($token); // put token back
-
             return false;
         }
     }
 
-    public function assertClass($className, AbstractStatement $stat)
-    {
+    public function assertClass($className, AbstractStatement $stat) {
         if ($className === $stat->getName()) {
             return;
         }
         throw new Exception("Found statement " . $stat->getName() . ' but expected ' . $className . $this->errorInfo());
     }
 
-    public function matchEnd($lexer)
-    {
+    public function matchEnd($lexer) {
+
         $token = $lexer->next();
 
         if (! $token) { // already reached end
-
             return;
         }
 
         if ($token->value === "'") { // starting comment = END
-
             return;
         }
 
@@ -131,13 +119,12 @@ abstract class AbstractStatement
         throw new Exception("Expected: Token::END but found: " . $token . $this->errorInfo());
     }
 
-    public function isEol($token)
-    {
+    public function isEol($token) {
+
         return $token->type === Token::DOUBLE_POINT;
     }
 
-    public function matchEol($lexer)
-    {
+    public function matchEol($lexer) {
         $token = $lexer->next();
 
         if ($token->type === Token::DOUBLE_POINT) {
@@ -146,8 +133,7 @@ abstract class AbstractStatement
         throw new Exception("Expected was end of line, but fount was: " . $token);
     }
 
-    public function matchNumber($lexer)
-    {
+    public function matchNumber($lexer) {
         $token = $lexer->next();
         if ($token->type != Token::NUMBER) {
             throw new Exception("Expected: Token::Number" . " but found: " . $token . $this->errorInfo());
@@ -156,17 +142,14 @@ abstract class AbstractStatement
         return $token;
     }
 
-    public function setAsCurrent($basic, $stat = null)
-    {
+    public function setAsCurrent($basic, $stat = null) {
         if (!$stat) {
             $stat = $this;
         }
-
         return $this->parent->setAsCurrent($basic, $stat);
     }
 
-    public function next($basic)
-    {
+    public function next($basic) {
         if ($this->parent) {
             $next = $this->parent->next($basic);
 
@@ -176,12 +159,10 @@ abstract class AbstractStatement
         return null;
     }
 
-    public function findByInstrNr($nr)
-    {
+    public function findByInstrNr($nr) {
         if ($this->nr == $nr) {
             return $this;
         }
-
         return false;
     }
 }

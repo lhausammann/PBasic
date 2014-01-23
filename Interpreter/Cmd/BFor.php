@@ -3,22 +3,20 @@ namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Cmd\AbstractStatement;
 use PBasic\Interpreter\Parser;
+use PBasic\Interpreter\Expression\Token;
 
 class BFor extends AbstractBlockStatement
-{
-    private $exprTreeInit = null;
+{private $exprTreeInit = null;
     private $exprTreeTo = null;
     private $exprTreeStep = null;
     private $block = null;
     private $name = null;
 
-    public function isLoop()
-    {
+    public function isLoop() {
         return true;
     }
 
-    public function parse(Parser $parser, $basic)
-    {
+    public function parse(Parser $parser, $basic) {
         $lexer = $parser->getLexer();
         $this->name = $this->matchIdentifier($lexer)->value;
         $this->match ('=',$lexer);
@@ -42,8 +40,7 @@ class BFor extends AbstractBlockStatement
         $this->matchEol($lexer);
     }
 
-    public function endBlock($next)
-    {
+    public function endBlock($next) {
         $this->assertClass("NEXT", $next);
         $next->setParent($this);
         // check running var
@@ -54,13 +51,12 @@ class BFor extends AbstractBlockStatement
         }
     }
 
-    public function execute($basic)
-    {
+    public function execute($basic) {
         throw new Exception("should not reach here");
     }
 
-    public function next($basic)
-    {
+    public function next($basic) {
+
         // from, to, step can be changed inside the for loop.
         // evaluate them each time.
         $from = ($basic->evaluateExpression($this->exprTreeInit));
@@ -87,15 +83,16 @@ class BFor extends AbstractBlockStatement
             $i += $step;
             if ($this->isInRange($i, $to, $step, $from)) {
                 $basic->setVar($this->name, $i);
-
                 return parent::next($basic);
             } else {
 
                 $this->terminate($basic);
                 //return $this->parent;
+
                 return $this->parent->next($basic);
             }
         }
+
 
         return parent::next($basic);
         $stat = $this->statements[$this->current];
@@ -105,12 +102,11 @@ class BFor extends AbstractBlockStatement
         return $stat;
     }
 
-    private function isInRange($i, $to, $step, $from)
-    {
+    private function isInRange($i, $to, $step, $from) {
         if ((($to - $from) < 0) && ($step < 0)) {
             return $i >= $to;
         }
-
         return $i <= $to;
     }
 }
+

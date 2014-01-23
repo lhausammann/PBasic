@@ -9,7 +9,8 @@ IF is_numeric(a) THEN
 	GOTO 10
 ENDIF
 
-PRINT "Hallo ", a
+
+PRINT "Hallo", a
 COLOR 5,5
 PRINT "1"
 ret = test()

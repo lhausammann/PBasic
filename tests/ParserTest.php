@@ -79,10 +79,10 @@ $tests = array(
     array ('expr'	=> '(1 + 2)*3*((-4))',		'expected' => -36),
     array ('expr'	=> '-2* -2',				'expected' => 4 ),
     // Fails
-    array ('expr'	=> '(1 + 2)*3*((4))))))',	'expected' => 'Exception'),
-    array ('expr' 	=> ' (7*3',					'expected' => 'Exception'),
+    array ('expr'	=> '(1 + 2)*3*((4))))))',	'expected' => '\Exception'),
+    array ('expr' 	=> ' (7*3',					'expected' => '\Exception'),
     // logical operators:
-    array ('expr' 	=> ' AND 4',				'expected' => 'Exception'),
+    array ('expr' 	=> ' AND 4',				'expected' => '\Exception'),
     array ('expr' 	=> '1+1=3',					'expected' => false),
     array ('expr' 	=> ' (7*3=21) AND (2*2!=5)','expected' => true),
     array ('expr' 	=> ' (7*3=21) AND (3+3=6)',	'expected' => true),
@@ -102,11 +102,11 @@ foreach ($tests as $test) {
             debug ($test['expected']);
             debug($result);
         }
-    } catch (Exception $e) {
-        if ($test['expected']=='Exception') {
-            echo '<p><font color="green"><strong>Passed expected Exception:</strong> ' . $test['expr'] . '=' . 'Exception' . '</font></p>';
+    } catch (\Exception $e) {
+        if ($test['expected']=='\Exception') {
+            echo '<p><font color="green"><strong>Passed expected \Exception:</strong> ' . $test['expr'] . '=' . '\\Exception' . '</font></p>';
         } else {
-            echo '<p><font color=red><strong>Failed:</strong> ' . $test['expr'] . '=' . "Exception" . '</font> Expected was: '.$test['expected'].'</p>';
+            echo '<p><font color=red><strong>Failed:</strong> ' . $test['expr'] . '=' . "\Exception" . '</font> Expected was: '.$test['expected'].'</p>';
             debug ($e);
         }
     }

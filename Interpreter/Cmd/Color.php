@@ -3,6 +3,7 @@
 namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
 class Color extends AbstractStatement

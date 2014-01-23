@@ -28,7 +28,7 @@ class AstNode extends AstLeave
     public function getSingleChild()
     {
         if (count($this->children) > 1) {
-            throw new Exception('Assuming single child, but there are more: ' . $this);
+            throw new \Exception('Assuming single child, but there are more: ' . $this);
         }
 
         return $this->children[0];

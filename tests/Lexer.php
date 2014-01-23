@@ -116,7 +116,7 @@ class Lexer
             return null;
         }
 
-        throw new Exception('Could not tokenize input: ' . $this->input . 'Trying to parse: ' . $this->lookahead);
+        throw new \Exception('Could not tokenize input: ' . $this->input . 'Trying to parse: ' . $this->lookahead);
     }
 
     protected function parseNumber()
@@ -129,7 +129,7 @@ class Lexer
                 $float = true;
             } elseif ($this->lookahead === '.') {
                 // e.g. 3.1.4
-                throw new Exception ('not well formed number: ' . $ret . $this->lookahead);
+                throw new \Exception ('not well formed number: ' . $ret . $this->lookahead);
             }
             $ret.= $this->lookahead;
             $this->consume();
@@ -170,7 +170,7 @@ class Lexer
     protected function parseIdentifier()
     {
         if (! $this->isAlpha($this->lookahead)) {
-            throw new Exception('Parse error: Expected alpha but found: ' . $this->lookahead);
+            throw new \Exception('Parse error: Expected alpha but found: ' . $this->lookahead);
         }
         $buffer = '';
 
@@ -194,7 +194,7 @@ class Lexer
     {
         $startEnd = '"';
         if ($this->lookahead !='"') {
-            throw new Exception("Parse error: Expected ' but found: " . $this->lookahead);
+            throw new \Exception("Parse error: Expected ' but found: " . $this->lookahead);
         }
         $this->consume();
         $buffer = '';
@@ -206,7 +206,7 @@ class Lexer
             $this->consume();
         }
         if ($this->isEnd) {
-            throw new Exception('Unexpeced end of file during tokenizing string.');
+            throw new \Exception('Unexpeced end of file during tokenizing string.');
         }
         $this->consume();
 

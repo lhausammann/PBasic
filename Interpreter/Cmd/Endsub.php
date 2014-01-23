@@ -2,20 +2,17 @@
 namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
-
-namespace PBasic\Interpreter\Cmd;
 
 class Endsub extends AbstractStatement
 {
-    public function execute($basic)
+    public function parse(Parser $parser, $basic)
     {
-        // do nothing
-        //TODO: clean up scope should moved here.
+        // nothing to do
     }
 
-    public function parse(Parser $lexer, $basic)
+    public function execute($basic)
     {
-        // nothing to parse but ENDSUB.
     }
 }

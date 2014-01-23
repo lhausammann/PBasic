@@ -8,7 +8,7 @@ LET rnd = 5
 FOR j = 1 TO x
 	LET rand = RND(0,12)
 	star = tab(rand, "*")
-	' PRINT rand
+	PRINT rand
 	COLOR rand, 0
 	PRINT star
 	

@@ -2,6 +2,7 @@
 
 namespace PBasic\Interpreter\Cmd;
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
 class BIf extends AbstractBlockStatement
@@ -59,7 +60,7 @@ class BIf extends AbstractBlockStatement
 
     public function execute($basic)
     {
-        throw new Exception("Executing block should not happen");
+        throw new \Exception("Executing block should not happen");
 
         return;
         if ($basic->evaluateExpression($this->exprTree)) {

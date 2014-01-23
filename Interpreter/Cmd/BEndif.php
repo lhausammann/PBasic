@@ -3,6 +3,7 @@ namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Parser;
 use PBasic\Interpreter\Cmd\AbstractStatement;
+use PBasic\Interpreter\Expression\Token;
 
 class BEndif extends AbstractStatement
 {

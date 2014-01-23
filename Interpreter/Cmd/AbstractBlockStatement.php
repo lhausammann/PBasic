@@ -2,48 +2,47 @@
 namespace PBasic\Interpreter\Cmd;
 use PBasic\Interpreter\Cmd\AbstractStatement;
 
-abstract class AbstractBlockStatement extends AbstractStatement
-{
+abstract class AbstractBlockStatement extends AbstractStatement {
+
     protected $isLoop = false;
     protected $statements;
     protected $current = 0;
 
-    public function isLoop()
-    {
+    public function isLoop() {
         return $this->isLoop;
     }
 
-    public function getChildren()
-    {
+
+    public function getChildren() {
         return $this->statements;
     }
 
-    public function canContinue($basic)
-    {
+    public function canContinue($basic)  {
         return $basic->canContinue()
             && count($this->statements) > $this->current;
     }
 
-    public function addChild($statement)
-    {
+
+    public function addChild($statement) {
         $statement->setParent($this);
         $this->statements[] = $statement;
     }
 
-    public function startBlock($basic)
-    {
+
+
+    public function startBlock($basic) {
         // set the instrction pointer to current scope
         $this->setInstructionPointer(0, $basic);
         $this->current = 0;
     }
 
-    public function next($basic)
-    {
+    public function next($basic) {
         $this->current = $this->getInstructionPointer($basic);
         if ($this->isLoop && (count($this->statements)) <= $this->current) {
             $this->current = 0; // reset counter
             $this->setInstructionPointer(0, $basic);
         }
+
 
         if ($this->current === null) {
             $this->startBlock($basic);
@@ -73,13 +72,11 @@ abstract class AbstractBlockStatement extends AbstractStatement
         }
     }
 
-    public function endBlock($stat)
-    {
+    public function endBlock($stat) {
         // hook here to take action after parsing ends of block.
     }
 
-    public function setAsCurrent($basic, $stat = null)
-    {
+    public function setAsCurrent($basic, $stat = null) {
         $found = false;
         foreach ($this->statements as $i => $statement) {
             if ($stat == $statement) {
@@ -97,14 +94,12 @@ abstract class AbstractBlockStatement extends AbstractStatement
         return $stat;
     }
 
-    public function terminate($basic)
-    {
+    public function terminate($basic) {
         $this->current = 0;
         $this->setInstructionPointer(0, $basic);
     }
 
-    public function terminateAll($basic)
-    {
+    public function terminateAll($basic) {
         $this->terminate($basic); // terminate current block
         $p = $this->parent;
         while (null != $p) {
@@ -113,8 +108,7 @@ abstract class AbstractBlockStatement extends AbstractStatement
         }
     }
 
-    public function findByInstrNr($nr, $basic = null)
-    {
+    public function findByInstrNr($nr, $basic = null) {
         if (!$this->statements) {
             return false;
         }
@@ -122,7 +116,6 @@ abstract class AbstractBlockStatement extends AbstractStatement
         foreach ($this->statements as $i => $stat) {
             if ($s = $stat->findByInstrNr($nr)) {
                 $this->current = $i + 1; // set counter to next statement
-
                 return $s;
             }
         }
@@ -130,8 +123,7 @@ abstract class AbstractBlockStatement extends AbstractStatement
         return false;
     }
 
-    protected function getInstructionPointer($basic)
-    {
+    protected function getInstructionPointer($basic) {
         $var = $this->nr . '_iPtr';
 
         $scope = $basic->getScope();
@@ -143,14 +135,14 @@ abstract class AbstractBlockStatement extends AbstractStatement
         return null; // no instruction pointer left means scope does not exist anymore.
     }
 
-    protected function setInstructionPointer($i, $basic)
-    {
+    protected function setInstructionPointer($i, $basic) {
         $var = $this->nr . '_iPtr';
         if (! is_object($basic)) {
             throw new Exception ("Basic not given, but: " . $basic);
         }
         $scope = $basic->getScope();
         $scope->setVar($var, $i);
+
 
         //throw new Exception('Could not found instrcuction pointer in Scope');
 

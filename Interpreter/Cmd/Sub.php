@@ -176,9 +176,10 @@ class Sub extends AbstractBlockStatement  {
     }
 
     public function next($basic) {
+        /**
         if (! $basic->getScope()->has('__started')) {
             return $this->parent->next($basic);
-        }
+        }*/
         $return = parent::next($basic);
         if ($this->isEnd($basic)) {
             $this->terminateFn($basic);

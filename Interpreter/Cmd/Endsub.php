@@ -14,5 +14,7 @@ class Endsub extends AbstractStatement
 
     public function execute($basic)
     {
+        exit;
+        $this->parent->forceEnd($basic); //
     }
 }

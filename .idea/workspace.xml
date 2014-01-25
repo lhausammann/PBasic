@@ -20,91 +20,91 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Basic.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Basic.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="357" column="40" selection-start="9239" selection-end="9239" vertical-scroll-proportion="-7.372549">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Lexer.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Lexer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="14" selection-start="92" selection-end="92" vertical-scroll-proportion="-2.6153846">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PrintTest.bas" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PrintTest.bas">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Input.bas" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Input.bas">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="9" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExpressionVisitor.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Expression/ExpressionVisitor.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="0" selection-start="3828" selection-end="3828" vertical-scroll-proportion="-13.076923">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExpressionParser.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Expression/ExpressionParser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="262" column="0" selection-start="8894" selection-end="8894" vertical-scroll-proportion="-11.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scope.bas" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Scope.bas">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sternenhimmel.bas" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Sternenhimmel.bas">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="6" selection-start="392" selection-end="392" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Sub.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Sub.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="20" selection-start="1454" selection-end="1454" vertical-scroll-proportion="0.33280507">
+            <state line="179" column="47" selection-start="5453" selection-end="5453" vertical-scroll-proportion="0.6770833">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasicParser.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/BasicParser.php">
+      <file leaf-file-name="BReturn.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BReturn.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="272" column="39" selection-start="7534" selection-end="7534" vertical-scroll-proportion="-11.862745">
+            <state line="48" column="0" selection-start="1250" selection-end="1250" vertical-scroll-proportion="-23.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractBlockStatement.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractBlockStatement.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="24" selection-start="865" selection-end="869" vertical-scroll-proportion="-4.0392156">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Endsub.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Endsub.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="13" selection-start="344" selection-end="344" vertical-scroll-proportion="-10.461538">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractStatement.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractStatement.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="151" column="0" selection-start="3840" selection-end="4017" vertical-scroll-proportion="-4.490196">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Break.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Break.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="89" selection-start="884" selection-end="884" vertical-scroll-proportion="-19.692308">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BGoto.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BGoto.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="0" selection-start="907" selection-end="907" vertical-scroll-proportion="-24.26923">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Scope.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Scope/Scope.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="45" selection-start="707" selection-end="707" vertical-scroll-proportion="-24.26923">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GlobalScope.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Scope/GlobalScope.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NestedScope.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interpreter/Scope/NestedScope.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="0" selection-start="232" selection-end="232" vertical-scroll-proportion="-9.153846">
               <folding />
             </state>
           </provider>
@@ -123,31 +123,31 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/AbstractStatement.php" />
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/End.php" />
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/Wend.php" />
-        <option value="$PROJECT_DIR$/src/PRINT.bas" />
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/Label.php" />
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/Color.php" />
-        <option value="$PROJECT_DIR$/Interpreter/BasicParser.php" />
-        <option value="$PROJECT_DIR$/_autoload.php" />
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/Endsub.php" />
-        <option value="$PROJECT_DIR$/src/Sternenhimmel.bas" />
-        <option value="$PROJECT_DIR$/Interpreter/Lexer.php" />
-        <option value="$PROJECT_DIR$/src/PrintTest.bas" />
-        <option value="$PROJECT_DIR$/src/Input.bas" />
         <option value="$PROJECT_DIR$/Interpreter/Expression/ExpressionVisitor.php" />
+        <option value="$PROJECT_DIR$/Interpreter/Lexer.php" />
+        <option value="$PROJECT_DIR$/src/Sternenhimmel.bas" />
+        <option value="$PROJECT_DIR$/Interpreter/Cmd/Comment.php" />
+        <option value="$PROJECT_DIR$/src/PRINT.bas" />
+        <option value="$PROJECT_DIR$/Interpreter/BasicParser.php" />
         <option value="$PROJECT_DIR$/Interpreter/Basic.php" />
+        <option value="$PROJECT_DIR$/Interpreter/Cmd/Scopedump.php" />
+        <option value="$PROJECT_DIR$/src/builtIn.bas" />
+        <option value="$PROJECT_DIR$/Interpreter/Scope/Scope.php" />
+        <option value="$PROJECT_DIR$/src/Recursion.bas" />
+        <option value="$PROJECT_DIR$/Interpreter/Cmd/Break.php" />
+        <option value="$PROJECT_DIR$/Interpreter/Scope/NestedScope.php" />
+        <option value="$PROJECT_DIR$/Interpreter/Cmd/Endsub.php" />
+        <option value="$PROJECT_DIR$/Interpreter/Cmd/AbstractBlockStatement.php" />
         <option value="$PROJECT_DIR$/Interpreter/Cmd/Sub.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-172" />
-    <option name="y" value="-1088" />
-    <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -236,6 +236,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Scope" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PBasic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PBasic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Interpreter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Cmd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -246,7 +264,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="W:/cineman.ch" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -308,18 +326,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-172" y="-1088" width="1936" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24465811" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2444134" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21985058" sideWeight="0.7553419" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22586873" sideWeight="0.6703911" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -381,118 +399,118 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_autoload.php">
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Scopedump.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="27" selection-start="584" selection-end="584" vertical-scroll-proportion="-11.115385">
+        <state line="10" column="0" selection-start="243" selection-end="243" vertical-scroll-proportion="-6.5384617">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractStatement.php">
+    <entry file="file://$PROJECT_DIR$/src/builtIn.bas">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="59" selection-start="401" selection-end="448" vertical-scroll-proportion="-6.0">
+        <state line="15" column="13" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Let.php">
+    <entry file="file://$PROJECT_DIR$/src/Recursion.bas">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="5" selection-start="284" selection-end="567" vertical-scroll-proportion="-11.846154">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/End.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="534" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Endsub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="5" selection-start="336" selection-end="336" vertical-scroll-proportion="-10.461538">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PRINT.bas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Scope.bas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Lexer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="14" selection-start="92" selection-end="92" vertical-scroll-proportion="-2.6153846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PrintTest.bas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Input.bas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="9" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Expression/ExpressionParser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="262" column="0" selection-start="8894" selection-end="8894" vertical-scroll-proportion="-11.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Expression/ExpressionVisitor.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="0" selection-start="3828" selection-end="3828" vertical-scroll-proportion="-13.076923">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/BasicParser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="272" column="39" selection-start="7534" selection-end="7534" vertical-scroll-proportion="-11.862745">
+        <state line="8" column="9" selection-start="113" selection-end="116" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Interpreter/Basic.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="357" column="40" selection-start="9239" selection-end="9239" vertical-scroll-proportion="-7.372549">
+        <state line="291" column="28" selection-start="7680" selection-end="7688" vertical-scroll-proportion="-4.1764708">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Sternenhimmel.bas">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="6" selection-start="392" selection-end="392" vertical-scroll-proportion="0.0">
+        <state line="20" column="0" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Call.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="0" selection-start="2045" selection-end="2045" vertical-scroll-proportion="-19.692308">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Break.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="89" selection-start="884" selection-end="884" vertical-scroll-proportion="-19.692308">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BGoto.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="0" selection-start="907" selection-end="907" vertical-scroll-proportion="-24.26923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Scope/GlobalScope.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Scope/Scope.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="45" selection-start="707" selection-end="707" vertical-scroll-proportion="-24.26923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractStatement.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="151" column="0" selection-start="3840" selection-end="4017" vertical-scroll-proportion="-4.490196">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Scope/NestedScope.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="232" selection-end="232" vertical-scroll-proportion="-9.153846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BReturn.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="0" selection-start="1250" selection-end="1250" vertical-scroll-proportion="-23.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Endsub.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="13" selection-start="344" selection-end="344" vertical-scroll-proportion="-10.461538">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractBlockStatement.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="24" selection-start="865" selection-end="869" vertical-scroll-proportion="-4.0392156">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Sub.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="20" selection-start="1454" selection-end="1454" vertical-scroll-proportion="0.33280507">
+        <state line="179" column="47" selection-start="5453" selection-end="5453" vertical-scroll-proportion="0.6770833">
           <folding />
         </state>
       </provider>

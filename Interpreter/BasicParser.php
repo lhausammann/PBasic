@@ -6,9 +6,7 @@ use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Lexer;
 
 
-
-use PBasic\Interpreter\Cmd\AbstractBlockStatement;
-use PBasic\Interpreter\Cmd\Block;
+/** Those commands are used by new $cmd */
 
 use PBasic\Interpreter\Cmd\Let;
 use PBasic\Interpreter\Cmd\Wend;
@@ -25,13 +23,10 @@ use PBasic\Interpreter\Cmd\BIf;
 use PBasic\Interpreter\Cmd\BElse;
 use PBasic\Interpreter\Cmd\BEndif;
 use PBasic\Interpreter\Cmd\BGoto;
-
 /** FIXME */
 require_once __DIR__ . '/Cmd/End.php';
-// require_once __DIR__ . '/Cmd/Color.php';
 
 use PBasic\Interpreter\Cmd\Label;
-
 use PBasic\Interpreter\Cmd;
 
 class BasicParser implements Parser {
@@ -179,6 +174,9 @@ class BasicParser implements Parser {
         while($next->type == Token::DOUBLE_POINT) {
             $next = $this->next();
         }
+        while($this->isComment($next->value)) {
+            $next = $this->next();
+        }
 
         if ($next->value=="'") {
             // skip comment
@@ -206,30 +204,22 @@ class BasicParser implements Parser {
 
     private function parseLine($line) {
         $stat = $this->lexer->next();
-
+exit;
         //$stat = $cmdToken->value;
         if ($line) {
-            $statement = $this->createStatement($stat);
-            return $statement;
-        }
-    }
-
-    private function isComment($line) {
-        foreach ($this->comments as $commentSign) {
-            // TODO: Fix this
-            if (stripos ($line, $commentSign ) !== false) {
-                return true;
+            if (! $this->isComment($line)) {
+                $statement = $this->createStatement($stat);
+                return $statement;
             }
         }
-        return false;
     }
 
+
+
     private function createStatement($statement) {
+
         $ns = "PBasic\\Interpreter\\Cmd\\";
         $statementName = $statement->value;
-        if ($statementName == ':' ) {
-            return null;
-        }
 
         // 10 PRINT "Hi"
         // ^----- Lexer
@@ -275,6 +265,20 @@ class BasicParser implements Parser {
         }
 
         return $className;
+    }
+
+    private function isComment($value) {
+        foreach ($this->comments as $sign) {
+            if (stripos($sign, $value) !== false) {
+                while($next = $this->lexer->next()) {
+                    if ($next->value == ':') {
+                        break;
+                    }
+                }
+               return true;
+            }
+        }
+        return false;
     }
 }
 

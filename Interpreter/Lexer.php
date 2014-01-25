@@ -131,8 +131,6 @@ class Lexer {
         return $ret;
     }
 
-
-
     protected function consume() {
         if (strlen($this->input) > $this->current + 1) {
             $this->lookahead = $this->input{++$this->current};

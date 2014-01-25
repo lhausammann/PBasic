@@ -1,5 +1,5 @@
 PRINT "START"
-? "Starting with ?" 
+print "Starting with ?"
 LET x = SIMPLE(3)
 PRINT SIMPLE(4)
 PRINT SIMPLE(5)
@@ -16,24 +16,14 @@ CALL COUNT(10)
  
 i = 0
 PRINT i
-' skip tests
-
-
-
-
-
-
 
 SCOPEDUMP
-INPUT "Fakult‰t von?", n
+INPUT "Fakult√§t von?", n
 CALL FAC(n) = fac
-PRINT "Fakult‰t von ",n, " ist" , fac
-
-' END is required because SUBs will get executed immediatly otherwise.
+PRINT "Fakult√§t von ",n, " ist" , fac
 
 END
 
-' No input allowed
 SUB FAC(n)
 	IF n <= 1 THEN
 		RETURN 1
@@ -42,10 +32,10 @@ SUB FAC(n)
 	RETURN fac * n
 ENDSUB 
 
-' Input allowed by using CALL() =
 SUB FACCALL(n)
 	PRINT "intterrupt", n
 	INPUT x
+	PRINT "x war: ", x
 	LET fac = 0
 	IF n<=1 THEN
 		RETURN 1

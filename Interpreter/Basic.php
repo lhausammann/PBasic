@@ -319,7 +319,11 @@ class Basic {
             $fn = $mappings[$fn];
         }
 
-        return call_user_func_array(__NAMESPACE__ . '\\' .  $fn, $args);
+        if (function_exists(__NAMESPACE__ . '\\' .  $fn)) {
+            return call_user_func_array(__NAMESPACE__ . '\\' .  $fn, $args);
+        } else if (function_exists($fn)) {
+            return call_user_func_array($fn, $args);
+        }
     }
 
     public function mod($a, $b) {
@@ -363,4 +367,8 @@ function rnd($max = null, $min = null) {
     }
 
     return rand(0,1000) / 1000;
+}
+
+function sgn($nr) {
+    return $nr >= 0;
 }

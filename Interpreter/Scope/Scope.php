@@ -22,6 +22,7 @@ class Scope
 
             return $scope[$name];
         }
+
         throw new \Exception("Var " . $name . ' not found in scope.');
     }
 
@@ -35,7 +36,7 @@ class Scope
     {
         $scope = $this->current()->scope;
 
-        return isset($scope[$name]);
+        return array_key_exists($name, $scope);
     }
 
     public function resolve($name)

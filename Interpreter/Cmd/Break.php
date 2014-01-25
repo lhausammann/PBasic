@@ -29,7 +29,7 @@ class BBreak extends AbstractStatement
 
         $this->parent->terminate($basic); // clean up parent block and
         if ($p->parent) {
-            return $p->parent->next($basic); // exit this loop
+            return $p->parent->next($basic); // return the next statement after the loop.
         }
 
         throw new \Exception ("Can only break loops.");

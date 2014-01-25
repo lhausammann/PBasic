@@ -12,6 +12,10 @@ class NestedScope extends Scope
         $this->scopes[] = new Scope();
     }
 
+    public function depth() {
+        return count($this->scopes);
+    }
+
     public function current()
     {
         return $this->scopes[count($this->scopes) - 1];

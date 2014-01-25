@@ -85,7 +85,7 @@ abstract class AbstractBlockStatement extends AbstractStatement {
             }
         }
         if (! $found) {
-            throw new Exception("Could not find statement " . $stat->getName() . ' ' . $stat->errorInfo());
+            throw new \Exception("Could not find statement " . $stat->getName() . ' ' . $stat->errorInfo());
         }
         $this->current = $i;
         $this->startBlock($basic);

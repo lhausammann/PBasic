@@ -18,23 +18,25 @@ class Block extends AbstractBlockStatement
 
     public function execute($basic)
     {
+        // a blockk does nothing on execution.
     }
 
     public function next($basic)
     {
         if ($this->canContinue($basic)) {
+
             return parent::next($basic);
+        } else {
+            // skip parent block, which will return
+            // the first statement of this block
+            // again.
+            $this->terminate($basic); // leave this block and
+
+            $this->parent->terminate($basic);
+
+            $next =  $this->parent->parent->next($basic);
+
+            return $next;
         }
-
-        // skip parent block, which will return
-        // the first statement of this block
-        // again.
-        $this->terminate($basic); // leave this block and
-
-        $this->parent->terminate($basic); // leave else block
-
-        $next =  $this->parent->parent->next($basic);
-
-        return $next;
     }
 }

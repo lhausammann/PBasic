@@ -1,4 +1,3 @@
-PRINT "parent root"
 LET normalFG = 1
 LET normalBG = 15
 LET errorFG = 4
@@ -37,6 +36,8 @@ ELSE
 	PRINT rnd
 	CALL PRINTWRONG("MEINE AUSGEDACHTE ZAHL IST KLEINER ALS ", a, errorFG, errorBG, normalFG, normalBG)
 ENDIF
+SCOPEDUMP
+GOTO 20
 GOTO 20
 
 END
@@ -71,6 +72,7 @@ SUB PRINTWRONG(msg, zahl, errorFG, errorBG, normalFG, normalBG)
 	PRINT msg, " ", zahl
 	COLOR normalFG, normalBG
 	RETURN
+	PRINT "SKIPPED"
 ENDSUB
 
 

@@ -37,12 +37,8 @@ class BReturn extends AbstractStatement
 
     public function next($basic)
     {
-        // return the next statement from the function,
-        // which will be ENDSUB.
-        // Scope is cleaned up, and all loops are terminated by this.
-
+        $this->fn->forceEnd($basic);
         $next = $this->fn->next($basic);
-
         return $next;
     }
 }

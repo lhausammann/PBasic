@@ -1,4 +1,7 @@
 <?php
+/**
+ * Simple implementation for the PSR-0 autoloader
+ */
 use \Exception;
 
 function autoload($className)

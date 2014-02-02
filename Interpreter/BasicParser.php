@@ -7,7 +7,6 @@ use PBasic\Interpreter\Lexer;
 
 
 /** Those commands are used by new $cmd */
-
 use PBasic\Interpreter\Cmd\Let;
 use PBasic\Interpreter\Cmd\Wend;
 use PBasic\Interpreter\Cmd\BWhile;

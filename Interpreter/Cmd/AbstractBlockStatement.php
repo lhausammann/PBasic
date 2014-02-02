@@ -18,8 +18,8 @@ abstract class AbstractBlockStatement extends AbstractStatement {
     }
 
     public function canContinue($basic)  {
-        return $basic->canContinue()
-            && count($this->statements) > $this->current;
+
+        return count($this->statements) > $this->current;
     }
 
 
@@ -94,6 +94,7 @@ abstract class AbstractBlockStatement extends AbstractStatement {
         return $stat;
     }
 
+
     public function terminate($basic) {
         $this->current = 0;
         $this->setInstructionPointer(0, $basic);
@@ -143,8 +144,8 @@ abstract class AbstractBlockStatement extends AbstractStatement {
         $scope = $basic->getScope();
         $scope->setVar($var, $i);
 
-
         //throw new Exception('Could not found instrcuction pointer in Scope');
 
     }
+
 }

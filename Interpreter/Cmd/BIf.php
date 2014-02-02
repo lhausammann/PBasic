@@ -60,16 +60,6 @@ class BIf extends AbstractBlockStatement
 
     public function execute($basic)
     {
-        throw new \Exception("Executing block should not happen");
-
-        return;
-        if ($basic->evaluateExpression($this->exprTree)) {
-            $basic->runBlock($this->ifBlock);
-        } else {
-            if ($this->elseBlock) {
-                $basic->runBlock($this->elseBlock);
-            }
-        }
     }
 
     public function next($basic)

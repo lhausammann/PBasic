@@ -23,12 +23,14 @@ class BBreak extends AbstractStatement
     public function next($basic)
     {
         $p = $this->parent;
+        // find the first loop block to break
         while ($p && $p->isLoop() == false) {
             $p = $p->parent;
         }
 
-        $this->parent->terminate($basic); // clean up parent block and
+        $this->parent->terminate($basic); // quit the parent block immediately (could be an IF Block)
         if ($p->parent) {
+            $p->terminate($basic); // quit the loop.
             return $p->parent->next($basic); // return the next statement after the loop.
         }
 

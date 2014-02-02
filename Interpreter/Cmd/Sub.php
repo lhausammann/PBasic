@@ -9,13 +9,12 @@ class Sub extends AbstractBlockStatement  {
     protected $isExecutable = true;
 
     private $name;
-    private $Names = array();
     private $block = array();
     private $params = array();
     private $returnVar = '';
     private $returnValue = '';
     private $isStarted = false;
-    private $endStatement = null;
+    private $paramNames = array();
 
     const INSTRUCTION_POINTER = '00_instructionPointer';
     const RETURN_ADDRESS = '__returnAddress';
@@ -107,14 +106,20 @@ class Sub extends AbstractBlockStatement  {
 
         $this->addScope($this->params, $basic);
         $basic->getScope()->setVar('__started', true);
-        $this->isStarted = true;
+        // $this->isStarted = true;
         //$basic->setVar(self::RETURN_ADDRESS, $this->parent);
         // manage the instruction pointer on the scope to handle recursion.
         //$basic->setVar('00_instructionPointer', 0);
     }
 
-    // called by Expressionparser. Input is not allowed here,
-    // because whole expression tree gets evaluated at once.
+    /**
+     * Execute the whole sub function at once.
+     * This is used by the ExpressionParser, and no input statements are allowed.
+     * @param $params
+     * @param $basic
+     * @return string
+     * @throws Exception
+     */
     public function executeSub($params, $basic) {
 
         // check, if parameters match correctly
@@ -144,7 +149,6 @@ class Sub extends AbstractBlockStatement  {
     public function execute($basic) {
         // Nothing to do in this case (function block only gets executed by its CALL block or by an expression.
         throw new Exception("Should not happen");
-        return;
     }
 
     public function setArguments($params, $basic) {
@@ -176,19 +180,23 @@ class Sub extends AbstractBlockStatement  {
     }
 
     public function next($basic) {
-        /**
+
         if (! $basic->getScope()->has('__started')) {
+
             return $this->parent->next($basic);
-        }*/
+        }
+
         $return = parent::next($basic);
         if ($this->isEnd($basic)) {
+
             $this->terminateFn($basic);
             if ($this->parent) {
 
                 return $this->parent->next($basic);
             }
-            return null;
 
+            // no statement to return in an expression
+            return null;
         }
 
         return $return;
@@ -200,7 +208,7 @@ class Sub extends AbstractBlockStatement  {
             $this->returnVar = $basic->getVar('__returnVar');
         }
 
-        // restore parent from scope and not from property (scope will be restored after processing INPUT)
+        // restore parent from scope and not from property (scope is restored after processing INPUT)
         if ($basic->getScope()->has('__returnAddress')) {
             $this->parent = $basic->getVar('__returnAddress');
         }

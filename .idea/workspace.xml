@@ -20,33 +20,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Parser.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Parser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Lexer.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Lexer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="30" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Block.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Block.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="0" selection-start="582" selection-end="582" vertical-scroll-proportion="-6.8076925">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="phpunit.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/phpunit.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -65,46 +38,73 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="4" selection-start="19" selection-end="19" vertical-scroll-proportion="0.103658535">
+            <state line="3" column="4" selection-start="19" selection-end="19" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Basic.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Basic.php">
+      <file leaf-file-name="BlockTest.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/Functional/BlockTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="23" selection-start="3483" selection-end="3483" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PRINT.bas" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PRINT.bas">
+      <file leaf-file-name="COUNT.bas" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/Functional/src/COUNT.bas">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0">
+            <state line="6" column="17" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractBlockStatement.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractBlockStatement.php">
+      <file leaf-file-name="EXPRESSION.bas" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/Functional/src/EXPRESSION.bas">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="1" selection-start="2667" selection-end="2667" vertical-scroll-proportion="0.0">
+            <state line="10" column="0" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BPrint.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BPrint.php">
+      <file leaf-file-name="NESTEDBLOCKS.bas" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/Functional/src/NESTEDBLOCKS.bas">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="13" column="28" selection-start="194" selection-end="194" vertical-scroll-proportion="-8.8">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="autoload.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Tests/bootstrap.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="18" selection-start="487" selection-end="487" vertical-scroll-proportion="0.94849783">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FNTEST.bas" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/Functional/src/FNTEST.bas">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="0" selection-start="0" selection-end="518" vertical-scroll-proportion="-14.6">
               <folding />
             </state>
           </provider>
@@ -123,11 +123,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Interpreter/Scope/Scope.php" />
-        <option value="$PROJECT_DIR$/src/Recursion.bas" />
-        <option value="$PROJECT_DIR$/Interpreter/Scope/NestedScope.php" />
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/Endsub.php" />
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/Sub.php" />
         <option value="$PROJECT_DIR$/src/Zahlenraten.bas" />
         <option value="$PROJECT_DIR$/Interpreter/BasicParser.php" />
         <option value="$PROJECT_DIR$/Interpreter/Cmd/BReturn.php" />
@@ -139,6 +134,11 @@
         <option value="$PROJECT_DIR$/Interpreter/Cmd/Block.php" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/Tests/Functional/src/COUNT.bas" />
+        <option value="$PROJECT_DIR$/Tests/Functional/src/FNTEST.bas" />
+        <option value="$PROJECT_DIR$/Tests/Functional/src/EXPRESSION.bas" />
+        <option value="$PROJECT_DIR$/Tests/Functional/src/NESTEDBLOCKS.bas" />
+        <option value="$PROJECT_DIR$/Tests/bootstrap.php" />
       </list>
     </option>
   </component>
@@ -189,6 +189,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="PBasic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PBasic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PBasic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -338,51 +352,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BFor.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="45" selection-start="2198" selection-end="2198" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BReturn.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="36" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractStatement.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="0" selection-start="3840" selection-end="4017" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BBreak.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Block.bas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/BasicParser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="0" selection-start="5150" selection-end="5150" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interpreter/Parser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Interpreter/Lexer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="30" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0">
@@ -441,7 +410,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="4" selection-start="19" selection-end="19" vertical-scroll-proportion="0.103658535">
+        <state line="3" column="4" selection-start="19" selection-end="19" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/Functional/BlockTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/Functional/src/COUNT.bas">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="17" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/Functional/src/FNTEST.bas">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="0" selection-start="0" selection-end="518" vertical-scroll-proportion="-14.6">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/Functional/src/EXPRESSION.bas">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/Functional/src/NESTEDBLOCKS.bas">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="28" selection-start="194" selection-end="194" vertical-scroll-proportion="-8.8">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="18" selection-start="487" selection-end="487" vertical-scroll-proportion="0.94849783">
           <folding />
         </state>
       </provider>

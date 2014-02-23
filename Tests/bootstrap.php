@@ -21,7 +21,6 @@ function findAutoloader()
         __DIR__.'/../vendor/autoload.php',
     );
 
-    var_dump($ps);
 
     foreach ($ps as $path) {
         if (file_exists($path)) {

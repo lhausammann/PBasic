@@ -21,7 +21,6 @@ ENDSUB
 SUB rec(n)
     IF (n > 0) THEN
         dummy = rec(n - 1)
-        PRINT n
         RETURN dummy
     ELSE
         RETURN
@@ -33,14 +32,11 @@ ENDSUB
 
 sub rec_call(n)
     IF (n > 0) then
-        print n
 
         call rec_call(n -1) = dummy
         input a
-        print n
         RETURN dummy
     ELSE
-        PRINT "end"
         RETURN
     ENDIF
 ENDSUB

@@ -1,7 +1,6 @@
 value = 5
 
 a = 7 * 5 + 3 - (2 - 2 / 2 + 1)
-print a
 
 
 success1 = (a = 36)

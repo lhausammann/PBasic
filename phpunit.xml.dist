@@ -12,4 +12,5 @@
         <testsuite name="Tests">
             <directory suffix=".php">Tests</directory>
         </testsuite>
-    </testsui
+    </testsuites>
+</phpunit>

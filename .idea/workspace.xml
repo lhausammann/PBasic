@@ -23,7 +23,7 @@
       <file leaf-file-name="BasicParser.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interpreter/BasicParser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="185" column="0" selection-start="5157" selection-end="5157" vertical-scroll-proportion="0.0">
+            <state line="185" column="0" selection-start="5150" selection-end="5150" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -47,10 +47,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Block.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Block.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Block.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="0" selection-start="623" selection-end="623" vertical-scroll-proportion="0.68815595">
+            <state line="27" column="0" selection-start="582" selection-end="582" vertical-scroll-proportion="-6.8076925">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="phpunit.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phpunit.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".travis.yml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="78" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -59,7 +77,7 @@
       <file leaf-file-name="Basic.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interpreter/Basic.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="23" selection-start="3696" selection-end="3696" vertical-scroll-proportion="0.0">
+            <state line="132" column="23" selection-start="3483" selection-end="3483" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -77,7 +95,7 @@
       <file leaf-file-name="AbstractBlockStatement.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractBlockStatement.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="1" selection-start="2686" selection-end="2686" vertical-scroll-proportion="0.0">
+            <state line="103" column="1" selection-start="2667" selection-end="2667" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -87,24 +105,6 @@
         <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BPrint.php">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BBreak.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/BBreak.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Block.bas" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Block.bas">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -123,7 +123,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Interpreter/Cmd/Scopedump.php" />
         <option value="$PROJECT_DIR$/src/builtIn.bas" />
         <option value="$PROJECT_DIR$/Interpreter/Scope/Scope.php" />
         <option value="$PROJECT_DIR$/src/Recursion.bas" />
@@ -139,15 +138,15 @@
         <option value="$PROJECT_DIR$/src/Block.bas" />
         <option value="$PROJECT_DIR$/src/PRINT.bas" />
         <option value="$PROJECT_DIR$/Interpreter/Cmd/Block.php" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-172" />
-    <option name="y" value="-1088" />
-    <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="x" value="181" />
+    <option name="width" value="1226" />
+    <option name="height" value="860" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -262,17 +261,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-172" y="-1088" width="1936" height="1096" extended-state="6" />
+    <frame x="181" y="0" width="1226" height="860" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.104055494" sideWeight="0.767094" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25429553" sideWeight="0.76714283" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23290598" sideWeight="0.5037353" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23285714" sideWeight="0.5037353" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -339,16 +338,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/SubTest.bas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="4" selection-start="246" selection-end="246" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Zahlenraten.bas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="7" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Console.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
@@ -387,7 +376,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interpreter/BasicParser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="0" selection-start="5157" selection-end="5157" vertical-scroll-proportion="0.0">
+        <state line="185" column="0" selection-start="5150" selection-end="5150" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -408,7 +397,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interpreter/Basic.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="23" selection-start="3696" selection-end="3696" vertical-scroll-proportion="0.0">
+        <state line="132" column="23" selection-start="3483" selection-end="3483" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -422,7 +411,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/AbstractBlockStatement.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="1" selection-start="2686" selection-end="2686" vertical-scroll-proportion="0.0">
+        <state line="103" column="1" selection-start="2667" selection-end="2667" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -436,7 +425,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interpreter/Cmd/Block.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="623" selection-end="623" vertical-scroll-proportion="0.68815595">
+        <state line="27" column="0" selection-start="582" selection-end="582" vertical-scroll-proportion="-6.8076925">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phpunit.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="78" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

@@ -83,7 +83,7 @@ class ExpressionVisitor {
 
     public static function visitOperatorUnaryNot($node) {
         $next = $node->getSingleChild();
-        return ! (self::visitStatic($this));
+        return ! (self::visitStatic($next));
     }
 
     public static function visitStructure($node) {

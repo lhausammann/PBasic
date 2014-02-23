@@ -25,7 +25,8 @@ class Call extends AbstractStatement
 
     public function execute($basic)
     {
-        //throw new \Exception ("This should never happen");
+        // set the return var to the current scope:
+        $basic->setVar($this->out, 0);
     }
 
     private function createParamList($parser, $basic)
@@ -69,7 +70,6 @@ class Call extends AbstractStatement
         $fn->setArguments($args, $basic);
         $fn->start($this, $basic);
         $next = $fn->next($basic);
-
         return $next;
     }
 

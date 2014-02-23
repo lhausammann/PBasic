@@ -5,8 +5,6 @@ use PBasic\Interpreter\Cmd\AbstractBlockStatement;
 class Program extends AbstractBlockStatement
 {
     private $gotoTable = array();
-    private $basic;
-    private $outputBuffer;
 
     public function parse(Parser $parser, $basic) {
         $parser->addObserver($this);

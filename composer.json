@@ -1,0 +1,19 @@
+{
+    "name": "PBasic/Interpreter",
+    "description": "Simple Basic Interpreter for PHP",
+    "keywords": ["BASIC", "Language"],
+    "license": "MIT",
+    "authors": [
+        {"name": "Luzius Hausammann"}
+    ],
+
+
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+
+
+    "autoload": {
+        "psr-4": { "PBasic\\Interpreter\\": ["vendor/", "Interpreter/"] }
+    }
+}

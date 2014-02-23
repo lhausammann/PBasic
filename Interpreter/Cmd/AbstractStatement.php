@@ -151,8 +151,8 @@ abstract class AbstractStatement {
 
     public function next($basic) {
         if ($this->parent) {
+            //$next = $this->parent->next($basic);
             $next = $this->parent->next($basic);
-
             return $next;
         }
 

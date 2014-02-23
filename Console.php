@@ -1,13 +1,14 @@
 <?php
 namespace PBasic;
 
+error_reporting(E_ALL);
+ini_set("display_errors", true);
+require('vendor/autoload.php');
+
 use PBasic\Interpreter\Basic;
 use PBasic\Interpreter\Cmd\AbstractStatement;
 use AbstractBlockStatement;
 
-error_reporting(E_ALL);
-ini_set("display_errors", true);
-require "_autoload.php";
 
 
 function fileSelect($files, $selectedIndex = 0) {

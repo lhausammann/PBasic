@@ -14,8 +14,6 @@ class Scopedump extends AbstractStatement
 
     public function execute($basic)
     {
-        echo "Break all set: " . $basic->breakAll();
-        echo "Break set: " . $basic->isBreak();
         $basic->dumpScope();
     }
 }

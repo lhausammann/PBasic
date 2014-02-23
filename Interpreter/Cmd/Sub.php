@@ -13,7 +13,6 @@ class Sub extends AbstractBlockStatement  {
     private $params = array();
     private $returnVar = '';
     private $returnValue = '';
-    private $isStarted = false;
     private $paramNames = array();
 
     const INSTRUCTION_POINTER = '00_instructionPointer';
@@ -29,6 +28,7 @@ class Sub extends AbstractBlockStatement  {
     }
 
     public function setReturnVar($var) {
+        // $this->basic->setVar('__returnVar', $var);
         $this->returnVar = $var;
     }
 
@@ -46,7 +46,7 @@ class Sub extends AbstractBlockStatement  {
     }
 
     /**
-     * The block must now the current state
+     * The block must know the current state
      * @param $basic
      * @return bool
      */
@@ -67,7 +67,7 @@ class Sub extends AbstractBlockStatement  {
 
     public function forceEnd($basic) {
         // called by RETURN
-        $this->current = count($this->statements) -1; // move to ENDSUB statement
+        $this->current = count($this->statements); // move to ENDSUB statement
         $this->setInstructionPointer($this->current, $basic);
 
     }
@@ -106,10 +106,12 @@ class Sub extends AbstractBlockStatement  {
 
         $this->addScope($this->params, $basic);
         $basic->getScope()->setVar('__started', true);
-        // $this->isStarted = true;
-        //$basic->setVar(self::RETURN_ADDRESS, $this->parent);
+
+        // this is needed for recursion with input
+        $this->isStarted = true;
+        $basic->setVar(self::RETURN_ADDRESS, $this->parent);
         // manage the instruction pointer on the scope to handle recursion.
-        //$basic->setVar('00_instructionPointer', 0);
+        $basic->setVar('00_instructionPointer', 0);
     }
 
     /**
@@ -121,11 +123,12 @@ class Sub extends AbstractBlockStatement  {
      * @throws Exception
      */
     public function executeSub($params, $basic) {
-
+        $this->startBlock($basic);
         // check, if parameters match correctly
         if (count($params) === count($this->paramNames)) {
             $this->setArguments($params, $basic);
             // execute this function
+
             $stat = $this->next($basic);
             while($stat) {
                 $stat->execute($basic);
@@ -136,7 +139,7 @@ class Sub extends AbstractBlockStatement  {
                 }
             }
 
-            $this->parent = null;
+            // $this->parent = null;
 
             $ret = $this->returnValue;
             return $ret;
@@ -182,17 +185,16 @@ class Sub extends AbstractBlockStatement  {
     public function next($basic) {
 
         if (! $basic->getScope()->has('__started')) {
-
-            return $this->parent->next($basic);
+            $this->forceEnd($basic);
+            return parent::next($basic);
         }
 
         $return = parent::next($basic);
         if ($this->isEnd($basic)) {
-
             $this->terminateFn($basic);
             if ($this->parent) {
-
-                return $this->parent->next($basic);
+                $next = $this->parent->next($basic);
+                return $next;
             }
 
             // no statement to return in an expression

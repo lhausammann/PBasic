@@ -17,7 +17,6 @@ class BReturn extends AbstractStatement
                 $this->exprTree = null;
             } else {
                 $parser->getLexer()->setNext($token);
-                //$parser->setNext($token); // put it back
                 $this->exprTree = $parser->matchExpression();
             }
         }
@@ -25,6 +24,7 @@ class BReturn extends AbstractStatement
 
     public function execute($basic)
     {
+
         $this->fn->forceEnd($basic); // jump to endsub statement
         $return = $basic->evaluateExpression($this->exprTree);
         $this->fn->setReturnValue($return, $basic);
@@ -37,8 +37,9 @@ class BReturn extends AbstractStatement
 
     public function next($basic)
     {
+
         $this->fn->forceEnd($basic);
-        $next = $this->fn->next($basic);
+        $next =  $this->fn->next($basic);
         return $next;
     }
 }

@@ -1,12 +1,4 @@
-PRINT "START"
-print "Starting with ?"
-LET x = SIMPLE(3)
-PRINT SIMPLE(4)
-PRINT SIMPLE(5)
-SCOPEDUMP
-PRINT x
 
-PRINT FAC(7)
 
 CALL FACCALL(7) = fac7
 PRINT fac7
@@ -29,7 +21,9 @@ SUB FAC(n)
 		RETURN 1
 	ENDIF
 	fac = FAC(n-1)
+
 	RETURN fac * n
+
 ENDSUB 
 
 SUB FACCALL(n)

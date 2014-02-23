@@ -1,16 +1,10 @@
 <?php
 namespace PBasic\Interpreter;
 
-use PBasic\Interpreter\Parser;
 use PBasic\Interpreter\BasicParser;
-use PBasic\Interpreter\Expression\ExpressionParser;
 use PBasic\Interpreter\Expression\ExpressionVisitor;
-
 use PBasic\Interpreter\Cmd\AbstractStatement;
-use PBasic\Interpreter\Cmd\AbstractBlockStatement;
-use PBasic\Interpreter\Scope\GlobalScope;
 use PBasic\Interpreter\Scope\NestedScope;
-use PBasic\Interpreter\Scope\Scope;
 use PBasic\Interpreter\Cmd\Sub;
 
 class Basic {
@@ -20,15 +14,11 @@ class Basic {
     private $input;
     private $lexer;
     private $currentInstr = 0;
-    private $cmds = array();
     // indicates an abort of the current loop
-    private $isLoopBreak = false;
     private $callStack = array();
     private $current = null;
-
     private $returnScope = array(); // maintain return values.
-    // indicates a jump/return which breaks all loops.
-    private $breakAll = false;
+
 
 
 
@@ -52,7 +42,6 @@ class Basic {
         $parser = new BasicParser($this->lexer, $this);
 
         if ($file) {
-            //$this->interpret("LET __parsetime = microtime(true)");
             $this->input = $input = file($file);
             $this->root = $parser->parse($input);
         }
@@ -68,7 +57,6 @@ class Basic {
 
     }
 
-
     public function addLabel($label, $instNr) {
 
         $this->gotoTable[$label] = $instNr - 1; // point to label statement
@@ -81,15 +69,7 @@ class Basic {
 
     // called by GOTO statement
     public function jump($label) {
-        $this->breakAll = true; // terminate all loops
-        // set control flow to the specified label
         $this->currentInstr = $this->gotoTable[$label];
-    }
-
-    // called by LABEL statement DEPRECATED
-    public function reachedLabel() {
-        $this->breakAll = false; // execute loops again.
-        $this->isLoopBreak = false;
     }
 
     public function addSub($name, Sub $sub) {
@@ -162,11 +142,9 @@ class Basic {
     }
 
     public function setBreak($break = true) {
-        $this->isLoopBreak = $break;
     }
 
     public function isBreak() {
-        return $this->isLoopBreak;
     }
 
     public function setBreakAll($bool = true) {
@@ -175,12 +153,6 @@ class Basic {
 
     public function breakAll() {
         return $this->breakAll;
-    }
-
-    // Indicates wether a loop (while/for statement) should continue
-    // with the execution.
-    public function canContinue() {
-        return (! $this->isLoopBreak) &&  (! $this->breakAll);
     }
 
     // runs a block of statements

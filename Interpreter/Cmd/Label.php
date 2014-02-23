@@ -27,7 +27,8 @@ class Label extends AbstractStatement
 
     public function execute($basic)
     {
-        $basic->reachedLabel();
+        // labels do nothing when detected.
+        // The program gets noticed about parser observer.
     }
 
     public function matchNumber($lexer)
@@ -45,6 +46,3 @@ class Label extends AbstractStatement
         return $this->label;
     }
 }
-
-/** alias hack */
-class _label extends Label {}

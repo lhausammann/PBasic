@@ -52,7 +52,7 @@ class BFor extends AbstractBlockStatement
     }
 
     public function execute($basic) {
-        throw new Exception("should not reach here");
+        // do nothing
     }
 
     public function next($basic) {

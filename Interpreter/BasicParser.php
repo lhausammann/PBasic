@@ -22,8 +22,6 @@ use PBasic\Interpreter\Cmd\BIf;
 use PBasic\Interpreter\Cmd\BElse;
 use PBasic\Interpreter\Cmd\BEndif;
 use PBasic\Interpreter\Cmd\BGoto;
-/** FIXME */
-require_once __DIR__ . '/Cmd/End.php';
 
 use PBasic\Interpreter\Cmd\Label;
 use PBasic\Interpreter\Cmd;
@@ -201,20 +199,6 @@ class BasicParser implements Parser {
         return $stat;
     }
 
-    private function parseLine($line) {
-        $stat = $this->lexer->next();
-exit;
-        //$stat = $cmdToken->value;
-        if ($line) {
-            if (! $this->isComment($line)) {
-                $statement = $this->createStatement($stat);
-                return $statement;
-            }
-        }
-    }
-
-
-
     private function createStatement($statement) {
 
         $ns = "PBasic\\Interpreter\\Cmd\\";
@@ -257,9 +241,9 @@ exit;
             return 'BPrint';
         }
 
-        // No class found
+        // No corresponding statement found means expression.
         if (! class_exists($ns . $className, true)) {
-            echo 'class not found: ' . var_dump($ns . $className);
+
             $className = '';
         }
 

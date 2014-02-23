@@ -10,7 +10,6 @@ class BIf extends AbstractBlockStatement
     private $exprTree = null;
     private $ifBlock = null;
     private $elseBlock = null;
-    private $name = "";
     private $hasElse;
 
     public function parse(Parser $parser, $basic)
@@ -45,6 +44,7 @@ class BIf extends AbstractBlockStatement
         $if->setParent($this);
         $else = new Block('elseblock', 0, 0, 0);
         $else->setParent($this);
+
         foreach ($this->ifBlock as $stat) {
             $if->addChild($stat);
         }
@@ -72,7 +72,8 @@ class BIf extends AbstractBlockStatement
         } elseif ($this->elseBlock) {
             return $this->statements[1]->next($basic);
         } else {
-            return $this->parent->next($basic);
+            return $next;
+            return parent::next($basic);
         }
     }
 

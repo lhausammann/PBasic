@@ -13,6 +13,7 @@ class BContinue extends AbstractStatement
     public function parse(Parser $lexer, $basic)
     {
         // no arguments to parse here.
+
         return;
     }
 
@@ -28,12 +29,12 @@ class BContinue extends AbstractStatement
             $p = $p->parent;
 
         }
-        // TODO: Handle SUBs here also
-        $p->current = count($this->parent->statements) -1; // jump to end of parent and
+
+        $this->parent->terminate($basic); // jump to end of parent and
 
         return $p->next($basic);
 
-        throw new \Exception ("Can only break loops.");
+        throw new \Exception ("Can only continue loops.");
 
     }
 }

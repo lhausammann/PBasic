@@ -231,7 +231,7 @@ class BasicParser implements Parser {
 
     private function getCmdClass($className) {
         $ns = "PBasic\\Interpreter\\Cmd\\";
-        $reserved = array('Print', 'If', 'While', 'Break', 'Goto', 'For', 'Return', 'Endif', 'Else');
+        $reserved = array('Print', 'If', 'While', 'Break', 'Goto', 'For', 'Return', 'Endif', 'Else', 'Continue');
         if (in_array($className, $reserved)) {
             return 'B' . $className; // Prefix classname to not conflict with php keywords.
         }

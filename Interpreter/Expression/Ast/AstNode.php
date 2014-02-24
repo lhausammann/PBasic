@@ -9,6 +9,7 @@ use PBasic\Interpreter\Expression\Token;
 class AstNode extends AstLeave
 {
     public $children = array();
+
     public function __construct(Token $token)
     {
         $this->token = $token;
@@ -55,7 +56,7 @@ class AstNode extends AstLeave
         $children = '';
         $sep = '';
         foreach ($this->children as $child) {
-            $children.= $sep . $child->__toString();
+            $children .= $sep . $child->__toString();
             $sep = ', ';
         }
         $ret = $children ? $ret . '(' . $children . ')' : $ret;

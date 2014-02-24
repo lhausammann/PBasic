@@ -4,7 +4,8 @@ use PBasic\Interpreter\Cmd\AbstractStatement;
 use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
-class Sub extends AbstractBlockStatement  {
+class Sub extends AbstractBlockStatement
+{
 
     protected $isExecutable = true;
 
@@ -18,7 +19,8 @@ class Sub extends AbstractBlockStatement  {
     const INSTRUCTION_POINTER = '00_instructionPointer';
     const RETURN_ADDRESS = '__returnAddress';
 
-    public function parse(Parser $parser, $basic) {
+    public function parse(Parser $parser, $basic)
+    {
         $this->name = $this->matchIdentifier($parser)->value;
         $this->createIdentifierList($parser);
         $parser->addObserver($this);
@@ -27,12 +29,14 @@ class Sub extends AbstractBlockStatement  {
         $basic->addSub($this->name, $this);
     }
 
-    public function setReturnVar($var) {
+    public function setReturnVar($var)
+    {
         // $this->basic->setVar('__returnVar', $var);
         $this->returnVar = $var;
     }
 
-    public function setReturnValue($value) {
+    public function setReturnValue($value)
+    {
         $this->returnValue = $value;
     }
 
@@ -40,7 +44,8 @@ class Sub extends AbstractBlockStatement  {
      * Callback of parseUntil
      * @param $statement
      */
-    public function endBlock($statement) {
+    public function endBlock($statement)
+    {
         $this->parent = null; // remove parent.
         $this->assertClass('ENDSUB', $statement);
     }
@@ -50,22 +55,26 @@ class Sub extends AbstractBlockStatement  {
      * @param $basic
      * @return bool
      */
-    public function isExecuting($basic) {
+    public function isExecuting($basic)
+    {
 
         return $this->getInstructionPointer($basic) > 0;
     }
 
-    public function isStart($basic) {
+    public function isStart($basic)
+    {
 
         return $this->getInstructionPointer($basic) == 0;
     }
 
-    public function isEnd($basic) {
+    public function isEnd($basic)
+    {
 
         return $this->getInstructionPointer($basic) >= count($this->statements);
     }
 
-    public function forceEnd($basic) {
+    public function forceEnd($basic)
+    {
         // called by RETURN
         $this->current = count($this->statements); // move to ENDSUB statement
         $this->setInstructionPointer($this->current, $basic);
@@ -77,7 +86,8 @@ class Sub extends AbstractBlockStatement  {
      * Sub is notified of each parsed statement, regardless of block level dedpth
      * @param $statement
      */
-    public function update($statement) {
+    public function update($statement)
+    {
         if ($statement->getName() === "RETURN") {
             $this->hasReturn($statement);
             $statement->setFunction($this);
@@ -85,18 +95,21 @@ class Sub extends AbstractBlockStatement  {
         $this->checkForbidden($statement);
     }
 
-    public function hasReturn($return) {
+    public function hasReturn($return)
+    {
         $this->hasReturn = true;
     }
 
 
-    private function checkForbidden($statement) {
+    private function checkForbidden($statement)
+    {
         if ($statement->getName() === "SUB") {
             throw new Exception("No nested SUBs allowed." . $statement->errorInfo());
         }
     }
 
-    public function start($caller, $basic) {
+    public function start($caller, $basic)
+    {
         if ($caller) {
             $this->setParent($caller->parent); // Parent needs to be reset to CALLs Parent.
         } else {
@@ -122,7 +135,8 @@ class Sub extends AbstractBlockStatement  {
      * @return string
      * @throws Exception
      */
-    public function executeSub($params, $basic) {
+    public function executeSub($params, $basic)
+    {
         $this->startBlock($basic);
         // check, if parameters match correctly
         if (count($params) === count($this->paramNames)) {
@@ -130,12 +144,12 @@ class Sub extends AbstractBlockStatement  {
             // execute this function
 
             $stat = $this->next($basic);
-            while($stat) {
+            while ($stat) {
                 $stat->execute($basic);
                 $stat = $stat->next($basic);
                 if (get_class($stat) == 'Endsub') {
 
-                    throw new Exception('No return statement found in sub: '. $this->errorInfo());
+                    throw new Exception('No return statement found in sub: ' . $this->errorInfo());
                 }
             }
 
@@ -149,16 +163,19 @@ class Sub extends AbstractBlockStatement  {
         }
     }
 
-    public function execute($basic) {
+    public function execute($basic)
+    {
         // Nothing to do in this case (function block only gets executed by its CALL block or by an expression.
         throw new Exception("Should not happen");
     }
 
-    public function setArguments($params, $basic) {
+    public function setArguments($params, $basic)
+    {
         $this->params = $params;
     }
 
-    private function createIdentifierList($lexer) {
+    private function createIdentifierList($lexer)
+    {
         $token = $lexer->next();
         if ($token->type === Token::DOUBLE_POINT) {
             return;
@@ -168,23 +185,24 @@ class Sub extends AbstractBlockStatement  {
                 $this->paramNames[] = $next->value;
                 $token = $lexer->next();
 
-                while((',' === $token->value)) {
+                while ((',' === $token->value)) {
                     $this->paramNames[] = $this->matchIdentifier($lexer)->value;
                     $token = $lexer->next();
                 }
             } else if ($next->type == Token::RBRACK) {
                 return;
             } else {
-                throw new Exception($this->errorInfo(). ' Expected was Identifier or ), but found: ' . $token->value);
+                throw new Exception($this->errorInfo() . ' Expected was Identifier or ), but found: ' . $token->value);
             }
         }
 
         return;
     }
 
-    public function next($basic) {
+    public function next($basic)
+    {
 
-        if (! $basic->getScope()->has('__started')) {
+        if (!$basic->getScope()->has('__started')) {
             $this->forceEnd($basic);
             return parent::next($basic);
         }
@@ -204,7 +222,8 @@ class Sub extends AbstractBlockStatement  {
         return $return;
     }
 
-    public function terminateFn($basic) {
+    public function terminateFn($basic)
+    {
         parent::terminate($basic);
         if ($basic->getScope()->has('__returnVar')) {
             $this->returnVar = $basic->getVar('__returnVar');
@@ -227,10 +246,11 @@ class Sub extends AbstractBlockStatement  {
      * @param $arguments
      * @param $basic
      */
-    protected function addScope($arguments, $basic) {
+    protected function addScope($arguments, $basic)
+    {
         $basic->getScope()->push();
         for ($i = 0; $i < count($arguments); $i++) {
-            $basic->setVar($this->paramNames[$i],$arguments[$i]);
+            $basic->setVar($this->paramNames[$i], $arguments[$i]);
         }
         if (!$this->returnVar) {
             $this->returnVar = '00_returnVar';
@@ -240,7 +260,8 @@ class Sub extends AbstractBlockStatement  {
         $basic->setVar('__returnAddress', $this->parent); // store return block in scope.
     }
 
-    protected function removeScope($basic) {
+    protected function removeScope($basic)
+    {
 
         $basic->getScope()->pop();
 

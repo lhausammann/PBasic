@@ -26,7 +26,8 @@ use PBasic\Interpreter\Cmd\BGoto;
 use PBasic\Interpreter\Cmd\Label;
 use PBasic\Interpreter\Cmd;
 
-class BasicParser implements Parser {
+class BasicParser implements Parser
+{
     private $comments = array(
         'REM',
         "'",
@@ -44,20 +45,24 @@ class BasicParser implements Parser {
     private $basic;
     private $observers = array();
 
-    public function __construct($lexer, $basic) {
+    public function __construct($lexer, $basic)
+    {
         $this->lexer = new Lexer(" ");
         $this->basic = $basic;
     }
 
-    public function setInput($input) {
+    public function setInput($input)
+    {
         $this->input = $input;
     }
 
-    public function getLexer() {
+    public function getLexer()
+    {
         return $this->lexer;
     }
 
-    public function parse($input = null) {
+    public function parse($input = null)
+    {
         $input = implode($input, ':') . ':';
 
         if ($input) {
@@ -65,22 +70,25 @@ class BasicParser implements Parser {
         }
         $this->lexer = new Lexer($input);
         // set up the program
-        $program = new Program('root', 1,1,1);
+        $program = new Program('root', 1, 1, 1);
         return $program->parse($this, $this->basic);
     }
 
-    public function interpret($string, $basic) {
+    public function interpret($string, $basic)
+    {
 
         $stat = $this->parseLine($string);
         $stat->execute($basic);
     }
 
-    public function next() {
+    public function next()
+    {
 
         return $this->lexer->next();
     }
 
-    private function nextLine() {
+    private function nextLine()
+    {
 
         $next = $this->input[$this->current];
         $this->current++;
@@ -89,11 +97,13 @@ class BasicParser implements Parser {
     }
 
     // registers an observer during the parse process.
-    public function addObserver(AbstractStatement $statement) {
+    public function addObserver(AbstractStatement $statement)
+    {
         $this->observers[] = $statement;
     }
 
-    public function removeObserver(AbstractStatement $statement) {
+    public function removeObserver(AbstractStatement $statement)
+    {
         $observers = array();
         foreach ($this->observers as &$observer) {
             if ($observer === $statement) {
@@ -105,13 +115,15 @@ class BasicParser implements Parser {
         $this->observers = $observers;
     }
 
-    public function notify($statement) {
+    public function notify($statement)
+    {
         foreach ($this->observers as $observer) {
             $observer->update($statement);
         }
     }
 
-    public function matchExpression() {
+    public function matchExpression()
+    {
         $exprParser = new ExpressionParser($this->lexer);
         try {
             $tree = $exprParser->matchExpression();
@@ -130,9 +142,10 @@ class BasicParser implements Parser {
     // an else statement in an if block. Parent only gets notified about if.)
     // The parent also get notified if its registered as an observer about
     // _every_ statement parsed until it reaches the stop statement.
-    public function parseUntil($stopStatement = false, $parent = null) {
+    public function parseUntil($stopStatement = false, $parent = null)
+    {
         $stats = array();
-        while($stat = $this->nextStatement()) {
+        while ($stat = $this->nextStatement()) {
 
             if ($parent) {
                 if ($stat->isExecutable()) {
@@ -148,7 +161,7 @@ class BasicParser implements Parser {
                 break;
             }
 
-            if (! $stopStatement) {
+            if (!$stopStatement) {
                 $this->currentInstr++;
             }
         }
@@ -162,22 +175,23 @@ class BasicParser implements Parser {
         return $stats;
     }
 
-    public function nextStatement() {
+    public function nextStatement()
+    {
         $next = $this->lexer->next();
-        if (! $next) {
+        if (!$next) {
             return null;
         }
         // skip ::::
-        while($next->type == Token::DOUBLE_POINT) {
+        while ($next->type == Token::DOUBLE_POINT) {
             $next = $this->next();
         }
-        while($this->isComment($next->value)) {
+        while ($this->isComment($next->value)) {
             $next = $this->next();
         }
 
-        if ($next->value=="'") {
+        if ($next->value == "'") {
             // skip comment
-            while($next->value != ':') {
+            while ($next->value != ':') {
                 $next = $this->next();
             }
 
@@ -199,7 +213,8 @@ class BasicParser implements Parser {
         return $stat;
     }
 
-    private function createStatement($statement) {
+    private function createStatement($statement)
+    {
 
         $ns = "PBasic\\Interpreter\\Cmd\\";
         $statementName = $statement->value;
@@ -212,9 +227,9 @@ class BasicParser implements Parser {
         }
 
         $upper = strtoupper($statementName{0});
-        $lower = strtolower(substr($statementName,1));
+        $lower = strtolower(substr($statementName, 1));
         $className = $this->getCmdClass($upper . $lower);
-        if (! $className) {
+        if (!$className) {
 
             // let is optional keyword
             $className = 'Let';
@@ -229,7 +244,8 @@ class BasicParser implements Parser {
         return $stat;
     }
 
-    private function getCmdClass($className) {
+    private function getCmdClass($className)
+    {
         $ns = "PBasic\\Interpreter\\Cmd\\";
         $reserved = array('Print', 'If', 'While', 'Break', 'Goto', 'For', 'Return', 'Endif', 'Else', 'Continue');
         if (in_array($className, $reserved)) {
@@ -242,7 +258,7 @@ class BasicParser implements Parser {
         }
 
         // No corresponding statement found means expression.
-        if (! class_exists($ns . $className, true)) {
+        if (!class_exists($ns . $className, true)) {
 
             $className = '';
         }
@@ -250,15 +266,16 @@ class BasicParser implements Parser {
         return $className;
     }
 
-    private function isComment($value) {
+    private function isComment($value)
+    {
         foreach ($this->comments as $sign) {
             if (stripos($sign, $value) !== false) {
-                while($next = $this->lexer->next()) {
+                while ($next = $this->lexer->next()) {
                     if ($next->value == ':') {
                         break;
                     }
                 }
-               return true;
+                return true;
             }
         }
         return false;

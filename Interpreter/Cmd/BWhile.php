@@ -15,8 +15,9 @@ class BWhile extends AbstractBlockStatement
     public function parse(Parser $parser, $basic)
     {
         $this->exprTree = $parser->matchExpression();
-        $this->block = $this->statements =$parser->parseUntil("WEND", $this);
-        $this->matchEol($parser);;
+        $this->block = $this->statements = $parser->parseUntil("WEND", $this);
+        $this->matchEol($parser);
+        ;
     }
 
     public function endBlock($stat)

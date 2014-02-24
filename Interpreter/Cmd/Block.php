@@ -3,6 +3,7 @@ namespace PBasic\Interpreter\Cmd;
 
 use PBasic\Interpreter\Parser;
 use PBasic\Interpreter\Expression\Token;
+
 /**
  * A container which contains statements.
  * Next() will call the grand parent instead of the parent statement
@@ -34,7 +35,7 @@ class Block extends AbstractBlockStatement
 
             $this->parent->terminate($basic);
 
-            $next =  $this->parent->parent->next($basic);
+            $next = $this->parent->parent->next($basic);
 
             return $next;
         }

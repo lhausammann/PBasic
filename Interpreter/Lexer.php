@@ -4,18 +4,21 @@ namespace PBasic\Interpreter;
 use PBasic\Interpreter\Expression\Token;
 use Exception;
 
-class Lexer {
+class Lexer
+{
     private $input;
     private $current = 0;
     private $isEnd = false;
     private $next = null;
 
-    public function __construct($input) {
+    public function __construct($input)
+    {
         $this->input = $input;
         $this->lookahead = $input{0};
     }
 
-    public function setInput($input) {
+    public function setInput($input)
+    {
         $this->input = $input;
         $this->lookahead = $input{0};
         $this->current = 0;
@@ -24,7 +27,8 @@ class Lexer {
         return $this;
     }
 
-    public function start() {
+    public function start()
+    {
         $result = array();
         while ($token = $this->next()) {
             $result[] = $token;
@@ -36,11 +40,13 @@ class Lexer {
 
     // Sets a token to be the next token
     // when calling next()
-    public function setNext(Token $token) {
+    public function setNext(Token $token)
+    {
         $this->next = $token;
     }
 
-    public function next() {
+    public function next()
+    {
         if ($token = $this->next) {
             $this->next = null;
             return $token;
@@ -60,7 +66,7 @@ class Lexer {
             }
             // its an identifier, if its not an operator.
             return new Token(Token::IDENTIFIER, $id);
-        } else if ($this->lookahead==',') {
+        } else if ($this->lookahead == ',') {
             $this->consume();
             return new Token(Token::SEMICOLON, ',');
         } else if ($this->lookahead == '(') {
@@ -74,11 +80,11 @@ class Lexer {
             $this->consume();
 
             return new Token(Token::RBRACK, ')');
-        } else if ($this->lookahead=='?') {
+        } else if ($this->lookahead == '?') {
             $this->consume();
 
             return new Token(Token::QUESTION, '?');
-        } else if ($this->lookahead=='.') {
+        } else if ($this->lookahead == '.') {
             $this->consume();
 
             return new Token(Token::PERIOD, '.');
@@ -114,24 +120,26 @@ class Lexer {
         throw new Exception('Could not tokenize input: ' . $this->input . 'Trying to parse: ' . $this->lookahead);
     }
 
-    protected function parseNumber() {
+    protected function parseNumber()
+    {
         $ret = '';
         $float = false;
         while (is_numeric($this->lookahead) || $this->lookahead === '.') {
-            if ($this->lookahead=='.' && !$float) {
+            if ($this->lookahead == '.' && !$float) {
                 // e.g. 3.45
                 $float = true;
             } else if ($this->lookahead === '.') {
                 // e.g. 3.1.4
                 throw new Exception ('not well formed number: ' . $ret . $this->lookahead);
             }
-            $ret.= $this->lookahead;
+            $ret .= $this->lookahead;
             $this->consume();
         }
         return $ret;
     }
 
-    protected function consume() {
+    protected function consume()
+    {
         if (strlen($this->input) > $this->current + 1) {
             $this->lookahead = $this->input{++$this->current};
 
@@ -140,24 +148,28 @@ class Lexer {
         }
     }
 
-    protected function skipWhitespace() {
+    protected function skipWhitespace()
+    {
         $filter = array(10, 13, 32, 9);
-        while ($this->lookahead === ' '|| in_array(ord($this->lookahead), $filter)) {
+        while ($this->lookahead === ' ' || in_array(ord($this->lookahead), $filter)) {
 
             $this->consume();
         }
     }
 
-    protected function isAlpha($token) {
-        return (ord('A') <= ord($token)) && (ord('z') >= ord($token) || ($token=='_'));
+    protected function isAlpha($token)
+    {
+        return (ord('A') <= ord($token)) && (ord('z') >= ord($token) || ($token == '_'));
     }
 
-    protected function isAlphaNumeric($token) {
+    protected function isAlphaNumeric($token)
+    {
         return $this->isAlpha($token) ? true : $token >= '0' && $token <= '9';
     }
 
-    protected function parseIdentifier() {
-        if (! $this->isAlpha($this->lookahead)) {
+    protected function parseIdentifier()
+    {
+        if (!$this->isAlpha($this->lookahead)) {
             throw new Exception('Parse error: Expected alpha but found: ' . $this->lookahead);
         }
         $buffer = '';
@@ -178,15 +190,16 @@ class Lexer {
         return $buffer;
     }
 
-    protected function parseString() {
+    protected function parseString()
+    {
         $startEnd = '"';
-        if ($this->lookahead !='"') {
+        if ($this->lookahead != '"') {
             throw new Exception("Parse error: Expected ' but found: " . $this->lookahead);
         }
         $this->consume();
         $buffer = '';
-        while ($this->lookahead != $startEnd && ! $this->isEnd()) {
-            if ($this->lookahead=='\\') {
+        while ($this->lookahead != $startEnd && !$this->isEnd()) {
+            if ($this->lookahead == '\\') {
                 $this->consume();
             }
             $buffer .= $this->lookahead;
@@ -199,13 +212,15 @@ class Lexer {
         return $buffer;
     }
 
-    protected function isOperator($op) {
+    protected function isOperator($op)
+    {
         $op = strtoupper($op);
-        $ops = array('+','-','/','*', '<', '=', '>' , 'AND', 'OR', 'LIKE', '!', 'IN');
+        $ops = array('+', '-', '/', '*', '<', '=', '>', 'AND', 'OR', 'LIKE', '!', 'IN');
         return in_array($op, $ops);
     }
 
-    public function isEnd() {
+    public function isEnd()
+    {
 
         if ($this->isEnd) {
             return true;

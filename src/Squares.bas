@@ -1,29 +1,23 @@
- 
-10 SCOPEDUMP 
-
 print "Table of Squares"
- print
+ print "--------------------------------"
  print "How many values would you like?"
+ print "--------------------------------"
  input num
  for i=1 to num
  print i, i*i
  next i
 
 CALL MORE = m
-PRINT m
 
-if m = 1 then
+if m = true then
 	GOTO 10
 endif
 
 1000 end
 
 SUB MORE
-	INPUT a
-	PRINT a
-	IF a="y" THEN
-		GOTO 10
-	ENDIF
-	PRINT "BLAH"
-	RETURN 33
+    COLOR 3,8
+    PRINT "AGAIN? Y/N"
+    INPUT a
+    RETURN ucfirst(a)="Y"
 ENDSUB

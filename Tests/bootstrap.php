@@ -1,7 +1,7 @@
 <?php
 
 $loaderPath = findAutoloader();
-echo "Testing with autoloader from $loaderPath".PHP_EOL.PHP_EOL;
+echo "Testing with autoloader from $loaderPath" . PHP_EOL . PHP_EOL;
 
 if (!$loader = @include $loaderPath) {
     echo <<<EOM
@@ -17,8 +17,8 @@ EOM;
 function findAutoloader()
 {
     $ps = array(
-        __DIR__.'/../../../../vendor/autoload.php',
-        __DIR__.'/../vendor/autoload.php',
+        __DIR__ . '/../../../../vendor/autoload.php',
+        __DIR__ . '/../vendor/autoload.php',
     );
 
 

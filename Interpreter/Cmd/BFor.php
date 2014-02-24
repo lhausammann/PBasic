@@ -6,26 +6,29 @@ use PBasic\Interpreter\Parser;
 use PBasic\Interpreter\Expression\Token;
 
 class BFor extends AbstractBlockStatement
-{private $exprTreeInit = null;
+{
+    private $exprTreeInit = null;
     private $exprTreeTo = null;
     private $exprTreeStep = null;
     private $block = null;
     private $name = null;
 
-    public function isLoop() {
+    public function isLoop()
+    {
         return true;
     }
 
-    public function parse(Parser $parser, $basic) {
+    public function parse(Parser $parser, $basic)
+    {
         $lexer = $parser->getLexer();
         $this->name = $this->matchIdentifier($lexer)->value;
-        $this->match ('=',$lexer);
+        $this->match('=', $lexer);
         $this->exprTreeInit = $parser->matchExpression($lexer);
         $this->match("TO", $lexer);
         $this->exprTreeTo = $parser->matchExpression($lexer);
         $token = $lexer->next();
         if ($token->type != Token::DOUBLE_POINT) {
-            if ($token->value=="STEP") {
+            if ($token->value == "STEP") {
                 $this->exprTreeStep = $parser->matchExpression($lexer);
             } else {
                 throw new Exception("Expected was STEP but found: " . $token . $this->errorInfo());
@@ -40,7 +43,8 @@ class BFor extends AbstractBlockStatement
         $this->matchEol($lexer);
     }
 
-    public function endBlock($next) {
+    public function endBlock($next)
+    {
         $this->assertClass("NEXT", $next);
         $next->setParent($this);
         // check running var
@@ -51,11 +55,13 @@ class BFor extends AbstractBlockStatement
         }
     }
 
-    public function execute($basic) {
+    public function execute($basic)
+    {
         // do nothing
     }
 
-    public function next($basic) {
+    public function next($basic)
+    {
 
         // from, to, step can be changed inside the for loop.
         // evaluate them each time.
@@ -102,7 +108,8 @@ class BFor extends AbstractBlockStatement
         return $stat;
     }
 
-    private function isInRange($i, $to, $step, $from) {
+    private function isInRange($i, $to, $step, $from)
+    {
         if ((($to - $from) < 0) && ($step < 0)) {
             return $i >= $to;
         }

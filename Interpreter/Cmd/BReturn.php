@@ -39,7 +39,7 @@ class BReturn extends AbstractStatement
     {
 
         $this->fn->forceEnd($basic);
-        $next =  $this->fn->next($basic);
+        $next = $this->fn->next($basic);
         return $next;
     }
 }

@@ -8,6 +8,7 @@ class BPrint extends AbstractStatement
 {
     private $expr = array();
     private $spaceOrTab = array();
+
     public function execute($basic)
     {
         $msg = '';
@@ -22,8 +23,8 @@ class BPrint extends AbstractStatement
             }
         }
 
-        echo '<div class="print" style="color:' . $basic->getForegroundColor() . ';background-color:' .$basic->getBackgroundColor(). ';display:block;width:100%">';
-        echo '' .$msg . '</div>';
+        echo '<div class="print" style="color:' . $basic->getForegroundColor() . ';background-color:' . $basic->getBackgroundColor() . ';display:block;width:100%">';
+        echo '' . $msg . '</div>';
     }
 
     public function parse(Parser $parser, $basic)
@@ -41,7 +42,7 @@ class BPrint extends AbstractStatement
                 break;
             }
 
-            if ($token->value ==',' || $token->value == ';') {
+            if ($token->value == ',' || $token->value == ';') {
                 $this->expr[] = $parser->matchExpression();
                 $this->spaceOrTab[] = $token->value;
             }

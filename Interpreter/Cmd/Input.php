@@ -10,6 +10,7 @@ class Input extends AbstractStatement
     protected $input;
     protected $value = '';
     protected $message = '';
+
     public function parse(Parser $parser, $basic)
     {
         $lexer = $parser->getLexer();
@@ -27,7 +28,7 @@ class Input extends AbstractStatement
 
     public function execute($basic)
     {
-        $name =$this->input->token->value;
+        $name = $this->input->token->value;
         if ($this->message) {
             $label = $this->message;
         } else {
@@ -39,9 +40,9 @@ class Input extends AbstractStatement
             $basic->setVar($name, $value);
         } else {
 
-            echo "<form  method='get' id='bInput' style='color:" . $basic->getForegroundColor() . ";background-color:" .$basic->getBackgroundColor() . "'>
+            echo "<form  method='get' id='bInput' style='color:" . $basic->getForegroundColor() . ";background-color:" . $basic->getBackgroundColor() . "'>
                     <input type='hidden' name='currentInstruction' value='{$this->nr}' />
-                    <label><pre>{$label}</pre></label><input type='text' name='{$name}' style='background-color: " . $basic->getBackgroundColor() .";color: ".$basic->getForegroundColor().";border:none;'  />
+                    <label><pre>{$label}</pre></label><input type='text' name='{$name}' style='background-color: " . $basic->getBackgroundColor() . ";color: " . $basic->getForegroundColor() . ";border:none;'  />
 
                     </form>
                     <script>

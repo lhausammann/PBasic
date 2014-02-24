@@ -10,20 +10,21 @@ use PBasic\Interpreter\Cmd\AbstractStatement;
 use AbstractBlockStatement;
 
 
-
-function fileSelect($files, $selectedIndex = 0) {
+function fileSelect($files, $selectedIndex = 0)
+{
     $select = "<label for='files'>Load...</label><select name='files'>";
     foreach ($files as $i => $file) {
         $selectedAttr = ($selectedIndex === $i) ? ' selected="selected"' : '';
         $select .= "<option value=$i" . $selectedAttr . ">" . $file . "</option>";
     }
-    $select .="</select>";
-    $select .="<input type='submit' value='go'>";
+    $select .= "</select>";
+    $select .= "<input type='submit' value='go'>";
 
     return $select;
 }
 
-function getFiles($src = './src/', $ext = 'bas') {
+function getFiles($src = './src/', $ext = 'bas')
+{
     $files = array();
     $iterator = new \DirectoryIterator($src);
     foreach ($iterator as $file) {
@@ -38,19 +39,21 @@ function getFiles($src = './src/', $ext = 'bas') {
     return $files;
 }
 
-function getFileToRun($nr, $src = './src/', $ext = 'bas') {
+function getFileToRun($nr, $src = './src/', $ext = 'bas')
+{
     $files = getFiles($src, $ext);
     return $src . $files[$nr];
 }
 
-function drawSelector($src = './src', $selectedIndex) {
+function drawSelector($src = './src', $selectedIndex)
+{
     echo fileSelect(getFiles($src, 'bas'), $selectedIndex);
 }
 
 
 session_start();
 $nr = isset($_GET['files']) ? $_GET['files'] : 0;
-if (! isset ($_GET['files'])) {
+if (!isset ($_GET['files'])) {
     $nr = isset($_SESSION['f']) ? $_SESSION['f'] : 0;
 }
 
@@ -68,25 +71,28 @@ $file = getFileToRun($nr);
     <style>
         * {
             margin: 0px;
-            padding:0px;
+            padding: 0px;
         }
+
         body {
-            background-color:black;
+            background-color: black;
 
             color: white;
             width: 100%;
             height: 100%;
         }
+
         select, input[type=submit], h1, label {
             border: none;
             color: lightgreen;
-            font-family: ‘Lucida Console’, Monaco, monospace;
+            font-family: ‘ Lucida Console ’, Monaco, monospace;
             background-color: black;
             height: 40px;
             top: auto;
             display: block;
-            float:left;
+            float: left;
         }
+
         input[type=submit], h1 {
             padding-right: 5em;
             padding-left: 2%;
@@ -96,23 +102,25 @@ $file = getFileToRun($nr);
             text-decoration: blink;
         }
 
-
         .clear {
             color: lightgreen;
             clear: both;
             margin-bottom: 5px;
         }
+
         #console {
             width: 80%;
             padding-left: 2%;
             padding-right: 2%;
         }
+
         pre, input, .print {
-            font-size:24px;
+            font-size: 24px;
             font-style: bold;
-            display:block;
-            font-family: ‘Lucida Console’, Monaco, monospace;
+            display: block;
+            font-family: ‘ Lucida Console ’, Monaco, monospace;
         }
+
         .print {
             padding-left: 15px;
         }
@@ -124,7 +132,7 @@ $file = getFileToRun($nr);
 
     <? drawSelector('./src/', $nr);?>
 </form>
-<hr class="clear" />
+<hr class="clear"/>
 
 <div id="console">
     <? echo Basic::run($file);?>

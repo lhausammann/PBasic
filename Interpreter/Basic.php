@@ -7,7 +7,8 @@ use PBasic\Interpreter\Cmd\AbstractStatement;
 use PBasic\Interpreter\Scope\NestedScope;
 use PBasic\Interpreter\Cmd\Sub;
 
-class Basic {
+class Basic
+{
 
     protected $root = null;
 
@@ -18,8 +19,6 @@ class Basic {
     private $callStack = array();
     private $current = null;
     private $returnScope = array(); // maintain return values.
-
-
 
 
     // Screen colors of BASIC
@@ -35,7 +34,8 @@ class Basic {
     private $subs = array(); // contains defined functions
     private $observers = array(); // register an observer, which will be notified at parsing statements.
 
-    public function __construct($file = '') {
+    public function __construct($file = '')
+    {
         $this->lexer = new Lexer(" ");
         $this->scope = new NestedScope();
 
@@ -48,7 +48,8 @@ class Basic {
 
     }
 
-    public function interpret($string) {
+    public function interpret($string)
+    {
         $lexer = new Lexer(" ");
         $lexer->setInput($string);
         $parser = new BasicParser($lexer, $this);
@@ -57,72 +58,84 @@ class Basic {
 
     }
 
-    public function addLabel($label, $instNr) {
+    public function addLabel($label, $instNr)
+    {
 
         $this->gotoTable[$label] = $instNr - 1; // point to label statement
     }
 
-    public function hasLabel($label) {
+    public function hasLabel($label)
+    {
 
         return isset($this->gotoTable[$label]);
     }
 
     // called by GOTO statement
-    public function jump($label) {
+    public function jump($label)
+    {
         $this->currentInstr = $this->gotoTable[$label];
     }
 
-    public function addSub($name, Sub $sub) {
+    public function addSub($name, Sub $sub)
+    {
         $this->subs[$name] = $sub;
     }
 
-    public function getSub($name) {
+    public function getSub($name)
+    {
         $fn = null;
         if ((array_key_exists($name, $this->subs))) {
             $fn = $this->subs[$name];
         }
-        if (! $fn) {
+        if (!$fn) {
             throw new Exception ('Function ' . $name . 'not defined.');
         }
 
         return $fn;
     }
 
-    public function setReturnValue($value) {
+    public function setReturnValue($value)
+    {
         array_push($this->returnScope, $value);
     }
 
-    public function getReturnValue() {
+    public function getReturnValue()
+    {
         $this->breakAll = false; // return value fetched by expression, RETURN ended.
         return $this->getVar('00_returnVar');
     }
 
     // adds a return address
-    public function addReturn($parent) {
+    public function addReturn($parent)
+    {
 
         $this->callStack[] = $parent;
     }
 
     // pops a return address
-    public function getReturn() {
+    public function getReturn()
+    {
         if (count($this->callStack)) {
             return array_pop($this->callStack);
         }
     }
 
-    public function saveCallStack() {
+    public function saveCallStack()
+    {
         $s = serialize($this->callStack);
         $_SESSION['return_stack'] = $s;
     }
 
-    public function loadCallStack() {
+    public function loadCallStack()
+    {
         if (isset($_SESSION['return_stack'])) {
             $this->callStack = unserialize($_SESSION['return_stack']);
 
         }
     }
 
-    public function runProgram($stat = false) {
+    public function runProgram($stat = false)
+    {
         if ($stat) {
             $stat = $stat;
         } else {
@@ -136,27 +149,33 @@ class Basic {
         }
     }
 
-    public function runFromInstructionNr($nr) {
+    public function runFromInstructionNr($nr)
+    {
         $fromStatement = $this->root->findByInstrNr($nr);
         $this->runProgram($fromStatement);
     }
 
-    public function setBreak($break = true) {
+    public function setBreak($break = true)
+    {
     }
 
-    public function isBreak() {
+    public function isBreak()
+    {
     }
 
-    public function setBreakAll($bool = true) {
+    public function setBreakAll($bool = true)
+    {
         $this->breakAll = $bool;
     }
 
-    public function breakAll() {
+    public function breakAll()
+    {
         return $this->breakAll;
     }
 
     // runs a block of statements
-    public function runBlock($statements) {
+    public function runBlock($statements)
+    {
 
         if ($this->breakAll()) {
             return;
@@ -172,7 +191,8 @@ class Basic {
         }
     }
 
-    private function next() {
+    private function next()
+    {
         if ($this->current < count($this->input)) {
             $next = $this->input[$this->current];
             $this->current++;
@@ -184,11 +204,13 @@ class Basic {
     }
 
     // registers an observer during the parse process.
-    public function addObserver(AbstractStatement $statement) {
+    public function addObserver(AbstractStatement $statement)
+    {
         $this->observers[] = $statement;
     }
 
-    public function removeObserver(AbstractStatement $statement) {
+    public function removeObserver(AbstractStatement $statement)
+    {
         $observers = array();
         foreach ($this->observers as &$observer) {
             if ($observer === $statement) {
@@ -200,76 +222,90 @@ class Basic {
         $this->observers = $observers;
     }
 
-    public function notify($statement) {
+    public function notify($statement)
+    {
         foreach ($this->observers as $observer) {
             $observer->update($statement);
         }
     }
 
 
-    public function setVar($name, $value) {
+    public function setVar($name, $value)
+    {
 
         return $this->scope->setVar($name, $value);
     }
 
-    public function getScope() {
+    public function getScope()
+    {
         return $this->scope;
     }
 
-    public function getVar($name) {
+    public function getVar($name)
+    {
 
         return $this->scope->getVar($name);
     }
 
     // Visitor calls use resolve instead of getVar.
-    public function resolve($name) {
+    public function resolve($name)
+    {
 
         return $this->getVar($name);
     }
 
-    public function setBackgroundColor($color) {
+    public function setBackgroundColor($color)
+    {
         $this->backgroundColor = $color;
     }
 
-    public function getBackgroundColor($raw = false) {
-        if (! $raw)
+    public function getBackgroundColor($raw = false)
+    {
+        if (!$raw)
             return $this->colorTable[$this->backgroundColor % 15];
         return $this->backgroundColor;
     }
 
-    public function setForegroundColor($color) {
+    public function setForegroundColor($color)
+    {
         $this->foregroundColor = $color;
     }
 
-    public function getForegroundColor($raw = false) {
-        if (! $raw)
+    public function getForegroundColor($raw = false)
+    {
+        if (!$raw)
             return $this->colorTable[$this->foregroundColor % 15];
         return $this->foregroundColor;
     }
 
-    public function dumpScope() {
+    public function dumpScope()
+    {
         var_dump($this->scope);
         var_dump($this->gotoTable);
         var_dump($this->returnScope);
     }
 
-    public function saveScope() {
+    public function saveScope()
+    {
         $_SESSION['scope'] = serialize($this->scope);
     }
 
-    public function loadScope() {
+    public function loadScope()
+    {
         $this->scope = unserialize($_SESSION['scope']);
     }
 
-    public function evaluateExpression($exprTree) {
-        if (! $exprTree) {
+    public function evaluateExpression($exprTree)
+    {
+        if (!$exprTree) {
             return false;
         }
         $visitor = new ExpressionVisitor($this);
         return $visitor->visit($exprTree);
     }
 
-    public function executeFunction($fn, $args) {
+    public function executeFunction($fn, $args)
+    {
         // is it a user definded SUB in code?
         if (array_key_exists($fn, $this->subs)) {
             $function = $this->subs[$fn];
@@ -291,22 +327,25 @@ class Basic {
             $fn = $mappings[$fn];
         }
 
-        if (function_exists(__NAMESPACE__ . '\\' .  $fn)) {
-            return call_user_func_array(__NAMESPACE__ . '\\' .  $fn, $args);
+        if (function_exists(__NAMESPACE__ . '\\' . $fn)) {
+            return call_user_func_array(__NAMESPACE__ . '\\' . $fn, $args);
         } else if (function_exists($fn)) {
             return call_user_func_array($fn, $args);
         }
     }
 
-    public function mod($a, $b) {
-        return _mod($a,$b);
+    public function mod($a, $b)
+    {
+        return _mod($a, $b);
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return 'Basic ' . $this->current;
     }
 
-    public static function run($file) {
+    public static function run($file)
+    {
         //session_start();
         $b = new Basic($file);
 
@@ -323,24 +362,28 @@ class Basic {
 
 // custom functions
 // for the basic interpreter
-function _toInt($toInt) {
-    return (int) $toInt;
+function _toInt($toInt)
+{
+    return (int)$toInt;
 }
 
-function _mod($a, $b) {
+function _mod($a, $b)
+{
     return $a % $b;
 }
 
-function rnd($max = null, $min = null) {
+function rnd($max = null, $min = null)
+{
     if ($max !== null && $min !== null) {
         return (int)rand($min, $max);
     } else if ($max) {
         return (int)rand(0, $max);
     }
 
-    return rand(0,1000) / 1000;
+    return rand(0, 1000) / 1000;
 }
 
-function sgn($nr) {
+function sgn($nr)
+{
     return $nr >= 0;
 }

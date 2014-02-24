@@ -43,8 +43,8 @@ class Call extends AbstractStatement
                 $token = $parser->next();
             }
 
-            if ($token->value!==')') {
-                throw new \Exception('Error parsing Call statement: Expected ) but found: ' .  $token->value . $this->errorInfo());
+            if ($token->value !== ')') {
+                throw new \Exception('Error parsing Call statement: Expected ) but found: ' . $token->value . $this->errorInfo());
             }
 
             return;

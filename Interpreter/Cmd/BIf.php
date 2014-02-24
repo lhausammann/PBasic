@@ -25,10 +25,10 @@ class BIf extends AbstractBlockStatement
 
     public function statementParsed($stat)
     {
-        if ($stat->getName()==="ELSE") {
+        if ($stat->getName() === "ELSE") {
             $this->hasElse = true;
         }
-        if (! $this->hasElse) {
+        if (!$this->hasElse) {
             $this->ifBlock[] = $stat;
         } else {
             $this->elseBlock[] = $stat;

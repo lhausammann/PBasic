@@ -28,7 +28,7 @@ class Scope
 
     public function setVar($name, $value)
     {
-        $scope = &$this->current()->scope;
+        $scope = & $this->current()->scope;
         $scope[$name] = $value;
     }
 

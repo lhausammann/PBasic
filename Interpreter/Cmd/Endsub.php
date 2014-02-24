@@ -17,7 +17,8 @@ class Endsub extends AbstractStatement
         // nothing to do
     }
 
-    public function next($basic) {
+    public function next($basic)
+    {
         //throw new Exception("Reaching next");
     }
 

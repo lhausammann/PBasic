@@ -18,6 +18,6 @@ endif
 SUB MORE
     COLOR 3,8
     PRINT "AGAIN? Y/N"
-    INPUT a
-    RETURN ucfirst(a)="Y"
+    INPUT yesno
+    RETURN ucfirst(yesno)="Y"
 ENDSUB

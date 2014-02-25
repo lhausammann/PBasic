@@ -33,13 +33,13 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
 
         isFiveGreaterEqualsFive = 5 >= 5
         isFiveLowerEqualsFive = 5 <= 5
-        isFiveEqualsFive = 5 = 5
+        ...
 
         */
 
         $checks = array('isParentThesisApplied', 'isFiveLowerEight', 'isFiveLowerEqualsEight',
             'isFiveGreaterFour', 'isFiveGreaterEqualsFour', 'isFiveGreaterEqualsFive',
-            'isFiveLowerEqualsFive', 'isFiveEqualsFive');
+            'isFiveLowerEqualsFive', 'isFiveEqualsFive', 'isFloat');
 
         foreach ($checks as $check) {
             $this->assertTrue($b->getVar($check) == true);

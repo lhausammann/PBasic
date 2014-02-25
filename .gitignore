@@ -1,7 +1,7 @@
 vendor
 vendor/*
 phpunit.xml
-.idea/*
+.idea
 .workspace
 Coverage
 

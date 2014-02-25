@@ -120,11 +120,6 @@ class ExpressionVisitor
         $right = self::visitStatic($rightNode);
         $operation = $op->getValue();
 
-        if ($operation == '.') {
-            // resolve scope
-            return $this->resolveScope($left . '.' . $right);
-        }
-
         $isString = !is_numeric($left) || !is_numeric($right);
 
         switch ($operation) {
@@ -170,7 +165,6 @@ class ExpressionVisitor
                 if (function_exists($function)) {
                     return call_user_func(array(self::parser, $function), $left, $right);
                 }
-
 
                 throw new Exception ('Could not find operator:' . $op);
         }

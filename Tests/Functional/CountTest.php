@@ -1,6 +1,4 @@
 <?php
-
-
 use PBasic\Interpreter\Basic;
 
 class CountTest extends \PHPUnit_Framework_TestCase

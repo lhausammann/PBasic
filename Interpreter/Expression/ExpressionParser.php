@@ -280,6 +280,11 @@ class ExpressionParser
         return in_array($possibleOp, array('*', '/'));
     }
 
+    private function isOperatorAndOr($possibleOp)
+    {
+        return in_array($possibleOp, array('AND','OR', 'IN', 'LIKE'));
+    }
+
     private function isOperatorLogic($possibleOp)
     {
         // check also for '!' to detect correctly in lookahead. '!='.

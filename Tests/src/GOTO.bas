@@ -44,12 +44,3 @@ if (5 = 5) THEN 11111111
 success = false
 
 11111111
-GOSUB 22222222
-fail = false
-
-END
-fail = true
-22222222 global = true
-return
-
-fail = true

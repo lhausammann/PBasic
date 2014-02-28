@@ -34,7 +34,7 @@ class BGoto extends AbstractStatement
     public function next($basic)
     {
         // Programmer is responsive to not jump out of blocks
-        //$this->parent->terminateAll($basic);
+        $this->parent->terminateAll($basic);
         $root = $this->parent;
         while ($root->parent) {
             $root = $root->parent;

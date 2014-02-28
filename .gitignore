@@ -4,6 +4,7 @@ vendor/*
 phpunit.xml
 .idea
 .idea/*
+.idea/*/*
 .workspace
 Coverage
 

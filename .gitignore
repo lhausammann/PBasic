@@ -1,5 +1,6 @@
 vendor
 vendor/*
+
 phpunit.xml
 .idea
 .workspace

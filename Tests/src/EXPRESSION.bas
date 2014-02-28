@@ -1,11 +1,11 @@
-
 value = 5
 a = 7 * 5 + 3 - (2 - 2 / 2 + 1)
 success1 = (a = 36)
-success2 = double(a) = a * 2
+success2 = double$(a) = a * 2
 success3 = (a * 10 = 360)
 success4 = value = 5
 success5 = a / 2 = 18
+
 
 myFalse = !true
 myTrue = !!true
@@ -23,11 +23,17 @@ positive = -1 * -1
 
 isFloat = 1.2 * 10 = 12
 
+
+isPunktVorStrich = 3 + 5 * 3 = 18
+areParenthesisApplied = (3 +5) * 3 = 24
+
+isCorrectPrecedenceORBeforeEquals = (3 = 3 AND 5 * 5= 25 )
+
 uppercaseVar = strtoupper("hello test")
 isUpperCaseTest = ("HELLO TEST" = uppercaseVar)
 
 
-SUB double                          (value)
+SUB double$                          (value)
     RETURN  value *                         2
     REM Must not happen
     END

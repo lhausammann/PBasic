@@ -9,8 +9,9 @@
          syntaxCheck="false">
 
     <testsuites>
-        <testsuite name="Tests">
+        <testsuite name="Functional Tests">
             <directory suffix=".php">Tests</directory>
+            <directory suffix=".php">Tests/Functional</directory>
         </testsuite>
     </testsuites>
 </phpunit>

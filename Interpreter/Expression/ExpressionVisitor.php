@@ -47,16 +47,6 @@ class ExpressionVisitor
         self::$parser = $parser;
     }
 
-    public function visitRbrack($node)
-    {
-        throw new Exception ('should not happen visiting token:' . $node);
-    }
-
-    public function visitLBrack($node)
-    {
-        throw new Exception('should not happen visiting token:' . $node);
-    }
-
     public static function visitNumber($node)
     {
         return $node->token->value;
@@ -152,6 +142,7 @@ class ExpressionVisitor
                 return $left >= $right;
 
             default :
+
                 $function = strtolower($operation);
                 // is there a function in the visitor to call?
                 if (method_exists(self, $function)) {

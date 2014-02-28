@@ -7,9 +7,10 @@ use PBasic\Interpreter\Cmd\AbstractStatement;
 use PBasic\Interpreter\Scope\NestedScope;
 use PBasic\Interpreter\Cmd\Sub;
 
+use PBasic\Interpreter\Exception\RuntimeException;
+
 class Basic
 {
-
     protected $root = null;
 
     private $input;
@@ -83,6 +84,7 @@ class Basic
 
     public function getSub($name)
     {
+
         $fn = null;
         if ((array_key_exists($name, $this->subs))) {
             $fn = $this->subs[$name];
@@ -332,6 +334,8 @@ class Basic
         } else if (function_exists($fn)) {
             return call_user_func_array($fn, $args);
         }
+
+        throw new RuntimeException('Could not resolve ' . $fn . ' to a function, parser function or defined sub.');
     }
 
     public function mod($a, $b)
@@ -356,8 +360,6 @@ class Basic
             $b->runProgram();
         }
     }
-
-
 }
 
 // custom functions

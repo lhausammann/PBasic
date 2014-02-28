@@ -151,24 +151,22 @@ class BasicParser implements Parser
                 if ($stat->isExecutable()) {
                     $parent->addChild($stat);
                 }
+                // call back the parent block about parsing
                 $parent->statementParsed($stat);
             }
-            $this->notify($stat); // notify observers.
+
+
+            $this->notify($stat); // notify observers about parsed statements.
 
             $stats[] = $stat;
 
             if (strtoupper($stat->getName()) === strtoupper($stopStatement)) {
                 break;
             }
-
-            if (!$stopStatement) {
-                $this->currentInstr++;
-            }
         }
 
         if ($parent) {
-            // notify the parent of end of parsing.
-            // Parsed stopStatement is given back to complete block parsing.
+            // call back the parent
             $parent->endBlock($stat);
         }
 

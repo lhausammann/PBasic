@@ -1,10 +1,16 @@
 <?php
+/**
+ * A parser for expressions.
+ */
 namespace PBasic\Interpreter\Expression;
 
 use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Expression\Ast\AstNode;
 use PBasic\Interpreter\Expression\Ast\AstLeave;
 use PBasic\Interpreter\Lexer;
+
+use PBasic\Interpreter\Expression\Exception\ExpressionException;
+use PBasic\Interpreter\Expression\Exception\ExpressionParsingException;
 
 class ExpressionParser
 {
@@ -27,7 +33,7 @@ class ExpressionParser
             return $result;
         } else if ($expectEnd) {
             // normally caused by wrong nested parenthesis
-            throw new Exception('Parse Error: Expected was end of file, but found token was:' . $this->lookahead);
+            throw new ExpressionParsingException('Parse Error: Expected was end of file, but found token was:' . $this->lookahead);
         }
     }
 
@@ -42,7 +48,7 @@ class ExpressionParser
         return $this->lookahead;
     }
 
-    public function matchExpression($terminateAt = '')
+    public function matchExpression()
     {
         $current = $this->matchTermLogic();
 
@@ -64,6 +70,19 @@ class ExpressionParser
     }
 
     private function matchTermLogic()
+    {
+        $current = $this->matchTermAndOr();
+        while (!$this->isEnd() && $this->isLookaheadOperatorAndOr()) {
+            $left = $current; // save
+            $current = $this->matchOperatorAndOr(); // descend
+            $current->addChild($left); // add save to left
+            $current->addChild($this->matchTermAndOr()); // add next to right
+        }
+
+        return $current;
+    }
+
+    private function matchTermAndOr()
     {
         $current = $this->matchTermPlusMinus();
         while (!$this->isEnd() && $this->isLookaheadOperatorPlusMinus()) {
@@ -111,7 +130,7 @@ class ExpressionParser
         } elseif ($this->lookahead->type == Token::OPERATOR) {
             $current = $this->matchUnaryOp();
         } else {
-            throw new Exception('Could not match unary operator. Expected: Number, (, unary -, but found: ' . $this->lookahead);
+            throw new ExpressionParsingException('Could not match unary operator. Expected: Number, (, unary -, but found: ' . $this->lookahead);
         }
 
         return $current;
@@ -125,15 +144,26 @@ class ExpressionParser
             $this->consume();
             return new AstLeave($token);
         }
-        throw new Exception('Expected: ' . $match . ' but found: ' . $this->lookahead);
+        throw new ExpressionParsingException('Expected: ' . $match . ' but found: ' . $this->lookahead);
     }
 
     private function matchOperatorMulDiv()
     {
         $token = $this->lookahead;
         if (!$this->isOperatorMulDiv($this->lookahead->value)) {
-            throw new Exception('Exception: Expected * or / but found ' . $this->lookahead);
+            throw new ExpressionParsingException('Exception: Expected * or / but found ' . $this->lookahead);
         }
+        $this->consume();
+        return new AstNode($token);
+    }
+
+    private function matchOperatorAndOr()
+    {
+        $token = $this->lookahead;
+        if (!$this->isOperatorAndOr($token->value)) {
+            throw new ExpressionParsingException('Exception: Expected LIKE, OR, AND, =, <, >  but found ' . $this->lookahead);
+        }
+
         $this->consume();
         return new AstNode($token);
     }
@@ -217,7 +247,7 @@ class ExpressionParser
             return $args;
         }
 
-        throw new Exception ('Expected: Argument list but found: ' . $this->lookahead);
+        throw new ExpressionParsingException ('Expected: Argument list but found: ' . $this->lookahead);
     }
 
     // care about open/closing parenthesis
@@ -255,6 +285,11 @@ class ExpressionParser
         return $nextToken;
     }
 
+    private function isLookaheadOperatorAndOr()
+    {
+        return $this->isOperatorAndOr($this->lookahead->value);
+    }
+
     private function isLookaheadOperatorMulDiv()
     {
         return $this->isOperatorMulDiv($this->lookahead->value);
@@ -288,12 +323,13 @@ class ExpressionParser
     private function isOperatorLogic($possibleOp)
     {
         // check also for '!' to detect correctly in lookahead. '!='.
-        return in_array($possibleOp, array('AND', 'OR', 'LIKE', 'IN', '=', '>', '<', '<=', '>=', '!', '!='));
+        return in_array($possibleOp, array('=', '>', '<', '<=', '>=', '!', '!='));
     }
 }
 
-/* Rules for the parser: TODO: <, >, = should have higher precedence than &&,AND OR LIKE
+/* Rules for the parser:
 	EXPR 				--> TERM_LOGIC (OPERATOR_LOGIC TERM_LOGIC)*
+    TERM_ANDOR          --> TEMR_LOGIC(OPERATOR_LOGIC TERM_LOGIC)
 	TERM_LOGIC 			--> TERM_PLUSMINUS (OPERATOR_PLUSMINUS TERM_PLUSMINUS)*
 	TERM_PLUSMINUS 		--> TERM_MULDIV (OPERATOR_MULDIV TERM_MULDIV)*
     TERM_MULDIV 		--> FUNCTION | ID | UNARY_OP
@@ -304,5 +340,4 @@ class ExpressionParser
     FUNCTION 			--> ID'(' ARGUMENTS ')'
     ARGUMENTS			--> (EXPRESSION(',' EXPRESSION)*)?
     ID					--> ([a-Z]|_)+('.'(ID))?
-
  */

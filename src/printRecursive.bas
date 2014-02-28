@@ -12,6 +12,7 @@ ELSE
 ENDIF
 
 PRINT "After calling rec(10) recursively."
+PRINT "Success was: ", success
 
 END
 
@@ -26,7 +27,9 @@ ENDSUB
 
 SUB rec(n)
     IF (n > 0) THEN
+        PRINT n
         dummy = rec(n - 1)
+        PRINT n
         RETURN dummy
     ELSE
         RETURN
@@ -36,10 +39,13 @@ ENDSUB
 
 sub rec_call(n)
     IF (n > 0) then
-        print n
+        PRINT n
+        PRINT "interrput"
+        INPUT b
         call rec_call(n -1) = dummy
         RETURN dummy
     ELSE
+        PRINT n
         RETURN
     ENDIF
 ENDSUB

@@ -3,7 +3,7 @@ use PBasic\Interpreter\Basic;
 
 class ExpressionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testRuns()
+    public function testExpressions()
     {
 
         $file = __DIR__ . '/src/EXPRESSION.bas';
@@ -39,10 +39,11 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
 
         $checks = array('isParentThesisApplied', 'isFiveLowerEight', 'isFiveLowerEqualsEight',
             'isFiveGreaterFour', 'isFiveGreaterEqualsFour', 'isFiveGreaterEqualsFive',
-            'isFiveLowerEqualsFive', 'isFiveEqualsFive', 'isFloat');
+            'isFiveLowerEqualsFive', 'isFiveEqualsFive', 'isFloat', 'areParenthesisApplied',
+            'isCorrectPrecedenceORBeforeEquals');
 
         foreach ($checks as $check) {
-            $this->assertTrue($b->getVar($check) == true);
+            $this->assertTrue($b->getVar($check) == true, 'Failed on ' . $check);
         }
     }
 }

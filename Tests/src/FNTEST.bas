@@ -14,7 +14,6 @@ ENDIF
 
 
 SUB fn_1()
-    PRINT "fn_1"
     if 1 = 1 then
         return 1
     endif
@@ -34,7 +33,6 @@ ENDSUB
 
 sub rec_call(n)
     IF (n > 0) then
-        print n
         call rec_call(n -1) = dummy
         RETURN dummy
     ELSE

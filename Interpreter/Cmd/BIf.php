@@ -17,10 +17,19 @@ class BIf extends AbstractBlockStatement
         $lexer = $parser->getLexer();
         $this->exprTree = $parser->matchExpression($lexer);
         $this->match("THEN", $lexer);
+        // IF A = 10 THEN <label>
+        if ($this->tryMatchNumber($lexer)) {
+            $nr = $this->matchNumber($lexer)->value;
 
-        $parser->parseUntil("ENDIF", $this);
-
-        $this->matchEol($lexer);
+            $jump = new BGoto('goto ' . $nr, $this->instrNr, 0, $this->blockNr);
+            $jump->setLabel($nr);
+            $this->ifBlock = array($jump);
+            $this->endBlock(null);
+        } else {
+            // match whole block
+            $parser->parseUntil("ENDIF", $this);
+            $this->matchEol($lexer);
+        }
     }
 
     public function statementParsed($stat)
@@ -64,16 +73,13 @@ class BIf extends AbstractBlockStatement
 
     public function next($basic)
     {
-        $next = $this->parent;
         if ($basic->evaluateExpression($this->exprTree)) {
             $next = $this->statements[0]->next($basic);
-
             return $next;
         } elseif ($this->elseBlock) {
             return $this->statements[1]->next($basic);
         } else {
-            return $next;
-            return parent::next($basic);
+            return $this->parent;
         }
     }
 

@@ -24,10 +24,11 @@ class BReturn extends AbstractStatement
 
     public function execute($basic)
     {
-
-        $this->fn->forceEnd($basic); // jump to endsub statement
-        $return = $basic->evaluateExpression($this->exprTree);
-        $this->fn->setReturnValue($return, $basic);
+        if ($this->fn) {
+            $this->fn->forceEnd($basic); // jump to endsub statement
+            $return = $basic->evaluateExpression($this->exprTree);
+            $this->fn->setReturnValue($return, $basic);
+        }
     }
 
     public function setFunction($fn)
@@ -37,6 +38,10 @@ class BReturn extends AbstractStatement
 
     public function next($basic)
     {
+        if (! $this->fn) {
+            // retrieve the return value from basic, because its a gosub call
+            return $basic->getReturn()->next($basic);
+        }
 
         $this->fn->forceEnd($basic);
         $next = $this->fn->next($basic);

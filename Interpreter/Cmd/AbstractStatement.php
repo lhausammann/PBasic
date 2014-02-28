@@ -95,14 +95,26 @@ abstract class AbstractStatement
     public function tryMatchIdentifier($lexer)
     {
         $token = $lexer->next();
+        $lexer->setNext($token);
         if ($token->type == Token::IDENTIFIER) {
-            $lexer->setNext($token);
             return true;
         } else {
-            $lexer->setNext($token); // put token back
             return false;
         }
     }
+
+    public function tryMatchNumber($lexer)
+    {
+        $token = $lexer->next();
+        $lexer->setNext($token);
+        if ($token->type == Token::NUMBER) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
     public function assertClass($className, AbstractStatement $stat)
     {

@@ -21,7 +21,6 @@ class Basic
     private $current = null;
     private $returnScope = array(); // maintain return values.
 
-
     // Screen colors of BASIC
     private $colorTable = array('black', 'blue', 'green', 'cyan', 'red', 'purple', 'brown',
         'white', 'grey', 'lightblue', 'lightgreen', 'lightcyan', '#F96D6D', 'fuchsia', 'yellow', 'white');

@@ -14,7 +14,7 @@ class End extends AbstractStatement
 
     public function execute($basic)
     {
-        exit;
+        // exit;
 
     }
 

@@ -26,10 +26,15 @@ class BGoto extends AbstractStatement
         // do nothing - jump is handled in next.
     }
 
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
     public function next($basic)
     {
-        // leave all blocks
-        $this->parent->terminateAll($basic);
+        // Programmer is responsive to not jump out of blocks
+        //$this->parent->terminateAll($basic);
         $root = $this->parent;
         while ($root->parent) {
             $root = $root->parent;

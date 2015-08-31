@@ -1,8 +1,7 @@
 PBasic
 ======
 
-An expermimental PHP Parser for a BASIC inspired language.
-Start console.php to run some BASIC'ish scripts in your browser. 
+An experimental PHP Parser for a BASIC inspired language running in a browser.
 
 
     10 PRINT "Wie ist Dein Name?"

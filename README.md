@@ -3,14 +3,17 @@ PBasic
 
 An expermimental PHP Parser for a BASIC inspired language.
 Start console.php to run some BASIC'ish scripts in your browser. 
-Look into cmd folder to study existing commands.
-Look in src folder to see some BASICish examples.
 
-Disclaimer: This is rather experimental and not very stable, but fun :)
+10 PRINT "Wie ist Dein Name?"
+INPUT a$
+IF a$="end" THEN 30
+PRINT "Hallo", a$ 
+GOTO 10
+30 END
 
 Statements:
  - PRINT <expr>
- - INTPUT <var>
+ - INPUT <var>
  - GOTO
  - FOR <assignment> TO <expr> STEP <expr>
        <statements>
@@ -20,22 +23,7 @@ Statements:
     <statements>
    WEND
 
-   Note: Its possible to use BREAK and CONTINUE in loops.
-
- - IF <expr> THEN
-    <statenemts>
-  ELSE
-    <statements>
-  ENDIF
-
-  SUB(<parameterList)
-    <statements>
-  ENDSUB
-
-  RETURN <var>
-
-  Note: Parameters are given call-by-ref.
-
-
-
+   SUB(params)
+     <statements>
+   ENDSUB
 

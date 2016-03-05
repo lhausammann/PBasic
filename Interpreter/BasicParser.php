@@ -40,7 +40,7 @@ class BasicParser implements Parser
     private $current = 0;
 
     private $currentInstr = 0;
-    private $instNr = 0;
+    private $instrNr = 0;
 
     private $basic;
     private $observers = array();

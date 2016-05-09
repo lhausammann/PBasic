@@ -26,6 +26,22 @@ use PBasic\Interpreter\Cmd\BGoto;
 use PBasic\Interpreter\Cmd\Label;
 use PBasic\Interpreter\Cmd;
 
+/*
+ * Basic parser is the main entry point for the parsing process.
+ * Most of the process is delegated to the  statements classes.
+ * To allow that 
+ * - blocks can hook in the process using "parseUntil" and are notified when the end statement is 
+ * found on the same block (e.g. if parsing multiple nested ifs, each one is notified by reaching
+ * the belonging endif )
+ * - for more flexiblility, observers can be attached and removing during parser. Parent blocks get  * notified by parsing of each statements, even if nested. With that approach its possible for a  * parent SUB statement all enclosed RETURN statements.
+
+  * Expression are parsed by a separate ExpressionParser. But the parser exposes that functionality by parseExpression().
+
+ * The parser also allows some shortcuts for the lexing and is given to each statement as an argument.
+
+ */
+
+
 class BasicParser implements Parser
 {
     private $comments = array(
@@ -77,8 +93,6 @@ class BasicParser implements Parser
     public function interpret($string, $basic)
     {
 
-        $stat = $this->parseLine($string);
-        $stat->execute($basic);
     }
 
     public function next()

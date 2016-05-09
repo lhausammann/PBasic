@@ -1,13 +1,20 @@
 <?php
+
 namespace PBasic\Interpreter;
 
 use PBasic\Interpreter\BasicParser;
 use PBasic\Interpreter\Expression\ExpressionVisitor;
 use PBasic\Interpreter\Cmd\AbstractStatement;
-use PBasic\Interpreter\Scope\NestedScope;
+use PBasic\Interpreter\Scope\TeamScope;
 use PBasic\Interpreter\Cmd\Sub;
 
 use PBasic\Interpreter\Exception\RuntimeException;
+
+/*
+ * Basic parses the source files to a tree structure during unsing BasicParser during constructing.
+ * runProgram() starts interpeting it on the Program root node.
+ * Each statements gets the basic as a callback parameter on execturion.
+ */
 
 class Basic
 {
@@ -30,14 +37,13 @@ class Basic
 
     private $scope = null; // holds the nestedScope instance.
 
-    private $gotoTable = array(); // line numbers for GOTO
     private $subs = array(); // contains defined functions
     private $observers = array(); // register an observer, which will be notified at parsing statements.
 
     public function __construct($file = '')
     {
         $this->lexer = new Lexer(" ");
-        $this->scope = new NestedScope();
+        $this->scope = new TeamScope();
 
         $parser = new BasicParser($this->lexer, $this);
 
@@ -53,46 +59,20 @@ class Basic
         $lexer = new Lexer(" ");
         $lexer->setInput($string);
         $parser = new BasicParser($lexer, $this);
+        $stat = $parser->parseLine($string);
+        $stat->execute($this);
 
-        $parser->interpret($string, $this);
-
-    }
-
-    public function addLabel($label, $instNr)
-    {
-
-        $this->gotoTable[$label] = $instNr - 1; // point to label statement
-    }
-
-    public function hasLabel($label)
-    {
-
-        return isset($this->gotoTable[$label]);
-    }
-
-    // called by GOTO statement
-    public function jump($label)
-    {
-        $this->currentInstr = $this->gotoTable[$label];
     }
 
     public function addSub($name, Sub $sub)
     {
-        $this->subs[$name] = $sub;
+        
+        // do notihing -- handled by observer.
     }
 
     public function getSub($name)
     {
-
-        $fn = null;
-        if ((array_key_exists($name, $this->subs))) {
-            $fn = $this->subs[$name];
-        }
-        if (!$fn) {
-            throw new Exception ('Function ' . $name . 'not defined.');
-        }
-
-        return $fn;
+        return $this->root->getSub($name);
     }
 
     public function setReturnValue($value)
@@ -245,7 +225,7 @@ class Basic
     public function getVar($name)
     {
 
-        return $this->scope->getVar($name);
+        return $this->scope->resolve($name);
     }
 
     // Visitor calls use resolve instead of getVar.
@@ -307,40 +287,9 @@ class Basic
 
     public function executeFunction($fn, $args)
     {
-        // is it a user definded SUB in code?
-        if (array_key_exists($fn, $this->subs)) {
-            $function = $this->subs[$fn];
-            $function->setArguments($args, $this);
-            // call it
-            $function->start(null, $this);
-
-            $ret = $function->executeSub($args, $this); // execute it, put return value on top
-            return $ret;
-
-        }
-
-        $mappings = array(
-            'SQR' => 'sqrt',
-            'INT' => '_toInt',
-            'MOD' => '_mod'
-        );
-        if (array_key_exists($fn, $mappings)) {
-            $fn = $mappings[$fn];
-        }
-
-        if (function_exists(__NAMESPACE__ . '\\' . $fn)) {
-            return call_user_func_array(__NAMESPACE__ . '\\' . $fn, $args);
-        } else if (function_exists($fn)) {
-            return call_user_func_array($fn, $args);
-        }
-
-        throw new RuntimeException('Could not resolve ' . $fn . ' to a function, parser function or defined sub.');
+        return $this->root->executeFunction($fn, $args, $this);
     }
-
-    public function mod($a, $b)
-    {
-        return _mod($a, $b);
-    }
+    
 
     public function __toString()
     {
@@ -359,32 +308,4 @@ class Basic
             $b->runProgram();
         }
     }
-}
-
-// custom functions
-// for the basic interpreter
-function _toInt($toInt)
-{
-    return (int)$toInt;
-}
-
-function _mod($a, $b)
-{
-    return $a % $b;
-}
-
-function rnd($max = null, $min = null)
-{
-    if ($max !== null && $min !== null) {
-        return (int)rand($min, $max);
-    } else if ($max) {
-        return (int)rand(0, $max);
-    }
-
-    return rand(0, 1000) / 1000;
-}
-
-function sgn($nr)
-{
-    return $nr >= 0;
 }

@@ -26,7 +26,11 @@ class Sub extends AbstractBlockStatement
         $parser->addObserver($this);
         $this->block = $this->statements = $parser->parseUntil('ENDSUB', $this);
         $parser->removeObserver($this);
-        $basic->addSub($this->name, $this);
+        // $basic->addSub($this->name, $this);
+    }
+
+    public function getSubName() {
+        return $this->name;
     }
 
     public function setReturnVar($var)
@@ -39,6 +43,8 @@ class Sub extends AbstractBlockStatement
     {
         $this->returnValue = $value;
     }
+
+
 
     /**
      * Callback of parseUntil
@@ -82,7 +88,7 @@ class Sub extends AbstractBlockStatement
     }
 
     /**
-     * Called by the attached observer.
+     * Called by the attached observer during parsing.
      * Sub is notified of each parsed statement, regardless of block level dedpth
      * @param $statement
      */
@@ -129,7 +135,7 @@ class Sub extends AbstractBlockStatement
 
     /**
      * Execute the whole sub function at once.
-     * This is used by the ExpressionParser, and no input statements are allowed.
+     * This is used by the ExpressionParser, and no input statements are allowed (will be skipped)
      * @param $params
      * @param $basic
      * @return string

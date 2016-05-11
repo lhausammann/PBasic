@@ -20,6 +20,10 @@ class GlobalScope extends NestedScope
         $this->globals->setVar($name, $value);
     }
 
+    public function hasGlobalVar($name) {
+        return $this->globals->has($name);
+    }
+
     public function getGlobalVar($name, $throws = true)
     {
         try {
@@ -35,11 +39,17 @@ class GlobalScope extends NestedScope
 
     public function has($name)
     {
-        try {
-            return parent::has($name); 
-        } catch (\Exception $e) {
-            return $this->globals->has($name);
-        }
+
+        return $this->globals->has($name) ?: parent::has($name);
+        
+    }
+
+    public function setVar($name, $value) 
+    {
+        if ($this->globals->has($name)) {
+            $this->setGlobalVar($name, $value); // global scope always win.
+        } 
+        parent::setVar($name, $value);
     }
 
     public function resolve($name)

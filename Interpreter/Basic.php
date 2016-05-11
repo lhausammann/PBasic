@@ -228,6 +228,11 @@ class Basic
         return $this->scope->resolve($name);
     }
 
+    public function hasVar($name) {
+        return $this->scope->has($name);
+    }
+
+
     // Visitor calls use resolve instead of getVar.
     public function resolve($name)
     {

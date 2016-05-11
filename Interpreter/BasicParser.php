@@ -22,8 +22,9 @@ use PBasic\Interpreter\Cmd\BIf;
 use PBasic\Interpreter\Cmd\BElse;
 use PBasic\Interpreter\Cmd\BEndif;
 use PBasic\Interpreter\Cmd\BGoto;
-
 use PBasic\Interpreter\Cmd\Label;
+use PBasic\Interpreter\Cmd\Data;
+use PBasic\Interpreter\Cmd\Read;
 use PBasic\Interpreter\Cmd;
 
 /*

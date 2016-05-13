@@ -1,6 +1,8 @@
 PBasic
 ======
 
+<img src="https://travis-ci.org/lhausammann/PBasic.svg?branch=master" />
+
 An experimental PHP Parser for a BASIC inspired language running in a browser.
 
 

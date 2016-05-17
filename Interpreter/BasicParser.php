@@ -5,7 +5,6 @@ use PBasic\Interpreter\Expression\ExpressionParser;
 use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Lexer;
 
-
 /** Those commands are used by new $cmd */
 use PBasic\Interpreter\Cmd\Let;
 use PBasic\Interpreter\Cmd\Wend;
@@ -39,7 +38,6 @@ use PBasic\Interpreter\Cmd;
   * Expression are parsed by a separate ExpressionParser. But the parser exposes that functionality by parseExpression().
 
  * The parser also allows some shortcuts for the lexing and is given to each statement as an argument.
-
  */
 
 
@@ -61,6 +59,8 @@ class BasicParser implements Parser
 
     private $basic;
     private $observers = array();
+
+    private $currentLabel = null;
 
     public function __construct($lexer, $basic)
     {
@@ -190,6 +190,7 @@ class BasicParser implements Parser
 
     public function nextStatement()
     {
+        $stat = null;
         $next = $this->lexer->next();
         if (!$next) {
             return null;
@@ -218,7 +219,7 @@ class BasicParser implements Parser
             return null;
         }
 
-        $stat = null;
+ 
         if ($next) {
             $stat = $this->createStatement($next);
         }
@@ -226,7 +227,7 @@ class BasicParser implements Parser
         return $stat;
     }
 
-    private function createStatement($statement)
+    private function createStatement(Token $statement)
     {
 
         $ns = "PBasic\\Interpreter\\Cmd\\";
@@ -234,10 +235,15 @@ class BasicParser implements Parser
 
         // 10 PRINT "Hi"
         // ^----- Lexer
+        // must be converted to a label class.
         if ($statement->type == Token::NUMBER) {
+            $this->currentLabel = $statement->value;
             $label = new Label($statement->value);
+            $this->currentLabel = $statement->value;
+            //echo $this->currentLabel;
             return $label;
-        }
+        } 
+
 
         $upper = strtoupper($statementName{0});
         $lower = strtolower(substr($statementName, 1));
@@ -247,12 +253,20 @@ class BasicParser implements Parser
             // let is optional keyword
             $className = 'Let';
             $this->lexer->setNext($statement); // put statement back
+            
         }
-        $lineNr = $this->current;
+        $lineNr = $this->current++;
         $this->instrNr++;
         $class = $ns . $className;
         $stat = new $class (strtoupper($statementName), $this->instrNr, $lineNr, $this->currentInstr);
 
+        if ($this->currentLabel !== false) {
+            // echo $class . ":" . $this->currentLabel . "\n" ;
+
+            $stat->setLineLabel($this->currentLabel);
+            // echo "lineLabel is:" . $stat->getLineLabel() . "\n";
+        }
+        $this->currentLabel = false;
         $stat->parse($this, $this->basic);
         return $stat;
     }

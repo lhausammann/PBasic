@@ -14,13 +14,13 @@ abstract class AbstractStatement
     protected $blockNr;
     protected $isExecutable = true;
     protected $nr;
+    protected $lineLabel = false;
 
     protected static $currentNr = 0;
 
     abstract public function parse(Parser $parser, $basic);
 
     abstract public function execute($basic);
-
 
     public function __construct($name, $instrNr, $lineNr, $blockNr)
     {
@@ -29,7 +29,15 @@ abstract class AbstractStatement
         $this->statementName = $name;
         $this->blockNr = $blockNr;
         $this->nr = self::$currentNr++;
+    }
 
+    public function setLineLabel($label) {
+//        echo "label:" . $label;
+        return $this->lineLabel = $label;
+    }
+
+    public function getLineLabel() {
+        return $this->lineLabel;
     }
 
     public function isExecutable()
@@ -106,7 +114,7 @@ abstract class AbstractStatement
     public function tryMatchNumber($lexer)
     {
         $token = $lexer->next();
-        $lexer->setNext($token);
+        $lexer->setNext($token); // put it back.
         if ($token->type == Token::NUMBER) {
             return true;
         } else {

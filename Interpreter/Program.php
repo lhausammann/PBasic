@@ -23,7 +23,7 @@ class Program extends AbstractBlockStatement
 
             $this->gotoTable[$stat->getLabel()] = $stat;
         } elseif ($stat->getName() == "SUB") {
-            echo "register: " . $stat->getSubName();
+//            echo "register: " . $stat->getSubName();
             $this->subs[strtolower($stat->getSubName())] = $stat;
         }   
     }

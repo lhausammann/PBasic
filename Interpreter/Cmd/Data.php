@@ -17,6 +17,7 @@ class Data extends AbstractStatement
 
     public function parse(Parser $parser, $basic)
     {
+//        echo "data label:" . $this->getLineLabel();
         $has = $basic->hasVar('00_DATA');
         $data = $has ? $basic->getVar('00_DATA') : array();
         $token = $parser->getLexer()->next();

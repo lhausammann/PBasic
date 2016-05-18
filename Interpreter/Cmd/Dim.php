@@ -6,7 +6,7 @@ use PBasic\Interpreter\Cmd\AbstractStatement;
 use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Parser;
 
-class Let extends AbstractStatement
+class Dim extends AbstractStatement
 {
     private $exprTree = null;
     private $exprParser;
@@ -24,8 +24,6 @@ class Let extends AbstractStatement
             $this->arrIndex = $parser->matchExpression($lexer);
             $this->match(")", $lexer);
         } 
-        $this->matchEqualSign($lexer);
-        $this->exprTree = $parser->matchExpression();
         $this->matchEol($lexer);
     }
 
@@ -35,9 +33,10 @@ class Let extends AbstractStatement
 
         $value = $basic->evaluateExpression($this->exprTree);
         if ($this->arrIndex) {
-            $arr = $basic->getVar($this->name);
-            $arr[$basic->evaluateExpression($this->arrIndex)] = $value;
-            $value = $arr; 
+            $array = array();
+            $idx = $basic->evaluateExpression($this->arrIndex);
+            $array = array_fill(0, $idx -1, 5);
+            $basic->setVar($this->name, $array);
         }
         $basic->setVar($this->name, $value);
 

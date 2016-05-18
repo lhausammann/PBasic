@@ -45,6 +45,11 @@ class Program extends AbstractBlockStatement
      */
     public function executeFunction($fn, $args, $basic) {
         $fn = strtolower($fn);
+        // is it a user array in code (looks same as function token).
+        if ($basic->hasVar($fn)) {
+            // must be an array.
+            return $basic->getVar($fn)[$args[0]];
+        }
         // is it a user definded SUB in code?
         if (array_key_exists($fn, $this->subs)) {
             $function = $this->getSub($fn);
@@ -71,7 +76,6 @@ class Program extends AbstractBlockStatement
         } else if (function_exists($fn)) {
             return call_user_func_array($fn, $args);
         }
-        echo $fn;
         throw new RuntimeException('Could not resolve ' . $fn . ' to a function, parser function or defined sub.');
     }
 

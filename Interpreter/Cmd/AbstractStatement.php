@@ -24,7 +24,7 @@ abstract class AbstractStatement
 
     public function __construct($name, $instrNr, $lineNr, $blockNr)
     {
-        //$this->instrNr = $instrNr;
+        $this->instrNr = $instrNr;
         $this->lineNr = $lineNr;
         $this->statementName = $name;
         $this->blockNr = $blockNr;
@@ -121,6 +121,31 @@ abstract class AbstractStatement
             return false;
         }
     }
+
+
+    public function tryMatch($chars, $lexer, $caseSensitive = false)
+    {
+        echo $chars;
+        $token = $lexer->next();
+        $val = $token->value;
+        var_dump($val, $chars);
+        if (!$caseSensitive) {
+            $chars = strtoupper($chars);
+            $val = strtoupper($val);
+        }
+        $match = ($chars == $val);
+
+        if (!$match) {
+
+            $lexer->setNext($token); // put it back
+
+            return false;
+        } else {
+
+            return true;
+        }
+    }
+    
 
 
 

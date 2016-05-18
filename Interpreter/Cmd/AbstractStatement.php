@@ -125,10 +125,8 @@ abstract class AbstractStatement
 
     public function tryMatch($chars, $lexer, $caseSensitive = false)
     {
-        echo $chars;
         $token = $lexer->next();
         $val = $token->value;
-        var_dump($val, $chars);
         if (!$caseSensitive) {
             $chars = strtoupper($chars);
             $val = strtoupper($val);

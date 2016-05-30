@@ -40,7 +40,12 @@ class BReturn extends AbstractStatement
     {
         if (! $this->fn) {
             // retrieve the return value from basic, because its a gosub call
-            return $basic->getReturn()->next($basic);
+            $returnStat = $basic->getReturn();
+            //$this->parent->statements = $returnStat->parent->statements; // HACK to allow finding return address.
+            $returnStat->isReturning = true; // indicate we are returning.
+            $this->setAsCurrent($basic, $returnStat, $returnStat->parent->statements); /* set it as statement executing this cycle, so  calling next on parent will return the following statement.
+            //TODO: check how it works exactly. */
+            return $returnStat;
         }
 
         $this->fn->forceEnd($basic);

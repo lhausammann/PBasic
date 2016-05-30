@@ -128,7 +128,7 @@ $file = getFileToRun($nr);
 </head>
 <body>
 <form name="Basic" class="controls">
-    <h1 class="blink">Welcome to PBASIC</h1>
+    <h1 class="blink">Welcome to PBASIC on the Web</h1>
 
     <? drawSelector('./src/', $nr);?>
 </form>

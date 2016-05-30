@@ -15,6 +15,7 @@ abstract class AbstractStatement
     protected $isExecutable = true;
     protected $nr;
     protected $lineLabel = false;
+    protected $statements;
 
     protected static $currentNr = 0;
 
@@ -201,12 +202,12 @@ abstract class AbstractStatement
         return $token;
     }
 
-    public function setAsCurrent($basic, $stat = null)
+    public function setAsCurrent($basic, $stat = null, $statements = array())
     {
         if (!$stat) {
-            $stat = $this;
+            $stat = $this; // sensible default?
         }
-        return $this->parent->setAsCurrent($basic, $stat);
+        return $this->parent->setAsCurrent($basic, $stat, $statements);
     }
 
     public function next($basic)
@@ -214,6 +215,7 @@ abstract class AbstractStatement
         if ($this->parent) {
             //$next = $this->parent->next($basic);
             $next = $this->parent->next($basic);
+            //echo $next;
             return $next;
         }
 
@@ -226,5 +228,17 @@ abstract class AbstractStatement
             return $this;
         }
         return false;
+    }
+
+    /*
+     * Gets the root Statement (the program block).
+     */
+    public function getRoot() {
+        $root = $this->parent;
+        while ($root->parent) {
+            $root = $root->parent;
+        }
+
+        return $root;
     }
 }

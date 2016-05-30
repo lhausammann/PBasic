@@ -44,14 +44,15 @@ class Program extends AbstractBlockStatement
     /* execute function is used by ExpressionParser and needs some callbacks to basic.
      */
     public function executeFunction($fn, $args, $basic) {
-        $fn = strtolower($fn);
+        $fn = ($fn);
         // is it a user array in code (looks same as function token).
         if ($basic->hasVar($fn)) {
             // must be an array.
             return $basic->getVar($fn)[$args[0]];
         }
         // is it a user definded SUB in code?
-        if (array_key_exists($fn, $this->subs)) {
+        
+        if (array_key_exists(strtolower($fn), $this->subs)) {
             $function = $this->getSub($fn);
             $function->setArguments($args, $basic);
             $function->start(null, $basic);
@@ -76,7 +77,9 @@ class Program extends AbstractBlockStatement
         } else if (function_exists($fn)) {
             return call_user_func_array($fn, $args);
         }
-        throw new RuntimeException('Could not resolve ' . $fn . ' to a function, parser function or defined sub.');
+        //$basic->dumpScope();
+        print_r (array_keys($this->subs));
+        throw new RuntimeException('Could not resolve ' . $fn . ' to a function, parser function or defined sub. Registered subs were:' . implode(array_keys($this->subs), ', '));
     }
 
     public function execute($basic)

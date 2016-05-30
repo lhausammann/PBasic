@@ -1,3 +1,10 @@
+edh = "Heiko"
+print edh
+haz = "hallo"
+print haz
+haz = haz + "beer"
+print haz
+
 a = 10
 WHILE (a < 20)
 	PRINT a * 5

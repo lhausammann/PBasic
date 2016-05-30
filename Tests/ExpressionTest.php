@@ -40,7 +40,7 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
         $checks = array('isParentThesisApplied', 'isFiveLowerEight', 'isFiveLowerEqualsEight',
             'isFiveGreaterFour', 'isFiveGreaterEqualsFour', 'isFiveGreaterEqualsFive',
             'isFiveLowerEqualsFive', 'isFiveEqualsFive', 'isFloat', 'areParenthesisApplied',
-            'isCorrectPrecedenceORBeforeEquals');
+            'isCorrectPrecedenceORBeforeEquals', 'positive');
 
         foreach ($checks as $check) {
             $this->assertTrue($b->getVar($check) == true, 'Failed on ' . $check);

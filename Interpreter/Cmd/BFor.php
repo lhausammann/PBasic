@@ -28,7 +28,7 @@ class BFor extends AbstractBlockStatement
         $this->exprTreeTo = $parser->matchExpression($lexer);
         $token = $lexer->next();
         if ($token->type != Token::DOUBLE_POINT) {
-            if ($token->value == "STEP") {
+            if (strtoupper($token->value) == "STEP") {
                 $this->exprTreeStep = $parser->matchExpression($lexer);
             } else {
                 throw new Exception("Expected was STEP but found: " . $token . $this->errorInfo());
@@ -69,6 +69,8 @@ class BFor extends AbstractBlockStatement
         $to = $basic->evaluateExpression($this->exprTreeTo);
         $step = $this->exprTreeStep ? $basic->evaluateExpression($this->exprTreeStep) : 1;
         $this->current = $this->getInstructionPointer($basic);
+        //echo $this;
+        //var_dump($this->current);
         if ($this->current > 0) {
             $i = $basic->getVar($this->name);
         } else {

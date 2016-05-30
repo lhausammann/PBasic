@@ -15,6 +15,13 @@ LABEL 20
 INPUT "IHRE SCHAETZUNG? ", a
 
 
+
+IF (HALLO(a)=false) THEN
+	PRINT "Eingabe muss zwischen 1 und 10 sein."
+	GOTO 1
+ENDIF
+
+
 IF a = rnd THEN
 	
 	PRINT "GRATULATION! SIE HABEN DIE ZAHL ERRATEN!"
@@ -37,17 +44,16 @@ ELSE
 	CALL PRINTWRONG("MEINE AUSGEDACHTE ZAHL IST KLEINER ALS ", a, errorFG, errorBG, normalFG, normalBG)
 ENDIF
 GOTO 20
-GOTO 20
+
 
 END
 
-SUB CHECK(i)
-	
+
+
+SUB HALLO(i)
 	IF ((i > 0) AND (i < 11)) THEN
-		PRINT "returning true"
 		RETURN 1
 	ELSE 
-		PRINT "returning false"
 		RETURN 0
 	ENDIF
 ENDSUB

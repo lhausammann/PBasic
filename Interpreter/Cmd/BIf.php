@@ -14,6 +14,7 @@ class BIf extends AbstractBlockStatement
 
     public function parse(Parser $parser, $basic)
     {
+
         $lexer = $parser->getLexer();
         $this->exprTree = $parser->matchExpression($lexer);
         $this->match("THEN", $lexer);
@@ -30,6 +31,7 @@ class BIf extends AbstractBlockStatement
             $parser->parseUntil("ENDIF", $this);
             $this->matchEol($lexer);
         }
+
     }
 
     public function statementParsed($stat)

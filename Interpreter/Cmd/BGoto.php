@@ -13,10 +13,11 @@ use PBasic\Interpreter\Parser;
  */
 class BGoto extends AbstractStatement
 {
-    private $label;
+    protected $label;
 
     public function parse(Parser $parser, $basic)
     {
+
         $lexer = $parser->getLexer();
         $this->label = $this->matchNumber($lexer)->value;
     }
@@ -35,11 +36,8 @@ class BGoto extends AbstractStatement
     {
         // Programmer is responsive to not jump out of blocks
         $this->parent->terminateAll($basic);
-        $root = $this->parent;
-        while ($root->parent) {
-            $root = $root->parent;
-        }
+        
 
-        return $root->jump($this->label, $basic);
+        return $this->getRoot()->jump($this->label, $basic);
     }
 }

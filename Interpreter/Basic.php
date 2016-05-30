@@ -91,6 +91,8 @@ class Basic
     {
 
         $this->callStack[] = $parent;
+        //$this->scope->setVar("00_callstack", $this->callsStack);
+
     }
 
     // pops a return address
@@ -111,7 +113,6 @@ class Basic
     {
         if (isset($_SESSION['return_stack'])) {
             $this->callStack = unserialize($_SESSION['return_stack']);
-
         }
     }
 
@@ -274,6 +275,7 @@ class Basic
     public function saveScope()
     {
         $_SESSION['scope'] = serialize($this->scope);
+
     }
 
     public function loadScope()

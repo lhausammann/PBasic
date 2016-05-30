@@ -39,12 +39,17 @@ class Lexer
     }
 
     // Sets a token to be the next token
-    // when calling next()
+    // when calling next(). Note: This will only work once!
     public function setNext(Token $token)
     {
         $this->next = $token;
     }
 
+    /**
+     * Returns the next token from an Input String.
+     * 
+     *
+     */
     public function next()
     {
         if ($token = $this->next) {
@@ -92,7 +97,7 @@ class Lexer
 
             $this->consume();
 
-            return new Token(Token::DOUBLE_POINT, ':');
+            return new Token(Token::DOUBLE_POINT, ':'); // colon
         } else if ($this->lookahead == "'") {
 
             $this->consume();

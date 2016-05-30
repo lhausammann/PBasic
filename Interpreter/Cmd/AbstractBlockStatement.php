@@ -6,7 +6,6 @@ abstract class AbstractBlockStatement extends AbstractStatement
 {
 
     protected $isLoop = false;
-    protected $statements;
     protected $current = 0;
 
     public function isLoop()
@@ -58,7 +57,7 @@ abstract class AbstractBlockStatement extends AbstractStatement
 
             $stat = $this->statements[$this->current];
             $this->current++;
-            ;
+            
             $this->setInstructionPointer($this->current, $basic);
 
             // next always returns leave statements, never
@@ -85,10 +84,17 @@ abstract class AbstractBlockStatement extends AbstractStatement
         // hook here to take action after parsing ends of block.
     }
 
-    public function setAsCurrent($basic, $stat = null)
+    /**
+     * Forces the given statement to be handled as  it is currently executing.
+     * This forces the call on "next" to happen on that statement.
+     * Note that if you use setAsCurrent in the next() call of a statement you will cause an * endless loop, because the call forces the parent to return the same statement as next.
+     * This is needed for GOTO, GOSUB and RETURN statements.
+     */
+    public function setAsCurrent($basic, $stat = null, $statements = array())
     {
         $found = false;
-        foreach ($this->statements as $i => $statement) {
+        $statements = count($statements) ? $statements : $this->statements;
+        foreach ($statements as $i => $statement) {
             if ($stat == $statement) {
                 $found = true;
                 break;
@@ -98,7 +104,7 @@ abstract class AbstractBlockStatement extends AbstractStatement
             throw new \Exception("Could not find statement " . $stat->getName() . ' ' . $stat->errorInfo());
         }
         $this->current = $i;
-        $this->startBlock($basic);
+        //$this->startBlock($basic);
         $this->setInstructionPointer($i, $basic);
 
         return $stat;
@@ -137,7 +143,7 @@ abstract class AbstractBlockStatement extends AbstractStatement
         return false;
     }
 
-    protected function getInstructionPointer($basic)
+    public function getInstructionPointer($basic)
     {
         $var = $this->nr . '_iPtr';
 

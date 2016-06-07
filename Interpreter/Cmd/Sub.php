@@ -117,14 +117,14 @@ class Sub extends AbstractBlockStatement
     public function start($caller, $basic)
     {
         if ($caller) {
-            $this->setParent($caller->parent); // Parent needs to be reset to CALLs Parent.
+            $this->setParent($caller->parent); // Parent needs to be reset from ROOT to CALLs Parent.
         } else {
 
             $this->parent = null;
         }
 
         $this->addScope($this->params, $basic);
-        $basic->getScope()->setVar('__started', true);
+        $basic->getScope()->setVar('__started', true); 
 
         // this is needed for recursion with input
         $this->isStarted = true;

@@ -96,6 +96,7 @@ abstract class AbstractBlockStatement extends AbstractStatement
         $statements = count($statements) ? $statements : $this->statements;
         foreach ($statements as $i => $statement) {
             if ($stat == $statement) {
+                echo $statement;
                 $found = true;
                 break;
             }
@@ -165,5 +166,4 @@ abstract class AbstractBlockStatement extends AbstractStatement
         $scope = $basic->getScope();
         $scope->setVar($var, $i);
     }
-
 }

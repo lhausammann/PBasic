@@ -41,10 +41,12 @@ class BReturn extends AbstractStatement
         if (! $this->fn) {
             // retrieve the return value from basic, because its a gosub call
             $returnStat = $basic->getReturn();
-            echo "ret:" . $returnStat;
             $returnStat->forceEnd($basic);
             /*
-             * Because GoSub works like any block statement (all child statements are actual program statements with a parent pointing to gosub) it must return the parent of gosub rather than gosub itself to prevent endless calls to gosub.
+             * Because GoSub works like any block statement (all child statements are actual cloned 
+             * program statements with the parent pointing to gosub) it must return the parent of 
+             * gosub rather than gosub itself to prevent endless calls to gosub:
+             * Returning gosub directly would trigger a re-initialization because the block is reset above.
              */
             return $returnStat->parent;
         }

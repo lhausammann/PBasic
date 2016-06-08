@@ -155,23 +155,7 @@ class Basic
         return $this->breakAll;
     }
 
-    // runs a block of statements
-    public function runBlock($statements)
-    {
-
-        if ($this->breakAll()) {
-            return;
-        }
-
-        foreach ($statements as $statement) {
-            $statement->execute($this);
-
-            if ($this->isBreak() || $this->breakAll()) { // break, return or goto encountered.
-                // break current loop. FOR or WHILE has to reset break after terminating.
-                return;
-            }
-        }
-    }
+    
 
     private function next()
     {

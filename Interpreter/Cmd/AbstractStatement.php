@@ -72,7 +72,7 @@ abstract class AbstractStatement
 
     public function __toString()
     {
-        return $this->getName() . ' ' . $this->lineNr . '<br />';
+        return $this->getName() . ' ' . $this->instrNr . '<br />';
     }
 
     public function match($chars, $lexer, $caseSensitive = false)

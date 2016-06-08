@@ -1,10 +1,14 @@
 <?php
 namespace PBasic\Interpreter\Scope;
 
-
+/*
+ * Scope is a simple lookup table and parent of all scopes. 
+ * It implements current() by returning itself, which eases the implementation of more advanced 
+  * stacked and nested scopes.
+ */
 class Scope
 {
-    private $scope = array(
+    protected $scope = array(
         "true" => true,
         "false" => false
 
@@ -35,7 +39,6 @@ class Scope
     public function has($name)
     {
         $scope = $this->current()->scope;
-
         return array_key_exists($name, $scope);
     }
 

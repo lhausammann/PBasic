@@ -30,8 +30,8 @@ class BBreak extends AbstractStatement
         }
 
         $this->parent->terminate($basic); // quit the parent block immediately (could be an IF Block)
-        if ($p->parent) {
-            $p->terminate($basic); // quit the loop.
+        if ($p->parent) { // do not quit the outmost block.
+            return $block = $p->terminate($basic); // quit the loop.
             return $p->parent->next($basic); // return the next statement after the loop.
         }
 

@@ -3,12 +3,24 @@ PRINT "START"
 a = 10
 SCOPEDUMP
 CALL test
-END
+
 
 SUB test
 	FOR i = 1 TO 5
 		PRINT i
 	NEXT
 	SCOPEDUMP
+	READ a
+	PRINT a
 	RETURN
 ENDSUB
+
+READ b
+READ c
+PRINT "b,c:", b, c
+
+END
+
+DATA 100
+DATA 200,300
+

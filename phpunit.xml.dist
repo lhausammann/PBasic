@@ -10,8 +10,14 @@
 
     <testsuites>
         <testsuite name="Functional Tests">
-            <directory suffix=".php">Tests</directory>
-            <directory suffix=".php">Tests/Functional</directory>
+            <directory suffix=".php">./Tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+    <whitelist>
+        <directory suffix=".php">./Interpreter</directory>
+    </whitelist>
+</filter>
+
 </phpunit>

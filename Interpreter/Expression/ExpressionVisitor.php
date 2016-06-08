@@ -143,7 +143,8 @@ class ExpressionVisitor
 
             default :
 
-                $function = strtolower($operation);
+                //$function = strtolower($operation);
+                $function = $operation;
                 // is there a function in the visitor to call?
                 if (method_exists(self, $function)) {
                     return call_user_func(array(self, $function), $left, $right);

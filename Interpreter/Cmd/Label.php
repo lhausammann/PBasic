@@ -21,7 +21,7 @@ class Label extends AbstractStatement
         $lexer = $parser->getLexer();
         $name = $this->matchNumber($lexer)->value;
         $this->label = $name;
-        $basic->addLabel($name, $this->blockNr);
+        //$basic->addLabel($name, $this->blockNr);
         $this->matchEol($lexer);
     }
 

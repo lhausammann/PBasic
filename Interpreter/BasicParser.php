@@ -5,7 +5,6 @@ use PBasic\Interpreter\Expression\ExpressionParser;
 use PBasic\Interpreter\Expression\Token;
 use PBasic\Interpreter\Lexer;
 
-
 /** Those commands are used by new $cmd */
 use PBasic\Interpreter\Cmd\Let;
 use PBasic\Interpreter\Cmd\Wend;
@@ -22,9 +21,25 @@ use PBasic\Interpreter\Cmd\BIf;
 use PBasic\Interpreter\Cmd\BElse;
 use PBasic\Interpreter\Cmd\BEndif;
 use PBasic\Interpreter\Cmd\BGoto;
-
 use PBasic\Interpreter\Cmd\Label;
+use PBasic\Interpreter\Cmd\Data;
+use PBasic\Interpreter\Cmd\Read;
 use PBasic\Interpreter\Cmd;
+
+/*
+ * Basic parser is the main entry point for the parsing process.
+ * Most of the process is delegated to the  statements classes.
+ * To allow that 
+ * - blocks can hook in the process using "parseUntil" and are notified when the end statement is 
+ * found on the same block (e.g. if parsing multiple nested ifs, each one is notified by reaching
+ * the belonging endif )
+ * - for more flexiblility, observers can be attached and removing during parser. Parent blocks get  * notified by parsing of each statements, even if nested. With that approach its possible for a  * parent SUB statement all enclosed RETURN statements.
+
+  * Expression are parsed by a separate ExpressionParser. But the parser exposes that functionality by parseExpression().
+
+ * The parser also allows some shortcuts for the lexing and is given to each statement as an argument.
+ */
+
 
 class BasicParser implements Parser
 {
@@ -44,6 +59,8 @@ class BasicParser implements Parser
 
     private $basic;
     private $observers = array();
+
+    private $currentLabel = null;
 
     public function __construct($lexer, $basic)
     {
@@ -77,8 +94,6 @@ class BasicParser implements Parser
     public function interpret($string, $basic)
     {
 
-        $stat = $this->parseLine($string);
-        $stat->execute($basic);
     }
 
     public function next()
@@ -175,6 +190,7 @@ class BasicParser implements Parser
 
     public function nextStatement()
     {
+        $stat = null;
         $next = $this->lexer->next();
         if (!$next) {
             return null;
@@ -203,7 +219,7 @@ class BasicParser implements Parser
             return null;
         }
 
-        $stat = null;
+ 
         if ($next) {
             $stat = $this->createStatement($next);
         }
@@ -211,7 +227,7 @@ class BasicParser implements Parser
         return $stat;
     }
 
-    private function createStatement($statement)
+    private function createStatement(Token $statement)
     {
 
         $ns = "PBasic\\Interpreter\\Cmd\\";
@@ -219,10 +235,15 @@ class BasicParser implements Parser
 
         // 10 PRINT "Hi"
         // ^----- Lexer
+        // must be converted to a label class.
         if ($statement->type == Token::NUMBER) {
+            $this->currentLabel = $statement->value;
             $label = new Label($statement->value);
+            $this->currentLabel = $statement->value;
+            //echo $this->currentLabel;
             return $label;
-        }
+        } 
+
 
         $upper = strtoupper($statementName{0});
         $lower = strtolower(substr($statementName, 1));
@@ -232,12 +253,20 @@ class BasicParser implements Parser
             // let is optional keyword
             $className = 'Let';
             $this->lexer->setNext($statement); // put statement back
+            
         }
-        $lineNr = $this->current;
+        $lineNr = $this->current++;
         $this->instrNr++;
         $class = $ns . $className;
         $stat = new $class (strtoupper($statementName), $this->instrNr, $lineNr, $this->currentInstr);
 
+        if ($this->currentLabel !== false) {
+            // echo $class . ":" . $this->currentLabel . "\n" ;
+
+            $stat->setLineLabel($this->currentLabel);
+            // echo "lineLabel is:" . $stat->getLineLabel() . "\n";
+        }
+        $this->currentLabel = false;
         $stat->parse($this, $this->basic);
         return $stat;
     }

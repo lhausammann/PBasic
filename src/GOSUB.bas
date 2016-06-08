@@ -1,19 +1,32 @@
+PRINT "First"
+PRINT "second"
+
 globalA = 100
+c = 0
+100 PRINT "START"
 
-100 PRINT "HALLO"
+PRINT "Start 2"
+FOR i=1 to 5
+	print "da"
+	GOSUB 1000
+	PRINT "r ist ", r
+	PRINT "AFTER GOSUB"
+	PRINT "i ist", i
 
-200 GOSUB 1000
+NEXT i
 
-PRINT "global a ist ", globalA
-
+PRINT "End of loop."
 
 END
 
 1000
-globalA = globalA * 2
-PRINT globalA
+	PRINT "HALLO GOSUB"
+	READ r
+	PRINT "Gosub r ist", r
 RETURN
 
+PRINT "Must not be here."
 
+DATA 1,2,4,8,16
 
 

@@ -16,16 +16,18 @@ An experimental PHP Parser for a BASIC inspired language running in a browser.
 Statements:
  - PRINT <expr>
  - INPUT <var>
+ - return <var>
  - GOTO
  - FOR <assignment> TO <expr> STEP <expr>
        <statements>
-   NEXT <var>
+ -  NEXT <var>
 
-   WHILE <expr>
-    <statements>
-   WEND
+ -  WHILE <expr>
+ -   <statements>
+ -  WEND
 
-   SUB(params)
+  - SUB(params)
      <statements>
-   ENDSUB
+     
+  - ENDSUB
 

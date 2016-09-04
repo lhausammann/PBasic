@@ -14,20 +14,20 @@ An experimental PHP Parser for a BASIC inspired language running in a browser.
     30 END
 
 Statements:
- - PRINT <expr>
- - INPUT <var>
- - return <var>
- - GOTO
+ - LET var=value
+ - PRINT expr
+ - INPUT var
+ - RETURN var
+ - GOTO label / GOSUB label
  - FOR <assignment> TO <expr> STEP <expr>
-       <statements>
+       statements
  -  NEXT <var>
-
  -  WHILE <expr>
  -   <statements>
  -  WEND
+ -  iF THEN ELSE ENDIF
 
-  - SUB(params)
-     <statements>
-     
-  - ENDSUB
+ - SUB(params)
+     statements
+ - ENDSUB
 

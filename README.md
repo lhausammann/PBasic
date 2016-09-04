@@ -14,9 +14,14 @@ An experimental PHP Parser for a BASIC inspired language running in a browser.
     
 
 Statements:
+ - DIM var(length)
+ - DATA value,value
+ - READ value
+ - RESTORE
  - LET var=value
  - PRINT expr
- - INPUT var
+ - INPUT msg, var
+ - COLOR foreground, background
  - RETURN var
  - GOTO label / GOSUB label
  - FOR <assignment> TO <expr> STEP <expr>
@@ -26,7 +31,6 @@ Statements:
      - statements
  -  WEND
  -  iF THEN ELSE ENDIF
-
  - SUB(params)
      - statements
  - ENDSUB

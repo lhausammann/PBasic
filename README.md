@@ -34,11 +34,10 @@ $file = <<<EOT
 EOT;
 
 Basic::run($file);
-
 ```
 
 Or pass a path to Basic::run
-``` Basic::run($filePath); ``` 
+`Basic::run($filePath);` 
 
 You can find some examples in the src directory and see how to run them in the index.php example file.
 

@@ -5,13 +5,13 @@ namespace PBasic\Interpreter;
 use PBasic\Interpreter\BasicParser;
 use PBasic\Interpreter\Expression\ExpressionVisitor;
 use PBasic\Interpreter\Cmd\AbstractStatement;
-use PBasic\Interpreter\Scope\TeamScope;
+use PBasic\Interpreter\Scope\ValueChangingScope;
 use PBasic\Interpreter\Cmd\Sub;
 
 use PBasic\Interpreter\Exception\RuntimeException;
 
 /*
- * Basic parses the source files to a tree structure during unsing BasicParser during constructing.
+ * Basic parses the source files to a tree structure using BasicParser during constructing.
  * runProgram() starts interpeting it on the Program root node.
  * Each statements gets the basic as a callback parameter on execturion.
  */
@@ -43,15 +43,17 @@ class Basic
     public function __construct($file = '')
     {
         $this->lexer = new Lexer(" ");
-        $this->scope = new TeamScope();
+        $this->scope = new ValueChangingScope();
 
         $parser = new BasicParser($this->lexer, $this);
-
-        if ($file) {
+        //echo __DIR__ . $file;
+        if ($file && file_exists($file)) {
             $this->input = $input = file($file);
             $this->root = $parser->parse($input);
+        } elseif(is_string($file)) {
+            $this->input = $input = explode("\n", $file);
+            $this->root = $parser->parse($input);
         }
-
     }
 
     public function interpret($string)
@@ -287,13 +289,13 @@ class Basic
         return 'Basic ' . $this->current;
     }
 
-    public static function run($file)
+    public static function run($pathOrString)
     {
         //session_start();
-        $b = new Basic($file);
+        $b = new Basic($pathOrString);
 
         if (isset($_GET['currentInstruction'])) {
-
+            // after input proceed from given instruction Nr.
             $b->runFromInstructionNr($_GET['currentInstruction']);
         } else {
             $b->runProgram();

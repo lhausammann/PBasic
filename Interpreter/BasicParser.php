@@ -80,7 +80,9 @@ class BasicParser implements Parser
 
     public function parse($input = null)
     {
-        $input = implode($input, ':') . ':';
+        if (is_array($input)) {
+            $input = implode($input, ':') . ':';
+        }
 
         if ($input) {
             $this->input = $input;
@@ -89,11 +91,6 @@ class BasicParser implements Parser
         // set up the program
         $program = new Program('root', 1, 1, 1);
         return $program->parse($this, $this->basic);
-    }
-
-    public function interpret($string, $basic)
-    {
-
     }
 
     public function next()

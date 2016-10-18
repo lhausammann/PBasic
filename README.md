@@ -5,8 +5,9 @@ PBasic
 
 An experimental PHP Parser for a BASIC inspired language running in a browser.
 
+## Usage
 To run a program pass a String to Basic::run():
-*helloBasic.php*
+*file helloBasic.php*
 ```php
 <?php
 namespace Example;
@@ -41,6 +42,30 @@ Or pass a path to Basic::run
 
 You can find some examples in the src directory and see how to run them in the index.php example file.
 
+## Statements:
+
+ - DIM var(length)
+ - DATA value,value
+ - READ value
+ - RESTORE
+ - LET var=value (optional keyword)
+ - PRINT expr
+ - INPUT msg, var
+ - COLOR foreground, background
+ - RETURN var
+ - GOTO label / GOSUB label
+ - FOR assignment TO expr STEP expr
+       - statements
+ - NEXT expr
+ - WHILE expr
+     - statements
+ - WEND
+ - iF THEN ELSE ENDIF
+ - SUB(params)
+     - statements
+ - ENDSUB
+
+
 ## Differences from other basic implementations:
 
 - To ease the lexing and parsing, all tokens are one-worded. PBasic has ENDSUB ENDIF in one word, not END SUB / END IF.
@@ -55,29 +80,10 @@ CALL myFunc = myValue.
 ## Plugin system
 Each command consists of a parsing/executing block. You can add simple statements easily (see e.g. BPrint.php for an example).
 Block statements are a bit more difficult to add, and in the parsing process you have to parse the children from the block as well (you can use parseUntil('nameOfEndBlockStatement') to parse the whole block and observe the parsed blocks during this time. See BFor.php for a complex example in Cmd folder.
-Executing blocks is handled by returning the next statement. This means, you must handle state issues in the current Scope so it can be serialized to the 
-   
+Executing blocks is handled by returning the next statement. This means, you must handle state issues in the current Scope so it can be serialized to the session if needed.
 
-## Statements:
+## Scopes & Functions & Variables
+PBasic has a global and a NestedScope. NestedScopes are used by Function calls providing a new Scope for each call. If you don't need local (nested) scopes, use GOSUB instead (acts as a SUB but does not add a new Scope onto the stack).
+Variables are put on the current stack. There are some global system variables (which can be seen when using SCOPEDUMP) but which are not accessible (they start with a number).
 
- - DIM var(length)
- - DATA value,value
- - READ value
- - RESTORE
- - LET var=value (optional keyword)
- - PRINT expr
- - INPUT msg, var
- - COLOR foreground, background
- - RETURN var
- - GOTO label / GOSUB label
- - FOR <assignment> TO <expr> STEP <expr>
-       - statements
- -  NEXT expr
- -  WHILE expr
-     - statements
- -  WEND
- -  iF THEN ELSE ENDIF
- - SUB(params)
-     - statements
- - ENDSUB
 

@@ -67,6 +67,14 @@ You can find some examples in the src directory and see how to run them in the i
 
 Recursion can be used, but its recommended to not use it in Expressions when using INPUT (see below).
 
+## Features
+ - Recursion on SUBs (using INPUT as well)
+ - Glue language: PHP functions can be used with CALL / in expressions (this is a security issue in real live solutions)
+ - SCOPEDUMP allows dump of all scopes
+ - FOR works with -steps when not specified: FOR 10 TO 1
+ - Implementation of dynamic GOTOs (a=10:GOTO a) should be possible (when a contains a number), which would be a new concept. Not implemented in the parser yet. (Yes, its an evil concept :)
+ - Retrieval of the scope is possible after execution of the script took place => see functional tests for an example of that.
+ 
 ## Differences from other basic implementations:
 
 - To ease the lexing and parsing, all tokens are one-worded. PBasic has ENDSUB ENDIF in one word, not END SUB / END IF.

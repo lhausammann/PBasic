@@ -65,16 +65,17 @@ You can find some examples in the src directory and see how to run them in the i
      - statements
  - ENDSUB
 
+Recursion can be used, but its recommended to not use it in Expressions when using INPUT (see below).
 
 ## Differences from other basic implementations:
 
 - To ease the lexing and parsing, all tokens are one-worded. PBasic has ENDSUB ENDIF in one word, not END SUB / END IF.
 - Its a tree-based interpreter. To ease the interpreting, goto only allows to jump out (quit) blocks, but not to jump into a block.
 - INPUT is handled by storing the actual scope in to a session. So PBasic requires a session started when using INPUT.
-- SUB / ENDSUB behaves like a php function using return rather than a basic SUB / FUNCTION returning none / the value of its name. Sub uses call-by-reference.
+- SUB / ENDSUB behaves like a php function using return rather than a basic SUB / FUNCTION returning none / the value of its name. Sub uses call-by-value (while qBasic used call-by-value, as far as I know).
 - DIM is only used for Arrays (one dimension).
 - RESTORE does not take a label.
-- Because PBasic executes expressions on-the-fly (other than statements block which can be stopped using INPUT) its not recommended to use functions in an expression which contains INPUT statements, because that leaves t unexpected behaviour (skipping the input statement and running the evaluation without an input). It is, however, possible to assign a return value when using CALL:
+- Because PBasic executes expressions on-the-fly (other than statements block which can be stopped using INPUT) its not recommended to use functions in an expression which contains INPUT statements, because that leaves to unexpected behaviour (skipping the input statement and running the evaluation without INPUT). It is, however, possible to assign a return value when using CALL using INPUT in myFunc:
 CALL myFunc = myValue. 
 
 ## Plugin system
